@@ -20,6 +20,8 @@ class SuratKeluarResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ArrowTopRightOnSquare;
 
+    protected static ?string $navigationLabel = 'Surat Keluar';
+
     protected static ?string $recordTitleAttribute = 'SuratKeluar';
 
     public static function form(Schema $schema): Schema

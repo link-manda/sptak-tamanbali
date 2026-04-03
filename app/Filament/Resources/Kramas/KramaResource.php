@@ -20,6 +20,8 @@ class KramaResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
+    protected static ?string $navigationLabel = 'Krama';
+
     protected static ?string $recordTitleAttribute = 'Krama';
 
     public static function form(Schema $schema): Schema

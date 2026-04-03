@@ -20,6 +20,8 @@ class BanjarResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
+    protected static ?string $navigationLabel = 'Banjar';
+
     protected static ?string $recordTitleAttribute = 'Banjar';
 
     public static function form(Schema $schema): Schema

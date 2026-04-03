@@ -21,6 +21,8 @@ class TransaksiResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ChartBarSquare;
 
+    protected static ?string $navigationLabel = 'Transaksi';
+
     protected static ?string $recordTitleAttribute = 'Transaksi';
 
     public static function form(Schema $schema): Schema

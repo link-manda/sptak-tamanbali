@@ -20,6 +20,8 @@ class SuratMasukResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Inbox;
 
+    protected static ?string $navigationLabel = 'Surat Masuk';
+
     protected static ?string $recordTitleAttribute = 'SuratMasuk';
 
     public static function form(Schema $schema): Schema

@@ -20,6 +20,8 @@ class KategoriTransaksiResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
+    protected static ?string $navigationLabel = 'Kategori Transaksi';
+
     protected static ?string $recordTitleAttribute = 'KategoriTransaksi';
 
     public static function form(Schema $schema): Schema
