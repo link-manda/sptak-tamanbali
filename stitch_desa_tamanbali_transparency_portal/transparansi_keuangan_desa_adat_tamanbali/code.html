@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed-variant": "#264191",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-container": "#90a8ff",
+                        "on-primary-fixed": "#00164e",
+                        "surface-bright": "#f8f9fa",
+                        "surface-tint": "#4059aa",
+                        "surface": "#f8f9fa",
+                        "inverse-primary": "#b6c4ff",
+                        "tertiary-container": "#004a31",
+                        "on-tertiary-container": "#27c38a",
+                        "secondary": "#735c00",
+                        "on-surface-variant": "#444651",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#1e3a8a",
+                        "primary": "#00236f",
+                        "tertiary-fixed": "#6ffbbe",
+                        "background": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "on-surface": "#191c1d",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "surface-container-highest": "#e1e3e4",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#241a00",
+                        "on-secondary-container": "#745c00",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-dim": "#d9dadb",
+                        "secondary-container": "#fed65b",
+                        "surface-variant": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "outline-variant": "#c5c5d3",
+                        "surface-container-high": "#e7e8e9",
+                        "outline": "#757682",
+                        "inverse-surface": "#2e3132",
+                        "tertiary": "#00311f",
+                        "primary-fixed": "#dce1ff",
+                        "on-tertiary-fixed": "#002113"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,35,111,0.05)]">
+<div class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto">
+<div class="text-2xl font-black text-blue-900 tracking-tighter">Tamanbali</div>
+<div class="hidden md:flex space-x-8 font-manrope text-sm font-semibold tracking-tight">
+<a class="text-slate-500 hover:text-yellow-700 transition-colors" href="#">Beranda</a>
+<a class="text-blue-900 border-b-2 border-yellow-600 pb-1" href="#">Keuangan</a>
+<a class="text-slate-500 hover:text-yellow-700 transition-colors" href="#">Surat</a>
+</div>
+<button class="bg-primary text-white px-6 py-2 rounded-full font-manrope text-sm font-semibold scale-95 active:scale-90 transition-transform">Login Prajuru</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-20">
+<!-- Hero Section: Financial Overview -->
+<section class="relative h-[450px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Background Desa Tamanbali" class="w-full h-full object-cover grayscale opacity-20" data-alt="Modern architectural close-up of stone patterns with soft morning sunlight casting long dramatic shadows and high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpkzzwEGC1EnzqF-7wpMN7RH41QiC69dplcVoThwFbpSdq1AGEfPJfmspKhtMNad0l9jhbboViDmufgoKOE9o1U-GmM0rfFxv3RJB3uWDeg-QK-E3M-pZ2AxgemuE7jEF0Xv-DwFxgLFgLQXBqk0IEv-YJTWezlHh3ckcblDsSlbyygWa9q5yehYV8I1UREVLnGxsXEhf6seH5ouk31ep_jmISdyg0aBfHHYevLEibDLmocIpp6tt93sXO9FE4eGRaRwdpcM9CUkU"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary to-transparent opacity-90"></div>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-8 w-full">
+<div class="max-w-2xl">
+<span class="text-secondary-fixed-dim font-bold tracking-widest uppercase text-xs mb-4 block">Transparansi Publik</span>
+<h1 class="text-5xl font-extrabold text-white leading-tight mb-6 tracking-tighter">Keuangan Digital Desa Adat Tamanbali</h1>
+<p class="text-on-primary-container text-lg leading-relaxed mb-8">Akses informasi pengelolaan dana desa secara terbuka, akuntabel, dan profesional demi mewujudkan tata kelola banjar yang mandiri.</p>
+</div>
+</div>
+</section>
+<!-- Navigation Pillars -->
+<section class="max-w-7xl mx-auto px-8 -mt-12 relative z-20">
+<div class="glass-card p-4 rounded-xl flex flex-wrap gap-4 justify-center shadow-xl">
+<button class="bg-primary text-white px-8 py-4 rounded-full font-bold flex items-center gap-3 transition-all hover:bg-primary-container">
+<span class="material-symbols-outlined">analytics</span>
+                    RKT (Rencana Kegiatan Tahunan)
+                </button>
+<button class="bg-white text-primary border border-outline-variant/15 px-8 py-4 rounded-full font-bold flex items-center gap-3 transition-all hover:bg-surface-container-low">
+<span class="material-symbols-outlined">calendar_view_month</span>
+                    Catur Wulan
+                </button>
+<button class="bg-white text-primary border border-outline-variant/15 px-8 py-4 rounded-full font-bold flex items-center gap-3 transition-all hover:bg-surface-container-low">
+<span class="material-symbols-outlined">verified</span>
+                    Realisasi Kegiatan
+                </button>
+</div>
+</section>
+<!-- Financial Summary Bento Grid -->
+<section class="max-w-7xl mx-auto px-8 py-16">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Main Balance Card -->
+<div class="md:col-span-2 glass-card p-8 rounded-xl flex flex-col justify-between border border-outline-variant/10">
+<div>
+<div class="flex justify-between items-start mb-8">
+<div>
+<p class="text-slate-500 font-medium mb-1">Total Kas Desa Saat Ini</p>
+<h2 class="text-4xl font-black text-primary tracking-tight">Rp 1.428.500.000</h2>
+</div>
+<span class="bg-tertiary-container text-tertiary-fixed px-3 py-1 rounded-full text-xs font-bold">+12% Bulan Ini</span>
+</div>
+<div class="h-32 flex items-end gap-2 mb-4">
+<div class="w-full bg-blue-100 rounded-t-lg h-[40%]"></div>
+<div class="w-full bg-blue-200 rounded-t-lg h-[60%]"></div>
+<div class="w-full bg-blue-300 rounded-t-lg h-[45%]"></div>
+<div class="w-full bg-primary h-full rounded-t-lg"></div>
+</div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-400">Update Terakhir: 24 Mei 2024</span>
+<a class="text-primary font-bold flex items-center gap-1" href="#">Lihat Detail <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+</div>
+<!-- Secondary Metric -->
+<div class="bg-primary text-white p-8 rounded-xl relative overflow-hidden flex flex-col justify-between">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed-dim mb-4">account_balance</span>
+<h3 class="text-xl font-bold mb-2">Dana Hibah &amp; Donasi</h3>
+<p class="text-on-primary-container text-sm">Dana terkumpul dari punia krama dan pihak ketiga tahun 2024.</p>
+</div>
+<div class="relative z-10 mt-8">
+<p class="text-2xl font-bold">Rp 340.250.000</p>
+</div>
+<!-- Aesthetic radial decoration -->
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+<!-- Transaction Table Section -->
+<section class="max-w-7xl mx-auto px-8 pb-24">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-2xl font-bold tracking-tight">Riwayat Anggaran Terbaru</h3>
+<div class="flex gap-4">
+<button class="bg-surface-container-high px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                    </button>
+<button class="bg-surface-container-high px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span> Unduh PDF
+                    </button>
+</div>
+</div>
+<div class="overflow-hidden rounded-xl bg-white border border-outline-variant/10">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="px-8 py-4 text-sm font-bold text-on-surface">Keterangan Kegiatan</th>
+<th class="px-8 py-4 text-sm font-bold text-on-surface">Kategori</th>
+<th class="px-8 py-4 text-sm font-bold text-on-surface text-right">Jumlah</th>
+<th class="px-8 py-4 text-sm font-bold text-on-surface">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-8 py-5">
+<p class="font-semibold text-primary">Renovasi Pura Dalem - Tahap I</p>
+<p class="text-xs text-slate-400">12 Mei 2024</p>
+</td>
+<td class="px-8 py-5 text-sm text-slate-600 italic">Pembangunan Umum</td>
+<td class="px-8 py-5 text-sm font-bold text-error text-right">- Rp 75.000.000</td>
+<td class="px-8 py-5"><span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-bold">Tercairkan</span></td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
+<td class="px-8 py-5">
+<p class="font-semibold text-primary">Penerimaan Dana Desa Tahap II</p>
+<p class="text-xs text-slate-400">08 Mei 2024</p>
+</td>
+<td class="px-8 py-5 text-sm text-slate-600 italic">Pendapatan Negara</td>
+<td class="px-8 py-5 text-sm font-bold text-tertiary-fixed-variant text-right text-green-600">+ Rp 210.000.000</td>
+<td class="px-8 py-5"><span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-bold">Selesai</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-8 py-5">
+<p class="font-semibold text-primary">Biaya Operasional Sekretariat Banjar</p>
+<p class="text-xs text-slate-400">02 Mei 2024</p>
+</td>
+<td class="px-8 py-5 text-sm text-slate-600 italic">Operasional</td>
+<td class="px-8 py-5 text-sm font-bold text-error text-right">- Rp 12.450.000</td>
+<td class="px-8 py-5"><span class="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full text-xs font-bold">Proses</span></td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
+<td class="px-8 py-5">
+<p class="font-semibold text-primary">Punia Upacara Pitra Yadnya Massal</p>
+<p class="text-xs text-slate-400">28 April 2024</p>
+</td>
+<td class="px-8 py-5 text-sm text-slate-600 italic">Sosial Budaya</td>
+<td class="px-8 py-5 text-sm font-bold text-error text-right">- Rp 45.000.000</td>
+<td class="px-8 py-5"><span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-bold">Tercairkan</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#00236f] text-white w-full pt-12 pb-8">
+<div class="flex flex-col items-center justify-center space-y-6 w-full px-8 max-w-7xl mx-auto">
+<div class="text-lg font-bold text-yellow-500">Tamanbali Digital Banjar</div>
+<div class="flex flex-wrap justify-center gap-8 font-inter text-xs uppercase tracking-widest text-slate-300">
+<a class="hover:text-white transition-colors" href="#">Sejarah</a>
+<a class="hover:text-white transition-colors" href="#">Budaya</a>
+<a class="hover:text-white transition-colors" href="#">Kontak</a>
+<a class="hover:text-white transition-colors" href="#">Transparansi</a>
+</div>
+<div class="text-[10px] text-slate-400 opacity-80 pt-8 border-t border-white/10 w-full text-center">
+                © 2024 DESA ADAT TAMANBALI. THE DIGITAL BANJAR.
+            </div>
+</div>
+</footer>
+</body></html>
