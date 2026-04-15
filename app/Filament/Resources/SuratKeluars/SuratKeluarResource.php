@@ -22,7 +22,7 @@ class SuratKeluarResource extends Resource
 
     protected static ?string $navigationLabel = 'Surat Keluar';
 
-    protected static ?string $recordTitleAttribute = 'SuratKeluar';
+    protected static ?string $recordTitleAttribute = 'nomor_surat';
 
     public static function form(Schema $schema): Schema
     {

@@ -22,7 +22,7 @@ class BanjarResource extends Resource
 
     protected static ?string $navigationLabel = 'Banjar';
 
-    protected static ?string $recordTitleAttribute = 'Banjar';
+    protected static ?string $recordTitleAttribute = 'nama_banjar';
 
     public static function form(Schema $schema): Schema
     {

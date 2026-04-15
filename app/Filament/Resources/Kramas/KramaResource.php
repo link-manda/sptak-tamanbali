@@ -22,7 +22,7 @@ class KramaResource extends Resource
 
     protected static ?string $navigationLabel = 'Krama';
 
-    protected static ?string $recordTitleAttribute = 'Krama';
+    protected static ?string $recordTitleAttribute = 'nama_lengkap';
 
     public static function form(Schema $schema): Schema
     {

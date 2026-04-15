@@ -22,7 +22,7 @@ class KategoriTransaksiResource extends Resource
 
     protected static ?string $navigationLabel = 'Kategori Transaksi';
 
-    protected static ?string $recordTitleAttribute = 'KategoriTransaksi';
+    protected static ?string $recordTitleAttribute = 'nama_kategori';
 
     public static function form(Schema $schema): Schema
     {
