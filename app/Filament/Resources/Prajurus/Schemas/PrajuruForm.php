@@ -21,6 +21,12 @@ class PrajuruForm
                     ->maxLength(255)
                     ->label('Nama Lengkap'),
 
+                Select::make('kategori')
+                    ->options(Prajuru::kategoriOptions())
+                    ->default(Prajuru::CAT_INTI)
+                    ->required()
+                    ->label('Kelompok/Kategori'),
+
                 Select::make('jabatan')
                     ->options(Prajuru::jabatanOptions())
                     ->required()

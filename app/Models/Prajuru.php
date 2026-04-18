@@ -8,6 +8,7 @@ class Prajuru extends Model
 {
     protected $fillable = [
         'nama_lengkap',
+        'kategori',
         'jabatan',
         'deskripsi',
         'foto',
@@ -15,23 +16,42 @@ class Prajuru extends Model
         'is_aktif',
     ];
 
-    protected $casts = [
-        'is_aktif' => 'boolean',
-        'urutan'   => 'integer',
-    ];
+    // Koleksi Kategori
+    const CAT_INTI         = 'inti';
+    const CAT_BALA_ANGKEP  = 'bala_angkep';
+    const CAT_SABHA_DESA   = 'sabha_desa';
+    const CAT_KERTA_DESA   = 'kerta_desa';
 
     /**
-     * Daftar jabatan preset untuk tipe Prajuru.
+     * Daftar Kategori Prajuru.
+     */
+    public static function kategoriOptions(): array
+    {
+        return [
+            self::CAT_INTI        => 'Prajuru Inti',
+            self::CAT_BALA_ANGKEP => 'Kelian Bala Angkep',
+            self::CAT_SABHA_DESA  => 'Sabha Desa',
+            self::CAT_KERTA_DESA  => 'Kerta Desa',
+        ];
+    }
+
+    /**
+     * Daftar jabatan preset (Saran).
      */
     public static function jabatanOptions(): array
     {
         return [
-            'Bendesa Adat'   => 'Bendesa Adat',
-            'Penyarikan'     => 'Penyarikan',
-            'Petengen'       => 'Petengen',
-            'Petajuh'        => 'Petajuh',
-            'Juru Raksa'     => 'Juru Raksa',
-            'Kelian Banjar'  => 'Kelian Banjar',
+            'Bendesa Adat'     => 'Bendesa Adat',
+            'Penyarikan'       => 'Penyarikan',
+            'Petengen'         => 'Petengen',
+            'Petajuh'          => 'Petajuh',
+            'Juru Raksa'       => 'Juru Raksa',
+            'Kelian Banjar'    => 'Kelian Banjar',
+            'Kelian Bala'      => 'Kelian Bala',
+            'Ketua Sabha'      => 'Ketua Sabha',
+            'Anggota Sabha'    => 'Anggota Sabha',
+            'Ketua Kerta'      => 'Ketua Kerta',
+            'Anggota Kerta'    => 'Anggota Kerta',
         ];
     }
 

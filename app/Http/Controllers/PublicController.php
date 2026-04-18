@@ -234,12 +234,36 @@ class PublicController extends Controller
 
     public function prajuru()
     {
-        // Data prajuru inti: ambil dari DB, sorted by urutan
-        $coreTeam = Prajuru::aktif()->orderBy('urutan')->get();
+        // Data prajuru dikelompokkan berdasarkan kategori
+        $coreTeam = Prajuru::aktif()
+            ->where('kategori', Prajuru::CAT_INTI)
+            ->orderBy('urutan')
+            ->get();
+
+        $balaAngkep = Prajuru::aktif()
+            ->where('kategori', Prajuru::CAT_BALA_ANGKEP)
+            ->orderBy('urutan')
+            ->get();
+
+        $sabhaDesa = Prajuru::aktif()
+            ->where('kategori', Prajuru::CAT_SABHA_DESA)
+            ->orderBy('urutan')
+            ->get();
+
+        $kertaDesa = Prajuru::aktif()
+            ->where('kategori', Prajuru::CAT_KERTA_DESA)
+            ->orderBy('urutan')
+            ->get();
 
         $banjarLeaders = Banjar::orderBy('nama_banjar')->get(['nama_banjar', 'kelian_banjar']);
 
-        return view('public.prajuru', compact('coreTeam', 'banjarLeaders'));
+        return view('public.prajuru', compact(
+            'coreTeam',
+            'banjarLeaders',
+            'balaAngkep',
+            'sabhaDesa',
+            'kertaDesa'
+        ));
     }
 
     public function awig()
