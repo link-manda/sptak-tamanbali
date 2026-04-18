@@ -8,6 +8,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 
 class PrajuruForm
@@ -25,12 +27,24 @@ class PrajuruForm
                     ->options(Prajuru::kategoriOptions())
                     ->default(Prajuru::CAT_INTI)
                     ->required()
+                    ->live()
+                    ->afterStateUpdated(fn (Set $set) => $set('jabatan', null))
                     ->label('Kelompok/Kategori'),
 
                 Select::make('jabatan')
-                    ->options(Prajuru::jabatanOptions())
+                    ->options(fn (Get $get) => Prajuru::jabatanOptions($get('kategori')))
                     ->required()
+                    ->live()
                     ->label('Jabatan'),
+
+                Select::make('parent_id')
+                    ->label('Atasan (Khusus Juru Raksa)')
+                    ->placeholder('Pilih Petengen...')
+                    ->options(fn () => Prajuru::where('jabatan', 'Petengen')->pluck('nama_lengkap', 'id'))
+                    ->visible(fn (Get $get) => $get('jabatan') === 'Juru Raksa')
+                    ->required(fn (Get $get) => $get('jabatan') === 'Juru Raksa')
+                    ->searchable()
+                    ->helperText('Juru Raksa harus memiliki atasan Petengen.'),
 
                 Textarea::make('deskripsi')
                     ->rows(3)

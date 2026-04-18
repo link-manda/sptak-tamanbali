@@ -235,8 +235,11 @@ class PublicController extends Controller
     public function prajuru()
     {
         // Data prajuru dikelompokkan berdasarkan kategori
+        // Khusus untuk coreTeam (Inti), kita ambil hierarchy (parent-child)
         $coreTeam = Prajuru::aktif()
+            ->with('children')
             ->where('kategori', Prajuru::CAT_INTI)
+            ->whereNull('parent_id')
             ->orderBy('urutan')
             ->get();
 
