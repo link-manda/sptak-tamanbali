@@ -22,6 +22,8 @@ class AwigAwigResource extends Resource
 
     protected static ?string $navigationLabel = 'Awig-Awig';
 
+    protected static ?string $pluralModelLabel = 'Awig-Awig';
+
     protected static string | \UnitEnum | null $navigationGroup = 'Regulasi Adat';
 
     protected static ?int $navigationSort = 1;

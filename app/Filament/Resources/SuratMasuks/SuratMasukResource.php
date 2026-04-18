@@ -22,6 +22,8 @@ class SuratMasukResource extends Resource
 
     protected static ?string $navigationLabel = 'Surat Masuk';
 
+    protected static ?string $pluralModelLabel = 'Surat Masuk';
+
     protected static string | \UnitEnum | null $navigationGroup = 'Administrasi Surat';
 
     protected static ?int $navigationSort = 1;

@@ -23,6 +23,8 @@ class ProfilDesaResource extends Resource
 
     protected static ?string $navigationLabel = 'Profil Desa';
 
+    protected static ?string $pluralModelLabel = 'Profil Desa';
+
     protected static string | \UnitEnum | null $navigationGroup = 'Konten Desa';
 
     protected static ?int $navigationSort = 1;

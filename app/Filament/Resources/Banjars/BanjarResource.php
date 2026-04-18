@@ -22,6 +22,8 @@ class BanjarResource extends Resource
 
     protected static ?string $navigationLabel = 'Data Banjar';
 
+    protected static ?string $pluralModelLabel = 'Data Banjar';
+
     protected static string | \UnitEnum | null $navigationGroup = 'Administrasi Desa';
 
     protected static ?int $navigationSort = 2;

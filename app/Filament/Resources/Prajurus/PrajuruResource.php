@@ -22,6 +22,8 @@ class PrajuruResource extends Resource
 
     protected static ?string $navigationLabel = 'Susunan Prajuru';
 
+    protected static ?string $pluralModelLabel = 'Susunan Prajuru';
+
     protected static string | \UnitEnum | null $navigationGroup = 'Administrasi Desa';
 
     protected static ?int $navigationSort = 3;

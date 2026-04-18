@@ -22,6 +22,8 @@ class PanaremResource extends Resource
 
     protected static ?string $navigationLabel = 'Pararem';
 
+    protected static ?string $pluralModelLabel = 'Pararem';
+
     protected static string | \UnitEnum | null $navigationGroup = 'Regulasi Adat';
 
     protected static ?int $navigationSort = 2;

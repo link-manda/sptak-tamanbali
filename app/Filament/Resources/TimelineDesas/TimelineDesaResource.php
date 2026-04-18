@@ -22,6 +22,8 @@ class TimelineDesaResource extends Resource
 
     protected static ?string $navigationLabel = 'Sejarah & Timeline';
 
+    protected static ?string $pluralModelLabel = 'Sejarah & Timeline';
+
     protected static string | \UnitEnum | null $navigationGroup = 'Konten Desa';
 
     protected static ?int $navigationSort = 2;
