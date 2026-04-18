@@ -99,7 +99,6 @@
                             <th class="px-8 py-4 text-sm font-bold">Keterangan Kegiatan</th>
                             <th class="px-8 py-4 text-sm font-bold">Kategori</th>
                             <th class="px-8 py-4 text-sm font-bold text-right">Jumlah</th>
-                            <th class="px-8 py-4 text-sm font-bold">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,9 +128,6 @@
                                     class="px-8 py-5 text-right text-sm font-bold {{ $row->jenis === 'pemasukan' ? 'text-green-600' : 'text-error' }}">
                                     {{ $row->jenis === 'pemasukan' ? '+' : '-' }} Rp
                                     {{ number_format($row->nominal, 0, ',', '.') }}</td>
-                                <td class="px-8 py-5"><span
-                                        class="rounded-full px-3 py-1 text-xs font-bold {{ $statusClass }}">{{ $status }}</span>
-                                </td>
                             </tr>
                         @empty
                             <tr>
