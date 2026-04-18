@@ -18,9 +18,13 @@ class SuratMasukResource extends Resource
 {
     protected static ?string $model = SuratMasuk::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Inbox;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedInboxArrowDown;
 
     protected static ?string $navigationLabel = 'Surat Masuk';
+
+    protected static string | \UnitEnum | null $navigationGroup = 'Administrasi Surat';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'nomor_surat';
 

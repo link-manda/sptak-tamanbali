@@ -18,9 +18,13 @@ class SuratKeluarResource extends Resource
 {
     protected static ?string $model = SuratKeluar::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::ArrowTopRightOnSquare;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPaperAirplane;
 
     protected static ?string $navigationLabel = 'Surat Keluar';
+
+    protected static string | \UnitEnum | null $navigationGroup = 'Administrasi Surat';
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'nomor_surat';
 

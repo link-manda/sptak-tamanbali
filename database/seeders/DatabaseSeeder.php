@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             TamanbaliDummySeeder::class,
+            // Master data baru
+            PrajuruSeeder::class,
+            ProfilDesaSeeder::class,
+            AwigAwigSeeder::class,
+            PanaremSeeder::class,
         ]);
     }
 }

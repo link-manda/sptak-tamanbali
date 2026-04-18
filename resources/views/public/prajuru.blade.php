@@ -8,8 +8,7 @@
             <div class="absolute inset-0 hero-overlay opacity-90"></div>
             <div class="relative mx-auto max-w-7xl">
                 <p class="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-secondary_fixed_dim">Struktur Organisasi</p>
-                <h1 class="max-w-3xl font-headline text-5xl font-extrabold tracking-tight md:text-6xl">Susunan Prajuru Desa
-                    Adat</h1>
+                <h1 class="max-w-3xl font-headline text-5xl font-extrabold tracking-tight md:text-6xl">Susunan Prajuru Desa Adat</h1>
                 <p class="mt-6 max-w-2xl text-lg leading-8 text-primary_fixed_dim">Tim prajuru menjaga irama administrasi,
                     keuangan, dan pelayanan desa adat agar berjalan tertib dan dapat dipertanggungjawabkan.</p>
             </div>
@@ -21,16 +20,30 @@
                     <p class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">Prajuru Inti</p>
                     <h2 class="font-headline text-3xl font-extrabold text-primary">Penggerak utama tata kelola desa</h2>
                 </div>
-                <div class="grid gap-6 lg:grid-cols-3">
-                    @foreach ($coreTeam as $member)
-                        <article class="rounded-[28px] bg-white p-8 shadow-sky">
-                            <div class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">
-                                {{ $member['role'] }}</div>
-                            <h3 class="font-headline text-2xl font-extrabold text-primary">{{ $member['name'] }}</h3>
-                            <p class="mt-4 leading-7 text-on_surface_variant">{{ $member['desc'] }}</p>
-                        </article>
-                    @endforeach
-                </div>
+
+                @if($coreTeam->isEmpty())
+                    <p class="text-on_surface_variant italic">Data prajuru belum tersedia.</p>
+                @else
+                    <div class="grid gap-6 lg:grid-cols-3">
+                        @foreach ($coreTeam as $member)
+                            <article class="rounded-[28px] bg-white p-8 shadow-sky flex flex-col items-center text-center">
+                                {{-- Foto profil --}}
+                                <div class="mb-5 h-24 w-24 overflow-hidden rounded-full ring-4 ring-primary/10">
+                                    <img
+                                        src="{{ $member->foto ? Storage::disk('public')->url($member->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($member->nama_lengkap) . '&background=00236f&color=fff&size=128' }}"
+                                        alt="Foto {{ $member->nama_lengkap }}"
+                                        class="h-full w-full object-cover"
+                                    />
+                                </div>
+                                <div class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">{{ $member->jabatan }}</div>
+                                <h3 class="font-headline text-2xl font-extrabold text-primary">{{ $member->nama_lengkap }}</h3>
+                                @if($member->deskripsi)
+                                    <p class="mt-4 leading-7 text-on_surface_variant text-sm">{{ $member->deskripsi }}</p>
+                                @endif
+                            </article>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </section>
 
@@ -43,8 +56,7 @@
                 <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     @foreach ($banjarLeaders as $leader)
                         <article class="glass-card rounded-[28px] p-7 shadow-sky">
-                            <div
-                                class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary_container text-white">
+                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary_container text-white">
                                 <span class="material-symbols-outlined">groups</span>
                             </div>
                             <h3 class="font-headline text-xl font-extrabold text-primary">{{ $leader->kelian_banjar }}</h3>

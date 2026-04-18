@@ -22,6 +22,10 @@ class KategoriTransaksiResource extends Resource
 
     protected static ?string $navigationLabel = 'Kategori Transaksi';
 
+    protected static string | \UnitEnum | null $navigationGroup = 'Keuangan';
+
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $recordTitleAttribute = 'nama_kategori';
 
     public static function form(Schema $schema): Schema

@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AwigAwig;
 use App\Models\Banjar;
 use App\Models\Krama;
+use App\Models\Pararem;
+use App\Models\ProfilDesa;
+use App\Models\Prajuru;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
+use App\Models\TimelineDesa;
 use App\Models\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -30,54 +35,54 @@ class PublicController extends Controller
             ->get();
 
         $homeMetrics = [
-            'banjar' => Banjar::count(),
+            'banjar'      => Banjar::count(),
             'krama_aktif' => Krama::where('status_aktif', true)->count(),
-            'dokumen' => SuratMasuk::count() + SuratKeluar::count(),
+            'dokumen'     => SuratMasuk::count() + SuratKeluar::count(),
         ];
 
         $contentCards = [
             [
-                'title' => 'Profil Desa Adat Tamanbali',
+                'title'       => 'Profil Desa Adat Tamanbali',
                 'description' => 'Sejarah, visi-misi, dan identitas luhur desa kami.',
-                'icon' => 'account_balance',
-                'target' => route('profil'),
+                'icon'        => 'account_balance',
+                'target'      => route('profil'),
             ],
             [
-                'title' => 'Susunan Prajuru',
+                'title'       => 'Susunan Prajuru',
                 'description' => 'Struktur organisasi dan pelayan masyarakat desa.',
-                'icon' => 'groups',
-                'target' => route('prajuru'),
+                'icon'        => 'groups',
+                'target'      => route('prajuru'),
             ],
             [
-                'title' => 'Awig-Awig',
+                'title'       => 'Awig-Awig',
                 'description' => 'Pedoman hukum adat dan tata tertib kehidupan desa.',
-                'icon' => 'gavel',
-                'target' => route('awig'),
+                'icon'        => 'gavel',
+                'target'      => route('awig'),
             ],
             [
-                'title' => 'Pararem',
+                'title'       => 'Pararem',
                 'description' => 'Keputusan dan kesepakatan terbaru rapat desa.',
-                'icon' => 'menu_book',
-                'target' => route('pararem'),
+                'icon'        => 'menu_book',
+                'target'      => route('pararem'),
             ],
         ];
 
         $infoSections = [
             'profil' => [
                 'title' => 'Profil Desa Adat Tamanbali',
-                'body' => 'Desa Adat Tamanbali membangun tata kelola publik yang memadukan nilai adat, gotong royong, dan akuntabilitas digital untuk pelayanan masyarakat yang lebih terbuka.',
+                'body'  => 'Desa Adat Tamanbali membangun tata kelola publik yang memadukan nilai adat, gotong royong, dan akuntabilitas digital untuk pelayanan masyarakat yang lebih terbuka.',
             ],
             'prajuru' => [
                 'title' => 'Susunan Prajuru',
-                'body' => 'Prajuru desa terdiri dari Bendesa Adat, penyarikan, petengen, dan unsur banjar yang bekerja bersama menjaga administrasi, keuangan, dan kegiatan adat berjalan tertib.',
+                'body'  => 'Prajuru desa terdiri dari Bendesa Adat, penyarikan, petengen, dan unsur banjar yang bekerja bersama menjaga administrasi, keuangan, dan kegiatan adat berjalan tertib.',
             ],
             'awig' => [
                 'title' => 'Awig-Awig',
-                'body' => 'Awig-awig menjadi landasan tata kehidupan desa adat, termasuk aturan partisipasi krama, pengelolaan aset adat, dan mekanisme musyawarah dalam paruman desa.',
+                'body'  => 'Awig-awig menjadi landasan tata kehidupan desa adat, termasuk aturan partisipasi krama, pengelolaan aset adat, dan mekanisme musyawarah dalam paruman desa.',
             ],
             'pararem' => [
                 'title' => 'Pararem',
-                'body' => 'Pararem dipakai untuk keputusan operasional dan penyesuaian kebijakan terbaru berdasarkan hasil rapat desa, terutama untuk kegiatan sosial, budaya, dan administrasi harian.',
+                'body'  => 'Pararem dipakai untuk keputusan operasional dan penyesuaian kebijakan terbaru berdasarkan hasil rapat desa, terutama untuk kegiatan sosial, budaya, dan administrasi harian.',
             ],
         ];
 
@@ -159,14 +164,14 @@ class PublicController extends Controller
             ->when($endDate, fn (Builder $query) => $query->whereDate('tanggal_surat', '<=', $endDate))
             ->get()
             ->map(fn (SuratMasuk $surat) => [
-                'id' => 'masuk-' . $surat->id,
-                'jenis' => 'Surat Masuk',
-                'nomor_surat' => $surat->nomor_surat,
-                'perihal' => $surat->perihal,
+                'id'            => 'masuk-' . $surat->id,
+                'jenis'         => 'Surat Masuk',
+                'nomor_surat'   => $surat->nomor_surat,
+                'perihal'       => $surat->perihal,
                 'tanggal_surat' => Carbon::parse($surat->tanggal_surat),
-                'asal_tujuan' => $surat->asal_surat,
-                'file_surat' => $surat->file_surat,
-                'status' => Carbon::parse($surat->created_at)->diffInDays(now()) <= 3 ? 'Baru' : 'Arsip',
+                'asal_tujuan'   => $surat->asal_surat,
+                'file_surat'    => $surat->file_surat,
+                'status'        => Carbon::parse($surat->created_at)->diffInDays(now()) <= 3 ? 'Baru' : 'Arsip',
             ]);
 
         $suratKeluar = SuratKeluar::query()
@@ -179,14 +184,14 @@ class PublicController extends Controller
             ->when($endDate, fn (Builder $query) => $query->whereDate('tanggal_surat', '<=', $endDate))
             ->get()
             ->map(fn (SuratKeluar $surat) => [
-                'id' => 'keluar-' . $surat->id,
-                'jenis' => 'Surat Keluar',
-                'nomor_surat' => $surat->nomor_surat,
-                'perihal' => $surat->perihal,
+                'id'            => 'keluar-' . $surat->id,
+                'jenis'         => 'Surat Keluar',
+                'nomor_surat'   => $surat->nomor_surat,
+                'perihal'       => $surat->perihal,
                 'tanggal_surat' => Carbon::parse($surat->tanggal_surat),
-                'asal_tujuan' => $surat->tujuan_surat,
-                'file_surat' => $surat->file_surat,
-                'status' => Carbon::parse($surat->created_at)->diffInDays(now()) <= 2 ? 'Diproses' : 'Selesai',
+                'asal_tujuan'   => $surat->tujuan_surat,
+                'file_surat'    => $surat->file_surat,
+                'status'        => Carbon::parse($surat->created_at)->diffInDays(now()) <= 2 ? 'Diproses' : 'Selesai',
             ]);
 
         $arsipDokumen = $suratMasuk
@@ -216,26 +221,21 @@ class PublicController extends Controller
 
         $profileStats = [
             'banjar' => $banjars->count(),
-            'krama' => Krama::count(),
-            'aktif' => Krama::where('status_aktif', true)->count(),
+            'krama'  => Krama::count(),
+            'aktif'  => Krama::where('status_aktif', true)->count(),
         ];
 
-        $timeline = [
-            ['year' => 'Awal 1900-an', 'title' => 'Tumbuh sebagai pusat banjar adat', 'body' => 'Tamanbali berkembang sebagai ruang hidup adat yang menata kegiatan keagamaan, sosial, dan pengelolaan banjar berbasis musyawarah.'],
-            ['year' => 'Era pembaruan desa', 'title' => 'Administrasi adat makin tertib', 'body' => 'Pencatatan warga, kegiatan desa, dan pengelolaan surat diperkuat untuk mendukung pelayanan yang lebih rapi dan terbuka.'],
-            ['year' => 'Transformasi digital', 'title' => 'Lahirnya portal transparansi', 'body' => 'Desa Adat Tamanbali mengadopsi sistem digital untuk membuka akses informasi keuangan dan administrasi kepada seluruh krama.'],
-        ];
+        // Data dari DB — fallback ke objek kosong jika belum diisi
+        $profil   = ProfilDesa::getSingleton();
+        $timeline = TimelineDesa::orderBy('urutan')->get();
 
-        return view('public.profil', compact('banjars', 'profileStats', 'timeline'));
+        return view('public.profil', compact('banjars', 'profileStats', 'profil', 'timeline'));
     }
 
     public function prajuru()
     {
-        $coreTeam = [
-            ['role' => 'Bendesa Adat', 'name' => 'I Made Dharma Putra', 'desc' => 'Memimpin arah kebijakan desa adat dan memastikan keputusan paruman dijalankan secara tertib.'],
-            ['role' => 'Penyarikan', 'name' => 'Ni Luh Sri Ayuni', 'desc' => 'Mengelola administrasi persuratan, notulen rapat, dan dokumentasi keputusan desa adat.'],
-            ['role' => 'Petengen', 'name' => 'I Ketut Arsana', 'desc' => 'Mengawasi pengelolaan keuangan, pencatatan kas, dan pelaporan transparansi desa.'],
-        ];
+        // Data prajuru inti: ambil dari DB, sorted by urutan
+        $coreTeam = Prajuru::aktif()->orderBy('urutan')->get();
 
         $banjarLeaders = Banjar::orderBy('nama_banjar')->get(['nama_banjar', 'kelian_banjar']);
 
@@ -244,23 +244,18 @@ class PublicController extends Controller
 
     public function awig()
     {
-        $principles = [
-            ['title' => 'Tertib Paruman', 'body' => 'Setiap keputusan strategis desa adat diambil melalui musyawarah dan dituangkan dalam berita acara yang dapat dipertanggungjawabkan.'],
-            ['title' => 'Gotong Royong Krama', 'body' => 'Krama berperan aktif dalam kegiatan adat, sosial, dan kebersihan lingkungan sebagai bentuk ngayah dan tanggung jawab bersama.'],
-            ['title' => 'Akuntabilitas Aset Adat', 'body' => 'Pengelolaan keuangan, sarana upacara, dan aset desa dilakukan terbuka untuk menjaga kepercayaan warga.'],
-            ['title' => 'Harmoni Sosial', 'body' => 'Awig-awig menjaga hubungan yang seimbang antara sesama krama, prajuru, dan lingkungan desa.'],
-        ];
+        // Prinsip/pasal awig-awig dari DB, sorted by urutan
+        $principles = AwigAwig::aktif()->orderBy('urutan')->get();
 
         return view('public.awig', compact('principles'));
     }
 
     public function pararem()
     {
-        $pararemItems = [
-            ['title' => 'Pararem Ketertiban Administrasi', 'status' => 'Aktif', 'body' => 'Mengatur standar pencatatan surat masuk, surat keluar, dan arsip digital untuk memastikan seluruh dokumen mudah ditelusuri.'],
-            ['title' => 'Pararem Pelaporan Keuangan Berkala', 'status' => 'Aktif', 'body' => 'Mewajibkan pelaporan kas dan realisasi kegiatan pada periode tertentu agar seluruh krama dapat memantau penggunaan dana desa.'],
-            ['title' => 'Pararem Dukungan Kegiatan Sosial Budaya', 'status' => 'Evaluasi Tahunan', 'body' => 'Menentukan prioritas dukungan kegiatan upacara, kebersihan, dan program bersama antar banjar.'],
-        ];
+        // Item pararem dari DB — sorted: aktif dulu, lalu evaluasi, lalu tidak aktif
+        $pararemItems = Pararem::orderByRaw("FIELD(status, 'aktif', 'evaluasi', 'tidak_aktif')")
+            ->orderByDesc('tanggal_ditetapkan')
+            ->get();
 
         $documentsPublished = SuratMasuk::count() + SuratKeluar::count();
 

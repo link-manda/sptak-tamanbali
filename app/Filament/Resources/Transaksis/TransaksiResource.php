@@ -19,9 +19,13 @@ class TransaksiResource extends Resource
 {
     protected static ?string $model = Transaksi::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::ChartBarSquare;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
 
     protected static ?string $navigationLabel = 'Transaksi';
+
+    protected static string | \UnitEnum | null $navigationGroup = 'Keuangan';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'keterangan';
 
