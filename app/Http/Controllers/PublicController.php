@@ -101,18 +101,64 @@ class PublicController extends Controller
     public function keuangan(Request $request)
     {
         $scope = $request->string('scope')->toString() ?: 'rkt';
+        $tahun = $request->integer('tahun') ?: date('Y');
 
-        $transaksiQuery = Transaksi::with('kategori')->orderByDesc('tanggal_transaksi');
+        // Mengambil tahun-tahun yang tersedia dari data transaksi
+        $availableYears = Transaksi::selectRaw('YEAR(tanggal_transaksi) as year')
+            ->distinct()
+            ->orderByDesc('year')
+            ->pluck('year');
 
-        if ($scope === 'catur-wulan') {
-            $transaksiQuery->where('tanggal_transaksi', '>=', now()->subMonths(4)->startOfDay());
-        } elseif ($scope === 'realisasi') {
-            $transaksiQuery->where('tanggal_transaksi', '>=', now()->startOfYear());
-        } else {
-            $transaksiQuery->where('tanggal_transaksi', '>=', now()->startOfYear());
+        // Pastikan tahun yang diminta ada dalam data, jika tidak fallback ke tahun terbaru yang ada
+        if ($availableYears->isNotEmpty() && !$availableYears->contains($tahun)) {
+            $tahun = $availableYears->first();
         }
 
-        $riwayatAnggaran = $transaksiQuery->take(8)->get();
+        $transaksiQuery = Transaksi::with('kategori')
+            ->whereYear('tanggal_transaksi', $tahun)
+            ->orderByDesc('tanggal_transaksi');
+
+        $riwayatAnggaran = collect();
+        $caturWulanData = [];
+
+        if ($scope === 'catur-wulan') {
+            $allTransactions = $transaksiQuery->get();
+            
+            // Definisi rentang bulan untuk tiap Catur Wulan
+            $periods = [
+                ['id' => 'cw3', 'label' => 'Catur Wulan III (September - Desember)', 'months' => [9, 10, 11, 12]],
+                ['id' => 'cw2', 'label' => 'Catur Wulan II (Mei - Agustus)', 'months' => [5, 6, 7, 8]],
+                ['id' => 'cw1', 'label' => 'Catur Wulan I (Januari - April)', 'months' => [1, 2, 3, 4]],
+            ];
+
+            foreach ($periods as $period) {
+                // Filter transaksi yang termasuk dalam rentang bulan CW ini
+                $items = $allTransactions->filter(function ($t) use ($period) {
+                    $month = \Carbon\Carbon::parse($t->tanggal_transaksi)->month;
+                    return in_array($month, $period['months']);
+                });
+                
+                // Hanya tambahkan jika ada data (sesuai request: tidak perlu menampilkan status kosong)
+                if ($items->isNotEmpty()) {
+                    $in = $items->where('jenis', 'pemasukan')->sum('nominal');
+                    $out = $items->where('jenis', 'pengeluaran')->sum('nominal');
+                    
+                    $caturWulanData[] = [
+                        'id' => $period['id'],
+                        'label' => $period['label'],
+                        'items' => $items,
+                        'totals' => [
+                            'pemasukan' => $in,
+                            'pengeluaran' => $out,
+                            'saldo' => $in - $out
+                        ]
+                    ];
+                }
+            }
+        } else {
+            // Default untuk scope rkt dan realisasi (15 data terbaru di tahun tersebut)
+            $riwayatAnggaran = $transaksiQuery->take(15)->get();
+        }
 
         $totalPemasukan = Transaksi::where('jenis', 'pemasukan')->sum('nominal');
         $totalPengeluaran = Transaksi::where('jenis', 'pengeluaran')->sum('nominal');
@@ -137,7 +183,10 @@ class PublicController extends Controller
 
         return view('public.keuangan', compact(
             'scope',
+            'tahun',
+            'availableYears',
             'riwayatAnggaran',
+            'caturWulanData',
             'totalPemasukan',
             'totalPengeluaran',
             'saldoKas',

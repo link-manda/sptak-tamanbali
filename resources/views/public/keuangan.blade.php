@@ -81,63 +81,170 @@
             </div>
         </section>
 
-        <section id="riwayat-anggaran" class="mx-auto max-w-7xl px-6 pb-24">
-            <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <h3 class="font-headline text-3xl font-extrabold tracking-tight text-on_surface">Riwayat Anggaran Terbaru
-                </h3>
+        <section id="riwayat-anggaran" class="mx-auto max-w-7xl px-6 pb-24" x-data="{ activeCW: '{{ $caturWulanData[0]['id'] ?? '' }}' }">
+            <div class="mb-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                <div class="flex flex-wrap items-center gap-4">
+                    <h3 class="font-headline text-3xl font-extrabold tracking-tight text-on_surface">
+                        {{ $scope === 'catur-wulan' ? 'Laporan Catur Wulan' : 'Riwayat Anggaran Terbaru' }}
+                    </h3>
+                    
+                    {{-- Dropdown Pemilihan Tahun --}}
+                    @if($availableYears->isNotEmpty())
+                        <div class="relative inline-block text-left">
+                            <form action="{{ route('keuangan') }}" method="GET" class="relative">
+                                <input type="hidden" name="scope" value="{{ $scope }}">
+                                <select name="tahun" onchange="this.form.submit()" 
+                                    class="cursor-pointer appearance-none rounded-xl border-none bg-surface_container_high py-2 pl-4 pr-10 text-sm font-bold text-primary shadow-sm focus:ring-2 focus:ring-primary">
+                                    @foreach($availableYears as $y)
+                                        <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-primary">
+                                    <span class="material-symbols-outlined text-sm">expand_more</span>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
+                </div>
+
                 <div class="flex gap-4">
-                    <a class="rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface"
-                        href="{{ route('keuangan', ['scope' => $scope]) }}">Filter</a>
-                    <a class="rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface"
-                        href="{{ route('keuangan', ['scope' => $scope]) }}">Unduh PDF</a>
+                    <button class="rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface hover:bg-surface_container_highest transition">Filter</button>
+                    <button class="rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface hover:bg-surface_container_highest transition">Unduh PDF</button>
                 </div>
             </div>
-            <div class="overflow-hidden rounded-[28px] bg-white shadow-sky">
-                <table class="w-full border-collapse text-left">
-                    <thead>
-                        <tr class="bg-surface_container_high">
-                            <th class="px-8 py-4 text-sm font-bold">Keterangan Kegiatan</th>
-                            <th class="px-8 py-4 text-sm font-bold">Kategori</th>
-                            <th class="px-8 py-4 text-sm font-bold text-right">Jumlah</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($riwayatAnggaran as $row)
-                            @php
-                                $status =
-                                    $row->jenis === 'pemasukan'
-                                        ? 'Selesai'
-                                        : (\Carbon\Carbon::parse($row->tanggal_transaksi)->diffInDays(now()) <= 21
-                                            ? 'Proses'
-                                            : 'Tercairkan');
-                                $statusClass =
-                                    $status === 'Proses'
-                                        ? 'bg-yellow-50 text-yellow-700'
-                                        : 'bg-green-50 text-green-700';
-                            @endphp
-                            <tr class="border-t border-slate-100 align-top odd:bg-white even:bg-surface_container_low/30">
-                                <td class="px-8 py-5">
-                                    <div class="font-semibold text-primary">{{ $row->keterangan }}</div>
-                                    <div class="text-xs text-slate-400">
-                                        {{ \Carbon\Carbon::parse($row->tanggal_transaksi)->translatedFormat('d M Y') }}
+
+            @if($scope === 'catur-wulan')
+                <div class="space-y-6">
+                    @forelse($caturWulanData as $cw)
+                        <div class="overflow-hidden rounded-[28px] bg-white shadow-sky transition-all duration-300 border border-outline_variant/5">
+                            {{-- Accordion Header --}}
+                            <button @click="activeCW = (activeCW === '{{ $cw['id'] }}' ? '' : '{{ $cw['id'] }}')"
+                                class="flex w-full items-center justify-between p-6 text-left transition hover:bg-surface_container_low/50"
+                                :class="activeCW === '{{ $cw['id'] }}' ? 'bg-primary text-white' : 'bg-white text-on_surface'">
+                                
+                                <div class="flex items-center gap-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-full"
+                                        :class="activeCW === '{{ $cw['id'] }}' ? 'bg-white/20' : 'bg-primary/10'">
+                                        <span class="material-symbols-outlined text-sm">calendar_month</span>
                                     </div>
-                                </td>
-                                <td class="px-8 py-5 text-sm italic text-slate-600">
-                                    {{ $row->kategori->nama_kategori ?? '-' }}</td>
-                                <td
-                                    class="px-8 py-5 text-right text-sm font-bold {{ $row->jenis === 'pemasukan' ? 'text-green-600' : 'text-error' }}">
-                                    {{ $row->jenis === 'pemasukan' ? '+' : '-' }} Rp
-                                    {{ number_format($row->nominal, 0, ',', '.') }}</td>
-                            </tr>
-                        @empty
+                                    <div>
+                                        <span class="font-headline text-xl font-bold">{{ $cw['label'] }}</span>
+                                        <div class="text-[10px] font-medium uppercase tracking-wider opacity-70"
+                                            :class="activeCW === '{{ $cw['id'] }}' ? 'text-white' : 'text-slate-500'">
+                                            {{ $cw['items']->count() }} Transaksi Tercatat
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-8">
+                                    <div class="hidden lg:flex items-center gap-6">
+                                        <div class="text-right">
+                                            <p class="text-[10px] uppercase opacity-70">Pengeluaran</p>
+                                            <p class="font-bold">Rp {{ number_format($cw['totals']['pengeluaran'], 0, ',', '.') }}</p>
+                                        </div>
+                                        <div class="h-8 w-px bg-current opacity-20"></div>
+                                        <div class="text-right">
+                                            <p class="text-[10px] uppercase opacity-70">Saldo CW</p>
+                                            <p class="font-bold {{ $cw['totals']['saldo'] >= 0 ? (isset($activeCW) && $cw['id'] == 'activeCW' ? 'text-green-300' : 'text-green-600') : 'text-error' }}"
+                                               :style="activeCW === '{{ $cw['id'] }}' ? 'color: white' : ''">
+                                                Rp {{ number_format($cw['totals']['saldo'], 0, ',', '.') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span class="material-symbols-outlined transition-transform duration-300" 
+                                        :class="activeCW === '{{ $cw['id'] }}' ? 'rotate-180' : ''">
+                                        keyboard_arrow_down
+                                    </span>
+                                </div>
+                            </button>
+
+                            {{-- Accordion Content (Table) --}}
+                            <div x-show="activeCW === '{{ $cw['id'] }}'" 
+                                x-collapse
+                                class="border-t border-slate-100">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full border-collapse text-left">
+                                        <thead>
+                                            <tr class="bg-surface_container_low/50">
+                                                <th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-slate-500">Kegiatan</th>
+                                                <th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-slate-500">Kategori</th>
+                                                <th class="px-8 py-4 text-right text-xs font-bold uppercase tracking-widest text-slate-500">Jumlah</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($cw['items'] as $row)
+                                                <tr class="border-t border-slate-100 align-top hover:bg-slate-50/50 transition">
+                                                    <td class="px-8 py-5">
+                                                        <div class="font-semibold text-primary">{{ $row->keterangan }}</div>
+                                                        <div class="text-[10px] text-slate-400">
+                                                            {{ \Carbon\Carbon::parse($row->tanggal_transaksi)->translatedFormat('d M Y') }}
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-8 py-5 text-sm text-slate-600">
+                                                        {{ $row->kategori->nama_kategori ?? '-' }}
+                                                    </td>
+                                                    <td class="px-8 py-5 text-right text-sm font-bold {{ $row->jenis === 'pemasukan' ? 'text-green-600' : 'text-error' }}">
+                                                        {{ $row->jenis === 'pemasukan' ? '+' : '-' }} Rp
+                                                        {{ number_format($row->nominal, 0, ',', '.') }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="bg-surface_container_low/20 border-t-2 border-slate-100">
+                                                <td colspan="2" class="px-8 py-4 text-sm font-bold text-slate-700 text-right">Total Akhir Periode</td>
+                                                <td class="px-8 py-4 text-right text-sm font-extrabold text-primary">
+                                                    Rp {{ number_format($cw['totals']['saldo'], 0, ',', '.') }}
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="rounded-[28px] bg-surface_container_low/30 p-12 text-center">
+                            <span class="material-symbols-outlined text-5xl text-slate-300 mb-4">account_balance_wallet</span>
+                            <p class="text-slate-500">Belum ada catatan transaksi untuk tahun {{ $tahun }}.</p>
+                        </div>
+                    @endforelse
+                </div>
+            @else
+                <div class="overflow-hidden rounded-[28px] bg-white shadow-sky border border-outline_variant/5">
+                    <table class="w-full border-collapse text-left">
+                        <thead class="bg-surface_container_high">
                             <tr>
-                                <td class="px-8 py-8 text-sm text-slate-500" colspan="4">Belum ada data anggaran untuk
-                                    periode ini.</td>
+                                <th class="px-8 py-4 text-sm font-bold">Keterangan Kegiatan</th>
+                                <th class="px-8 py-4 text-sm font-bold">Kategori</th>
+                                <th class="px-8 py-4 text-sm font-bold text-right">Jumlah</th>
                             </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @forelse ($riwayatAnggaran as $row)
+                                <tr class="border-t border-slate-100 align-top odd:bg-white even:bg-surface_container_low/30 hover:bg-slate-50 transition">
+                                    <td class="px-8 py-5">
+                                        <div class="font-semibold text-primary">{{ $row->keterangan }}</div>
+                                        <div class="text-xs text-slate-400">
+                                            {{ \Carbon\Carbon::parse($row->tanggal_transaksi)->translatedFormat('d M Y') }}
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-5 text-sm italic text-slate-600">
+                                        {{ $row->kategori->nama_kategori ?? '-' }}</td>
+                                    <td class="px-8 py-5 text-right text-sm font-bold {{ $row->jenis === 'pemasukan' ? 'text-green-600' : 'text-error' }}">
+                                        {{ $row->jenis === 'pemasukan' ? '+' : '-' }} Rp
+                                        {{ number_format($row->nominal, 0, ',', '.') }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="px-8 py-12 text-center text-sm text-slate-500" colspan="3">
+                                        Belum ada data anggaran untuk periode ini.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         </section>
     </main>
 @endsection
