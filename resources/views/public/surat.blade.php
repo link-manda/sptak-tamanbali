@@ -72,8 +72,12 @@
                             <option value="surat-keluar" @selected($jenis === 'surat-keluar')>Surat Keluar</option>
                         </select>
                     </div>
-                    <button
-                        class="rounded-lg bg-emerald-500 py-2.5 font-bold text-white transition hover:bg-emerald-600">Filter</button>
+                    <div class="flex gap-4">
+                        <button type="submit"
+                            class="flex-1 rounded-lg bg-emerald-500 py-2.5 font-bold text-white transition hover:bg-emerald-600">Filter</button>
+                        <a href="{{ route('surat') }}"
+                            class="flex-1 rounded-lg bg-surface_container_high py-2.5 text-center font-bold text-primary transition hover:bg-outline_variant/20">Reset</a>
+                    </div>
                 </div>
             </form>
         </section>
