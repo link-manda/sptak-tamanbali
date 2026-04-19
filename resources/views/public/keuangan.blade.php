@@ -119,17 +119,17 @@
                         <div class="overflow-hidden rounded-[28px] bg-white shadow-sky transition-all duration-300 border border-outline_variant/5">
                             {{-- Accordion Header --}}
                             <button @click="activeCW = (activeCW === '{{ $cw['id'] }}' ? '' : '{{ $cw['id'] }}')"
-                                class="flex w-full items-center justify-between p-6 text-left transition hover:bg-surface_container_low/50"
-                                :class="activeCW === '{{ $cw['id'] }}' ? 'bg-primary text-white' : 'bg-white text-on_surface'">
+                                class="flex w-full items-center justify-between p-6 text-left transition"
+                                :class="activeCW === '{{ $cw['id'] }}' ? 'bg-primary text-white' : 'bg-white text-on_surface hover:bg-surface_container_low/50'">
                                 
                                 <div class="flex items-center gap-4">
-                                    <div class="flex h-10 w-10 items-center justify-center rounded-full"
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-full transition-colors"
                                         :class="activeCW === '{{ $cw['id'] }}' ? 'bg-white/20' : 'bg-primary/10'">
                                         <span class="material-symbols-outlined text-sm">calendar_month</span>
                                     </div>
                                     <div>
-                                        <span class="font-headline text-xl font-bold">{{ $cw['label'] }}</span>
-                                        <div class="text-[10px] font-medium uppercase tracking-wider opacity-70"
+                                        <span class="font-headline text-xl font-bold transition-colors">{{ $cw['label'] }}</span>
+                                        <div class="text-[10px] font-medium uppercase tracking-wider opacity-70 transition-colors"
                                             :class="activeCW === '{{ $cw['id'] }}' ? 'text-white' : 'text-slate-500'">
                                             {{ $cw['items']->count() }} Transaksi Tercatat
                                         </div>
@@ -145,14 +145,18 @@
                                         <div class="h-8 w-px bg-current opacity-20"></div>
                                         <div class="text-right">
                                             <p class="text-[10px] uppercase opacity-70">Saldo CW</p>
-                                            <p class="font-bold {{ $cw['totals']['saldo'] >= 0 ? (isset($activeCW) && $cw['id'] == 'activeCW' ? 'text-green-300' : 'text-green-600') : 'text-error' }}"
-                                               :style="activeCW === '{{ $cw['id'] }}' ? 'color: white' : ''">
+                                            <p class="font-bold transition-colors"
+                                               :class="{
+                                                   'text-white': activeCW === '{{ $cw['id'] }}',
+                                                   'text-green-600': activeCW !== '{{ $cw['id'] }}' && {{ $cw['totals']['saldo'] }} >= 0,
+                                                   'text-error': activeCW !== '{{ $cw['id'] }}' && {{ $cw['totals']['saldo'] }} < 0
+                                               }">
                                                 Rp {{ number_format($cw['totals']['saldo'], 0, ',', '.') }}
                                             </p>
                                         </div>
                                     </div>
                                     <span class="material-symbols-outlined transition-transform duration-300" 
-                                        :class="activeCW === '{{ $cw['id'] }}' ? 'rotate-180' : ''">
+                                        :class="activeCW === '{{ $cw['id'] }}' ? 'rotate-180 text-white' : 'text-primary'">
                                         keyboard_arrow_down
                                     </span>
                                 </div>
@@ -160,6 +164,7 @@
 
                             {{-- Accordion Content (Table) --}}
                             <div x-show="activeCW === '{{ $cw['id'] }}'" 
+                                x-cloak
                                 x-collapse
                                 class="border-t border-slate-100">
                                 <div class="overflow-x-auto">
