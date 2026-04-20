@@ -21,8 +21,7 @@ class KramaForm
                     ->label('Banjar')
                     ->required()
                     ->native(false),
-                TextInput::make('nik')
-                    ->required(),
+
                 TextInput::make('nama_lengkap')
                     ->required(),
                 Textarea::make('alamat')

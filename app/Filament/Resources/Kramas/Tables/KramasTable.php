@@ -19,8 +19,7 @@ class KramasTable
                     ->label('Banjar')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('nik')
-                    ->searchable(),
+
                 TextColumn::make('nama_lengkap')
                     ->searchable(),
                 IconColumn::make('status_aktif')

@@ -127,7 +127,6 @@ class TamanbaliDummySeeder extends Seeder
             for ($i = 1; $i <= 16; $i++) {
                 Krama::create([
                     'banjar_id' => $banjar->id,
-                    'nik' => $this->generateNik($banjar->id, $i),
                     'nama_lengkap' => $faker->name(),
                     'alamat' => 'Br. ' . $banjar->nama_banjar . ', Desa Tamanbali, Kec. Bangli',
                     'status_aktif' => $faker->boolean(85),
@@ -240,8 +239,5 @@ class TamanbaliDummySeeder extends Seeder
         }
     }
 
-    private function generateNik(int $banjarId, int $index): string
-    {
-        return str_pad((string) (5106_0000_0000 + ($banjarId * 10_000) + $index), 16, '0', STR_PAD_LEFT);
-    }
+
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Krama extends Model
 {
-    protected $fillable = ['banjar_id', 'nik', 'nama_lengkap', 'alamat', 'status_aktif'];
+    protected $fillable = ['banjar_id', 'nama_lengkap', 'alamat', 'status_aktif'];
 
     public function banjar()
     {
