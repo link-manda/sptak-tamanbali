@@ -6,6 +6,7 @@ use App\Filament\Widgets\DocumentStatsWidget;
 use App\Filament\Widgets\MemberStatsWidget;
 use App\Filament\Widgets\TransactionChartWidget;
 use App\Filament\Widgets\TransactionSummaryWidget;
+use App\Filament\Widgets\WelcomeWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
@@ -23,6 +24,9 @@ class Dashboard extends BaseDashboard
         }
 
         $widgets = [];
+
+        // Welcome widget untuk semua user (paling atas)
+        $widgets[] = WelcomeWidget::class;
 
         // Widget untuk semua user
         $widgets[] = TransactionSummaryWidget::class;
