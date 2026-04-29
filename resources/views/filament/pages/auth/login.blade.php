@@ -65,12 +65,27 @@
         .fi-custom-login-wrapper {
             --primary-color: #00236f;
             --secondary-color: #fed65b;
-            --text-dark: #0f172a;
-            --text-gray: #64748b;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --bg-main: white;
+            --bg-form: white;
+            
             font-family: 'Inter', sans-serif;
-            background: white;
+            background: var(--bg-main);
             min-height: 100vh;
             margin: 0; padding: 0;
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Mode Overrides */
+        .dark .fi-custom-login-wrapper,
+        :root:has(.dark) .fi-custom-login-wrapper {
+            --primary-color: #3b82f6; /* Lighter blue for dark mode */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --bg-main: #09090b;
+            --bg-form: #09090b;
         }
 
         .split-container {
@@ -103,6 +118,10 @@
             inset: 0;
             background: linear-gradient(135deg, rgba(0, 35, 111, 0.95), rgba(30, 58, 138, 0.5));
             backdrop-filter: blur(1px);
+        }
+
+        .dark .bg-overlay {
+            background: linear-gradient(135deg, rgba(0, 10, 30, 0.95), rgba(9, 9, 11, 0.8));
         }
 
         .visual-content {
@@ -176,6 +195,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            background: var(--bg-form);
         }
 
         .form-container {
@@ -189,7 +209,7 @@
             gap: 0.5rem;
             font-size: 0.875rem;
             font-weight: 700;
-            color: var(--text-gray);
+            color: var(--text-muted);
             text-decoration: none;
             margin-bottom: 2.5rem;
             transition: color 0.3s;
@@ -211,12 +231,12 @@
             font-family: 'Manrope', sans-serif;
             font-size: 1.875rem;
             font-weight: 800;
-            color: var(--text-dark);
+            color: var(--text-main);
             margin-bottom: 0.5rem;
         }
 
         .form-subtitle {
-            color: var(--text-gray);
+            color: var(--text-muted);
             font-size: 0.875rem;
             margin-bottom: 2.5rem;
         }
@@ -233,6 +253,10 @@
         .fi-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0, 35, 111, 0.2) !important;
+        }
+
+        .dark .fi-btn:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5) !important;
         }
 
         .fi-input-wrapper {

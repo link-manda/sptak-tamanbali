@@ -28,7 +28,7 @@ class WelcomeWidget extends Widget
             $subText = 'Terus semangat menjalankan tugas pengabdian desa.';
         } elseif ($hour >= 15 && $hour < 18) {
             $greeting = 'Selamat Sore';
-            $icon = 'heroicon-m-sunset';
+            $icon = 'heroicon-m-sun';
             $gradientColors = '#fb923c, #f43f5e'; // orange-400 to rose-500
             $subText = 'Waktunya merangkum pencapaian hari ini.';
         } else {
