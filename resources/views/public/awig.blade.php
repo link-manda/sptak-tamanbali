@@ -3,7 +3,7 @@
 @section('title', 'Awig-Awig - Desa Adat Tamanbali')
 
 @section('content')
-    <main>
+    <main x-data="pdfViewerData()">
         <section class="relative overflow-hidden bg-primary px-6 py-24 text-white">
             <div class="absolute inset-0 hero-overlay opacity-90"></div>
             <div class="relative mx-auto max-w-7xl">
@@ -39,15 +39,13 @@
                                 <p class="leading-8 text-on_surface_variant flex-1">{{ $principle->deskripsi }}</p>
 
                                 @if($principle->file_pdf)
-                                    <a
-                                        href="{{ $principle->file_pdf_url }}"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                    <button
+                                        @click="openDoc('{{ $principle->file_pdf_url }}')"
                                         class="mt-6 inline-flex items-center gap-2 rounded-full border border-primary px-5 py-2.5 text-sm font-bold text-primary transition hover:bg-primary hover:text-white self-start"
                                     >
-                                        <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">download</span>
-                                        Unduh {{ $principle->label_unduh }}
-                                    </a>
+                                        <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                                        Preview Dokumen
+                                    </button>
                                 @endif
                             </article>
                         @endforeach
@@ -65,5 +63,6 @@
                     tanggung jawab bersama atas pengelolaan administrasi maupun keuangan desa adat.</p>
             </div>
         </section>
+        @include('public.partials.pdf-viewer')
     </main>
 @endsection

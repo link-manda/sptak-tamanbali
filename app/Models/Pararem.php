@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class Pararem extends Model
 {
@@ -26,7 +25,7 @@ class Pararem extends Model
 
     protected $casts = [
         'tanggal_ditetapkan' => 'date',
-        'berlaku_mulai'      => 'date',
+        'berlaku_mulai' => 'date',
     ];
 
     /**
@@ -35,8 +34,8 @@ class Pararem extends Model
     public static function statusOptions(): array
     {
         return [
-            'aktif'       => 'Aktif',
-            'evaluasi'    => 'Evaluasi Tahunan',
+            'aktif' => 'Aktif',
+            'evaluasi' => 'Evaluasi Tahunan',
             'tidak_aktif' => 'Tidak Aktif',
         ];
     }
@@ -47,10 +46,10 @@ class Pararem extends Model
     public function getStatusColorAttribute(): string
     {
         return match ($this->status) {
-            'aktif'       => 'success',
-            'evaluasi'    => 'warning',
+            'aktif' => 'success',
+            'evaluasi' => 'warning',
             'tidak_aktif' => 'danger',
-            default       => 'gray',
+            default => 'gray',
         };
     }
 
@@ -67,11 +66,7 @@ class Pararem extends Model
      */
     public function getFilePdfUrlAttribute(): ?string
     {
-        if ($this->file_pdf) {
-            return Storage::disk('public')->url($this->file_pdf);
-        }
-
-        return null;
+        return $this->file_pdf ? '/storage/'.ltrim($this->file_pdf, '/') : null;
     }
 
     /**

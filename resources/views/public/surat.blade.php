@@ -3,7 +3,7 @@
 @section('title', 'Surat - Desa Adat Tamanbali')
 
 @section('content')
-    <main>
+    <main x-data="pdfViewerData()">
         <section class="relative flex h-[460px] items-center justify-center overflow-hidden bg-primary">
             <div class="absolute inset-0 h-full w-full opacity-60"
                 style="background-image: url('{{ asset('images/batik_bg.png') }}'); background-repeat: repeat; background-size: 400px;"></div>
@@ -130,9 +130,12 @@
                             {{ $featuredDocument['nomor_surat'] }} dari/untuk {{ $featuredDocument['asal_tujuan'] }}.</p>
                         <div class="flex flex-wrap items-center gap-4">
                             @if ($featuredDocument['file_surat'])
-                                <a class="rounded-lg bg-primary px-5 py-2 text-sm font-bold text-white"
-                                    href="{{ asset('storage/' . $featuredDocument['file_surat']) }}" target="_blank">Unduh
-                                    PDF</a>
+                                <button
+                                    @click="openDoc('{{ '/storage/' . ltrim($featuredDocument['file_surat'], '/') }}')"
+                                    class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2 text-sm font-bold text-white transition hover:bg-primary/90">
+                                    <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                                    Preview Dokumen
+                                </button>
                             @endif
                             <span class="text-sm font-bold text-primary">{{ $featuredDocument['status'] }}</span>
                         </div>
@@ -149,11 +152,19 @@
                                     class="flex h-12 w-12 items-center justify-center rounded-lg bg-surface_container_highest text-primary">
                                     <span class="material-symbols-outlined">description</span>
                                 </div>
-                                <div>
+                                <div class="flex-1">
                                     <div class="font-headline text-sm font-bold leading-tight text-primary">
                                         {{ $document['perihal'] }}</div>
                                     <div class="mt-1 text-xs text-on_surface_variant">{{ $document['status'] }} •
                                         {{ $document['tanggal_surat']->diffForHumans() }}</div>
+                                    @if ($document['file_surat'])
+                                        <button
+                                            @click="openDoc('{{ '/storage/' . ltrim($document['file_surat'], '/') }}')"
+                                            class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-primary px-3 py-1 text-xs font-bold text-primary transition hover:bg-primary hover:text-white">
+                                            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                                            Preview
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -167,5 +178,7 @@
                 </div>
             </div>
         </section>
+
+        @include('public.partials.pdf-viewer')
     </main>
 @endsection

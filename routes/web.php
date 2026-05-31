@@ -5,6 +5,7 @@ use App\Http\Controllers\PublicController;
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/keuangan', [PublicController::class, 'keuangan'])->name('keuangan');
+Route::get('/keuangan/laporan-realisasi', [PublicController::class, 'laporanRealisasi'])->name('keuangan.laporan');
 Route::get('/surat', [PublicController::class, 'surat'])->name('surat');
 Route::get('/profil-desa', [PublicController::class, 'profil'])->name('profil');
 Route::get('/susunan-prajuru', [PublicController::class, 'prajuru'])->name('prajuru');

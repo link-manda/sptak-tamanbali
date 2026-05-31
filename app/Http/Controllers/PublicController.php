@@ -15,6 +15,7 @@ use App\Models\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PublicController extends Controller
 {
@@ -194,6 +195,44 @@ class PublicController extends Controller
             'grafikKas',
             'latestUpdate',
         ));
+    }
+
+    /**
+     * Generate laporan Realisasi Kegiatan sebagai PDF (dompdf).
+     * aksi=preview => stream inline (untuk viewer pdf.js, same-origin).
+     * aksi=unduh   => download attachment.
+     */
+    public function laporanRealisasi(Request $request)
+    {
+        $tahun = $request->integer('tahun') ?: (int) date('Y');
+        $aksi = $request->string('aksi')->toString() ?: 'preview';
+
+        // Regenerate data realisasi sama seperti scope 'realisasi' di keuangan():
+        // 15 transaksi terbaru pada tahun terkait.
+        $riwayatAnggaran = Transaksi::with('kategori')
+            ->whereYear('tanggal_transaksi', $tahun)
+            ->orderByDesc('tanggal_transaksi')
+            ->take(15)
+            ->get();
+
+        $totalPemasukan = $riwayatAnggaran->where('jenis', 'pemasukan')->sum('nominal');
+        $totalPengeluaran = $riwayatAnggaran->where('jenis', 'pengeluaran')->sum('nominal');
+        $saldo = $totalPemasukan - $totalPengeluaran;
+
+        $pdf = Pdf::loadView('pdf.laporan-realisasi', compact(
+            'tahun',
+            'riwayatAnggaran',
+            'totalPemasukan',
+            'totalPengeluaran',
+            'saldo',
+        ))->setPaper('a4', 'portrait');
+
+        $namaFile = 'Laporan-Realisasi-Kegiatan-'.$tahun.'.pdf';
+
+        // download() = attachment; stream() = inline (dibuka langsung / di-fetch pdf.js).
+        return $aksi === 'unduh'
+            ? $pdf->download($namaFile)
+            : $pdf->stream($namaFile);
     }
 
     public function surat(Request $request)

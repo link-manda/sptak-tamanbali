@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class AwigAwig extends Model
 {
@@ -20,8 +19,8 @@ class AwigAwig extends Model
 
     protected $casts = [
         'tanggal_ditetapkan' => 'date',
-        'is_aktif'           => 'boolean',
-        'urutan'             => 'integer',
+        'is_aktif' => 'boolean',
+        'urutan' => 'integer',
     ];
 
     /**
@@ -29,11 +28,7 @@ class AwigAwig extends Model
      */
     public function getFilePdfUrlAttribute(): ?string
     {
-        if ($this->file_pdf) {
-            return Storage::disk('public')->url($this->file_pdf);
-        }
-
-        return null;
+        return $this->file_pdf ? '/storage/'.ltrim($this->file_pdf, '/') : null;
     }
 
     /**

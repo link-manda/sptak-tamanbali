@@ -3,7 +3,7 @@
 @section('title', 'Pararem - Desa Adat Tamanbali')
 
 @section('content')
-    <main>
+    <main x-data="pdfViewerData()">
         <section class="relative overflow-hidden bg-primary px-6 py-24 text-white">
             <div class="absolute inset-0 hero-overlay opacity-90"></div>
             <div class="relative mx-auto max-w-7xl">
@@ -62,15 +62,13 @@
                             @endif
 
                             @if($item->file_pdf)
-                                <a
-                                    href="{{ $item->file_pdf_url }}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <button
+                                    @click="openDoc('{{ $item->file_pdf_url }}')"
                                     class="ml-auto inline-flex items-center gap-2 rounded-full border border-primary px-5 py-2 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
                                 >
-                                    <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">download</span>
-                                    Unduh {{ $item->label_unduh }}
-                                </a>
+                                    <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                                    Preview Dokumen
+                                </button>
                             @endif
                         </div>
                     </article>
@@ -82,5 +80,7 @@
                 @endforelse
             </div>
         </section>
+
+        @include('public.partials.pdf-viewer')
     </main>
 @endsection

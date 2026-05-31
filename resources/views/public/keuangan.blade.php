@@ -3,7 +3,7 @@
 @section('title', 'Keuangan - Desa Adat Tamanbali')
 
 @section('content')
-    <main>
+    <main x-data="pdfViewerData()">
         <section class="relative flex h-[450px] items-center overflow-hidden">
             <img class="absolute inset-0 h-full w-full object-cover opacity-20 grayscale"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpkzzwEGC1EnzqF-7wpMN7RH41QiC69dplcVoThwFbpSdq1AGEfPJfmspKhtMNad0l9jhbboViDmufgoKOE9o1U-GmM0rfFxv3RJB3uWDeg-QK-E3M-pZ2AxgemuE7jEF0Xv-DwFxgLFgLQXBqk0IEv-YJTWezlHh3ckcblDsSlbyygWa9q5yehYV8I1UREVLnGxsXEhf6seH5ouk31ep_jmISdyg0aBfHHYevLEibDLmocIpp6tt93sXO9FE4eGRaRwdpcM9CUkU"
@@ -107,10 +107,21 @@
                     @endif
                 </div>
 
-                <div class="flex gap-4">
-                    <button class="rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface hover:bg-surface_container_highest transition">Filter</button>
-                    <button class="rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface hover:bg-surface_container_highest transition">Unduh PDF</button>
-                </div>
+                @if($scope === 'realisasi')
+                    <div class="flex gap-3">
+                        <button
+                            @click="openDoc('{{ route('keuangan.laporan', ['tahun' => $tahun, 'aksi' => 'preview'], false) }}')"
+                            class="inline-flex items-center gap-2 rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface transition hover:bg-surface_container_highest">
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                            Preview PDF
+                        </button>
+                        <button type="button" disabled
+                            class="inline-flex cursor-not-allowed items-center gap-2 rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface_variant opacity-50">
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">download</span>
+                            Unduh PDF
+                        </button>
+                    </div>
+                @endif
             </div>
 
             @if($scope === 'catur-wulan')
@@ -251,5 +262,7 @@
                 </div>
             @endif
         </section>
+
+        @include('public.partials.pdf-viewer')
     </main>
 @endsection
