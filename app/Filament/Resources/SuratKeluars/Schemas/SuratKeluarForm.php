@@ -32,12 +32,13 @@ class SuratKeluarForm
                     ->maxLength(255),
 
                 FileUpload::make('file_surat')
-                    ->label('Arsip Dokumen (PDF/JPG)')
+                    ->label('Arsip Dokumen (PDF/JPG/PNG)')
                     ->disk('public')
                     ->visibility('public')
                     ->directory('arsip-surat-keluar')
                     ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
                     ->maxSize(5120) // Maksimal 5MB
+                    ->helperText('Format: PDF, JPG, atau PNG. Ukuran maksimal 5 MB.')
                     ->columnSpanFull(),
 
                 Hidden::make('user_id')

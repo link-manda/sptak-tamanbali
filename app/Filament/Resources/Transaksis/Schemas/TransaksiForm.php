@@ -51,7 +51,11 @@ class TransaksiForm
                     ->disk('public')
                     ->visibility('public')
                     ->directory('bukti-transaksi')
-                    ->label('Upload Bukti (Opsional)'),
+                    ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+                    ->maxSize(2048)
+                    ->label('Upload Bukti (Opsional)')
+                    ->helperText('Unggah bukti transaksi dalam format PDF, JPG, atau PNG dengan ukuran maksimal 2 MB.')
+                    ->nullable(),
             ]);
     }
 }

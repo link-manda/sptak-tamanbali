@@ -57,9 +57,11 @@ class PrajuruForm
                     ->disk('public')
                     ->directory('foto-prajuru')
                     ->visibility('public')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png'])
                     ->imagePreviewHeight('160')
+                    ->fetchFileInformation(false)
                     ->label('Foto Profil')
-                    ->helperText('Format: JPG, PNG. Ukuran maks: 2MB. Resolusi yang disarankan: 300×300px.')
+                    ->helperText('Format: JPG atau PNG. Ukuran maksimal 2 MB. Resolusi yang disarankan 300 × 300 px.')
                     ->nullable(),
 
                 TextInput::make('urutan')

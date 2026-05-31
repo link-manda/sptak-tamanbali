@@ -45,6 +45,16 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         'password', 'remember_token',
     ];
 
+    public function setAvatarUrlAttribute(?string $value): void
+    {
+        if (is_string($value)) {
+            $value = preg_replace('/\x1B\[[0-?]*[ -\/]*[@-~]/', '', $value);
+            $value = preg_replace('/^;[0-9;]+m/', '', $value);
+        }
+
+        $this->attributes['avatar_url'] = $value;
+    }
+
     /**
      * Method wajib dari FilamentUser untuk keamanan panel.
      * Petajuh & Juru Raksa kini bisa mengakses panel.

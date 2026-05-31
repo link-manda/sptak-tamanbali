@@ -58,7 +58,7 @@ class PanaremForm
                     ->acceptedFileTypes(['application/pdf'])
                     ->maxSize(10240) // 10 MB
                     ->label('Upload Berkas PDF')
-                    ->helperText('Format: PDF. Ukuran maks: 10MB. Dapat diunduh oleh masyarakat.')
+                    ->helperText('Format: PDF. Ukuran maksimal 10 MB. Berkas dapat diunduh oleh masyarakat.')
                     ->nullable()
                     ->downloadable()
                     ->openable(),

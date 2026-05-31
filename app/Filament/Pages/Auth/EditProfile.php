@@ -16,9 +16,14 @@ class EditProfile extends BaseEditProfile
                 FileUpload::make('avatar_url')
                     ->hiddenLabel()
                     ->avatar()
+                    ->disk('public')
+                    ->visibility('public')
                     ->directory('avatars')
                     ->image()
+                    ->acceptedFileTypes(['image/jpeg', 'image/png'])
                     ->maxSize(2048)
+                    ->fetchFileInformation(false)
+                    ->helperText('Format: JPG atau PNG. Ukuran maksimal 2 MB.')
                     ->extraAttributes([
                         'style' => 'display: flex; justify-content: center; margin: 0 auto 1.5rem auto;',
                     ]),
