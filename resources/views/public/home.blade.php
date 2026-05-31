@@ -4,11 +4,13 @@
 
 @section('content')
     <main>
-        <section class="relative flex min-h-[720px] items-center justify-center overflow-hidden">
-            <img class="absolute inset-0 h-full w-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDchMLqsivRJ73El1EzUA_xppgA99G1ZpoAwpc4pOREdAdDvxCz9aA6-KOq3R-SlhUH-yn7lXl2FpLEVwCrCERzqpwYM0N4L61Nbxj_jjims8E9Lw392If_iV-aAjXlmb_R1xR8m1i6wA-ED3p8tI_v6Kaki77hoXKoCLZ4QLYIyhPg4sRv3cYKjm54J0H47ENiZeq0Sa90ibh2bfg7X-zM4y8pm7ahN7TGFlnBPWc6kZ_3-sKSBWtxz2xpcJxlpFXWVc_zdL5JlV0"
-                alt="Gerbang Desa Tamanbali" />
-            <div class="hero-overlay absolute inset-0"></div>
+        <section class="relative flex min-h-[720px] items-center justify-center overflow-hidden bg-primary">
+            <div class="absolute inset-0 h-full w-full opacity-60"
+                style="background-image: url('{{ asset('images/batik_bg.png') }}'); background-repeat: repeat; background-size: 400px;"></div>
+            <div class="hero-overlay absolute inset-0 opacity-60"></div>
+            
+            <!-- Efek fade out/pudar menyatu dengan section bawah -->
+            <div class="absolute bottom-0 left-0 z-10 w-full h-40 bg-gradient-to-t from-surface to-transparent pointer-events-none"></div>
             <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
                 <span
                     class="mb-4 inline-block rounded-full bg-secondary px-4 py-1 text-xs font-bold uppercase tracking-[0.28em] text-white">Digital

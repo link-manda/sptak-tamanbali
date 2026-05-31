@@ -4,11 +4,13 @@
 
 @section('content')
     <main>
-        <section class="relative flex h-[460px] items-center justify-center overflow-hidden">
-            <img class="absolute inset-0 h-full w-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSw8uQdg4btDg3tBcptYQRNlrwty2tCNmuDLknDL2OHcjaWva5Lwey3sTe-f_X-1im_ZTI5q0obR9ELGmSWFbnSxU9xZnh8sqXhm11EpjfRIA8YWImNdCQ2xuBfosDwQmz_R-oK0Ud0tzrSywEMKDV9pypw28IBGwKZJTgK_p_rLMUWfdkLlO_RwQUexyEppkOeVhWOxh_C82x4leC2kfyBXdSMyx-mANY9tJI1N5SYijeLbczlct_F5UU-9UhPF-zLA9DEBg3qE0"
-                alt="Gerbang layanan surat" />
-            <div class="hero-overlay absolute inset-0"></div>
+        <section class="relative flex h-[460px] items-center justify-center overflow-hidden bg-primary">
+            <div class="absolute inset-0 h-full w-full opacity-60"
+                style="background-image: url('{{ asset('images/batik_bg.png') }}'); background-repeat: repeat; background-size: 400px;"></div>
+            <div class="hero-overlay absolute inset-0 opacity-60"></div>
+            
+            <!-- Efek fade out/pudar menyatu dengan section bawah -->
+            <div class="absolute bottom-0 left-0 z-10 w-full h-40 bg-gradient-to-t from-surface to-transparent pointer-events-none"></div>
             <div class="relative z-10 max-w-4xl px-6 text-center">
                 <p class="mb-4 font-headline text-sm font-bold uppercase tracking-[0.3em] text-secondary_fixed_dim">
                     Administrasi Digital</p>
