@@ -2,19 +2,19 @@
     <div class="split-container">
         {{-- Sisi Kiri: Visual & Branding --}}
         <div class="side-visual">
-            <img class="bg-image" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpkzzwEGC1EnzqF-7wpMN7RH41QiC69dplcVoThwFbpSdq1AGEfPJfmspKhtMNad0l9jhbboViDmufgoKOE9o1U-GmM0rfFxv3RJB3uWDeg-QK-E3M-pZ2AxgemuE7jEF0Xv-DwFxgLFgLQXBqk0IEv-YJTWezlHh3ckcblDsSlbyygWa9q5yehYV8I1UREVLnGxsXEhf6seH5ouk31ep_jmISdyg0aBfHHYevLEibDLmocIpp6tt93sXO9FE4eGRaRwdpcM9CUkU" 
-                alt="Pura Desa Adat Tamanbali">
+            <img class="bg-image" src="{{ asset('images/batik_patern.jpeg') }}" alt="Pola batik Desa Adat Tamanbali">
             <div class="bg-overlay"></div>
-            
+
             <div class="visual-content">
                 <div class="brand-badge">
-                    <span class="material-symbols-outlined icon">temple_hindu</span>
+                    <img class="brand-logo" src="{{ asset('images/logo_tamanbali.jpeg') }}"
+                        alt="Logo Desa Adat Tamanbali">
                     <span class="brand-name">SPTAK Tamanbali</span>
                 </div>
                 <h2 class="welcome-text">Rahajeng Rauh, <br><span class="highlight">Prajuru Desa Adat</span></h2>
-                <p class="slogan">Sistem Perangkat Tata Kelola Digital untuk transparansi dan efisiensi administrasi Desa Adat Tamanbali.</p>
-                
+                <p class="slogan">Sistem Perangkat Tata Kelola Digital untuk transparansi dan efisiensi administrasi
+                    Desa Adat Tamanbali.</p>
+
                 <div class="stats-row">
                     <div class="stat-item">
                         <span class="stat-value">100%</span>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="copyright">
                 &copy; {{ date('Y') }} Desa Adat Tamanbali. The Digital Banjar.
             </div>
@@ -44,7 +44,8 @@
                     </a>
 
                     <div class="mobile-brand">
-                        <span class="material-symbols-outlined icon">temple_hindu</span>
+                        <img class="brand-logo" src="{{ asset('images/logo_tamanbali.jpeg') }}"
+                            alt="Logo Desa Adat Tamanbali">
                         <span class="brand-name">SPTAK Tamanbali</span>
                     </div>
 
@@ -63,17 +64,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined&display=swap');
 
         .fi-custom-login-wrapper {
-            --primary-color: #00236f;
+            --primary-color: #3b82f6;
             --secondary-color: #fed65b;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --bg-main: white;
-            --bg-form: white;
-            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --bg-main: #09090b;
+            --bg-form: #09090b;
+
             font-family: 'Inter', sans-serif;
             background: var(--bg-main);
             min-height: 100vh;
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             color: var(--text-main);
             transition: background-color 0.3s, color 0.3s;
         }
@@ -81,7 +83,8 @@
         /* Dark Mode Overrides */
         .dark .fi-custom-login-wrapper,
         :root:has(.dark) .fi-custom-login-wrapper {
-            --primary-color: #3b82f6; /* Lighter blue for dark mode */
+            --primary-color: #3b82f6;
+            /* Lighter blue for dark mode */
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --bg-main: #09090b;
@@ -102,7 +105,9 @@
         }
 
         @media (min-width: 1024px) {
-            .side-visual { display: block; }
+            .side-visual {
+                display: block;
+            }
         }
 
         .bg-image {
@@ -111,6 +116,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.9;
         }
 
         .bg-overlay {
@@ -142,12 +148,24 @@
             margin-bottom: 2rem;
         }
 
-        .brand-badge .icon { font-size: 2.5rem; color: var(--secondary-color); }
-        .brand-badge .brand-name { 
-            font-family: 'Manrope', sans-serif; 
-            font-size: 2rem; 
-            font-weight: 800; 
-            letter-spacing: -0.025em; 
+        .brand-logo {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            object-fit: cover;
+            box-shadow: 0 0 0 3px rgba(254, 214, 91, 0.35);
+        }
+
+        .mobile-brand .brand-logo {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .brand-badge .brand-name {
+            font-family: 'Manrope', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
         }
 
         .welcome-text {
@@ -158,7 +176,9 @@
             margin-bottom: 2rem;
         }
 
-        .welcome-text .highlight { color: var(--secondary-color); }
+        .welcome-text .highlight {
+            color: var(--secondary-color);
+        }
 
         .slogan {
             font-size: 1.25rem;
@@ -174,11 +194,28 @@
             align-items: center;
         }
 
-        .stat-item { display: flex; flex-direction: column; }
-        .stat-value { font-size: 2rem; font-weight: 700; }
-        .stat-label { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.6); }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
 
-        .divider { width: 1px; height: 3rem; background: rgba(255, 255, 255, 0.2); }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .divider {
+            width: 1px;
+            height: 3rem;
+            background: rgba(255, 255, 255, 0.2);
+        }
 
         .copyright {
             position: absolute;
@@ -215,7 +252,9 @@
             transition: color 0.3s;
         }
 
-        .back-link:hover { color: var(--primary-color); }
+        .back-link:hover {
+            color: var(--primary-color);
+        }
 
         .mobile-brand {
             display: flex;
@@ -225,7 +264,11 @@
             margin-bottom: 2rem;
         }
 
-        @media (min-width: 1024px) { .mobile-brand { display: none; } }
+        @media (min-width: 1024px) {
+            .mobile-brand {
+                display: none;
+            }
+        }
 
         .form-title {
             font-family: 'Manrope', sans-serif;

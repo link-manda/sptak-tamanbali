@@ -28,6 +28,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(\App\Filament\Pages\Auth\Login::class)
+            ->brandName('Desa Tamanbali')
+            ->brandLogo(fn () => view('filament.admin.logo'))
+            ->brandLogoHeight('2rem')
             ->databaseNotifications()
             ->colors([
                 'primary' => Color::Blue,

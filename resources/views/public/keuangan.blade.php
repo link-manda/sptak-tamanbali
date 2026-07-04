@@ -5,9 +5,9 @@
 @section('content')
     <main x-data="pdfViewerData()">
         <section class="relative flex h-[450px] items-center overflow-hidden">
-            <img class="absolute inset-0 h-full w-full object-cover opacity-20 grayscale"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpkzzwEGC1EnzqF-7wpMN7RH41QiC69dplcVoThwFbpSdq1AGEfPJfmspKhtMNad0l9jhbboViDmufgoKOE9o1U-GmM0rfFxv3RJB3uWDeg-QK-E3M-pZ2AxgemuE7jEF0Xv-DwFxgLFgLQXBqk0IEv-YJTWezlHh3ckcblDsSlbyygWa9q5yehYV8I1UREVLnGxsXEhf6seH5ouk31ep_jmISdyg0aBfHHYevLEibDLmocIpp6tt93sXO9FE4eGRaRwdpcM9CUkU"
-                alt="Pola tradisional Tamanbali" />
+            <img class="absolute inset-0 h-full w-full object-cover opacity-25 grayscale"
+                src="{{ asset('images/batik_patern.jpeg') }}"
+                alt="Pola batik Desa Adat Tamanbali" />
             <div class="hero-overlay absolute inset-0"></div>
             <div class="relative z-10 mx-auto w-full max-w-7xl px-6">
                 <div class="max-w-2xl">

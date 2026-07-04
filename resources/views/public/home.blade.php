@@ -6,7 +6,7 @@
     <main>
         <section class="relative flex min-h-[720px] items-center justify-center overflow-hidden bg-primary">
             <div class="absolute inset-0 h-full w-full opacity-60"
-                style="background-image: url('{{ asset('images/batik_bg.png') }}'); background-repeat: repeat; background-size: 400px;"></div>
+                style="background-image: url('{{ asset('images/batik_patern.jpeg') }}'); background-repeat: repeat; background-size: 420px;"></div>
             <div class="hero-overlay absolute inset-0 opacity-60"></div>
             
             <!-- Efek fade out/pudar menyatu dengan section bawah -->

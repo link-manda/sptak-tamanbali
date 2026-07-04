@@ -82,10 +82,11 @@
 <body class="bg-surface text-on_surface font-body">
     <header class="sticky top-0 z-50 bg-white/75 backdrop-blur-xl shadow-sky">
         <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
-            <a class="flex items-center gap-2 font-headline text-xl font-extrabold tracking-tight text-primary"
+            <a class="flex items-center gap-3 font-headline text-xl font-extrabold tracking-tight text-primary"
                 href="{{ route('home') }}">
-                <span class="material-symbols-outlined text-secondary"
-                    style="font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;">temple_hindu</span>
+                <img class="h-11 w-11 rounded-full object-cover ring-2 ring-secondary/30"
+                    src="{{ asset('images/logo_tamanbali.jpeg') }}"
+                    alt="Logo Desa Adat Tamanbali" />
                 <span>Desa Adat Tamanbali</span>
             </a>
 
