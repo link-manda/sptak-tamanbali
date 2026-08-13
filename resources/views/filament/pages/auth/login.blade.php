@@ -11,7 +11,7 @@
                         alt="Logo Desa Adat Tamanbali">
                     <span class="brand-name">SPTAK Tamanbali</span>
                 </div>
-                <h2 class="welcome-text">Rahajeng Rauh, <br><span class="highlight">Prajuru Desa Adat</span></h2>
+                <h2 class="welcome-text">Rahajeng, <br><span class="highlight">Prajuru Desa Adat</span></h2>
                 <p class="slogan">Sistem Perangkat Tata Kelola Digital untuk transparansi dan efisiensi administrasi
                     Desa Adat Tamanbali.</p>
 
