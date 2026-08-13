@@ -1,215 +1,280 @@
 @extends('public.layout')
 
-@section('title', 'Keuangan - Desa Adat Tamanbali')
+@section('title', 'Transparansi Keuangan - Desa Adat Tamanbali')
 
 @section('content')
     <main x-data="pdfViewerData()">
-        <section class="relative flex h-[450px] items-center overflow-hidden">
-            <img class="absolute inset-0 h-full w-full object-cover opacity-25 grayscale"
-                src="{{ asset('images/batik_patern.jpeg') }}"
-                alt="Pola batik Desa Adat Tamanbali" />
-            <div class="hero-overlay absolute inset-0"></div>
-            <div class="relative z-10 mx-auto w-full max-w-7xl px-6">
-                <div class="max-w-2xl">
-                    <span
-                        class="mb-4 block text-xs font-bold uppercase tracking-[0.28em] text-secondary_fixed_dim">Transparansi
-                        Publik</span>
-                    <h1 class="mb-6 font-headline text-5xl font-extrabold tracking-tight text-white">Keuangan Digital Desa
-                        Adat Tamanbali</h1>
-                    <p class="text-lg leading-8 text-primary_fixed_dim">Akses informasi pengelolaan dana desa secara terbuka,
-                        akuntabel, dan profesional demi mewujudkan tata kelola banjar yang mandiri.</p>
+        <!-- 1. Hero Section -->
+        <section class="relative flex min-h-[440px] items-center justify-center overflow-hidden bg-primary px-6 pt-16 pb-24 text-white">
+            <div class="absolute inset-0 h-full w-full opacity-40 mix-blend-luminosity"
+                style="background-image: url('{{ asset('images/batik_patern.jpeg') }}'); background-repeat: repeat; background-size: 420px;"></div>
+            
+            <div class="hero-overlay absolute inset-0 opacity-85"></div>
+
+            <div class="relative z-10 mx-auto max-w-4xl text-center">
+                <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
+                    <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
+                    <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
+                        Akuntabilitas &amp; Transparansi Kas Desa
+                    </span>
                 </div>
+                <h1 class="mb-5 font-serif_display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+                    Pengelolaan Dana Desa Adat
+                </h1>
+                <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
+                    Akses keterbukaan publik atas pencatatan penerimaan, punia krama, dan realisasi belanja kegiatan adat secara profesional, jujur, dan bertanggung jawab.
+                </p>
+            </div>
+
+            <div class="absolute bottom-0 left-0 z-10 w-full h-24 bg-gradient-to-t from-surface to-transparent pointer-events-none"></div>
+        </section>
+
+        <!-- 2. Scope Filter Pills -->
+        <section class="relative z-20 -mt-8 mx-auto max-w-5xl px-6">
+            <div class="flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-black/[0.08] bg-white p-3 shadow-hover_card">
+                <a href="{{ route('keuangan', ['scope' => 'rkt', 'tahun' => $tahun]) }}"
+                    class="rounded-xl px-6 py-3 font-headline text-xs font-bold uppercase tracking-wider transition duration-200 {{ $scope === 'rkt' ? 'bg-primary text-white shadow-sm' : 'text-slate-600 hover:bg-surface_container_low hover:text-primary' }}">
+                    Rencana Kegiatan Tahunan (RKT)
+                </a>
+                <a href="{{ route('keuangan', ['scope' => 'catur-wulan', 'tahun' => $tahun]) }}"
+                    class="rounded-xl px-6 py-3 font-headline text-xs font-bold uppercase tracking-wider transition duration-200 {{ $scope === 'catur-wulan' ? 'bg-primary text-white shadow-sm' : 'text-slate-600 hover:bg-surface_container_low hover:text-primary' }}">
+                    Laporan Catur Wulan
+                </a>
+                <a href="{{ route('keuangan', ['scope' => 'realisasi', 'tahun' => $tahun]) }}"
+                    class="rounded-xl px-6 py-3 font-headline text-xs font-bold uppercase tracking-wider transition duration-200 {{ $scope === 'realisasi' ? 'bg-primary text-white shadow-sm' : 'text-slate-600 hover:bg-surface_container_low hover:text-primary' }}">
+                    Realisasi Kegiatan
+                </a>
             </div>
         </section>
 
-        <section class="relative z-20 mx-auto -mt-12 max-w-7xl px-6">
-            <div class="glass-card flex flex-wrap justify-center gap-4 rounded-[28px] p-4 shadow-sky">
-                <a class="{{ $scope === 'rkt' ? 'bg-primary text-white' : 'bg-white text-primary' }} rounded-full px-8 py-4 font-headline text-sm font-bold transition"
-                    href="{{ route('keuangan', ['scope' => 'rkt']) }}">RKT (Rencana Kegiatan Tahunan)</a>
-                <a class="{{ $scope === 'catur-wulan' ? 'bg-primary text-white' : 'bg-white text-primary' }} rounded-full px-8 py-4 font-headline text-sm font-bold transition"
-                    href="{{ route('keuangan', ['scope' => 'catur-wulan']) }}">Catur Wulan</a>
-                <a class="{{ $scope === 'realisasi' ? 'bg-primary text-white' : 'bg-white text-primary' }} rounded-full px-8 py-4 font-headline text-sm font-bold transition"
-                    href="{{ route('keuangan', ['scope' => 'realisasi']) }}">Realisasi Kegiatan</a>
-            </div>
-        </section>
-
-        <section class="mx-auto max-w-7xl px-6 py-16">
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-                <div class="glass-card rounded-[28px] border border-outline_variant/10 p-8 shadow-sky md:col-span-2">
-                    <div class="mb-8 flex items-start justify-between gap-6">
-                        <div>
-                            <p class="mb-1 font-medium text-slate-500">Total Kas Desa Saat Ini</p>
-                            <h2 class="font-headline text-4xl font-extrabold tracking-tight text-primary">Rp
-                                {{ number_format($saldoKas, 0, ',', '.') }}</h2>
-                        </div>
-                        <span
-                            class="rounded-full bg-tertiary_container px-3 py-1 text-xs font-bold text-tertiary_fixed">{{ $totalPemasukan > $totalPengeluaran ? '+' : '-' }}{{ number_format((abs($totalPemasukan - $totalPengeluaran) / max($totalPemasukan ?: 1, 1)) * 100, 0) }}%
-                            saldo</span>
-                    </div>
-                    <div class="mb-4 flex h-32 items-end gap-2">
-                        @foreach ($grafikKas as $value)
-                            @php
-                                $height = max(
-                                    22,
-                                    min(100, $saldoKas > 0 ? intval(($value / max($saldoKas, 1)) * 100) : 22),
-                                );
-                            @endphp
-                            <div class="w-full rounded-t-xl {{ $loop->last ? 'bg-primary' : 'bg-blue-200' }}"
-                                style="height: {{ $height }}%"></div>
-                        @endforeach
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-slate-400">Update Terakhir:
-                            {{ $latestUpdate ? \Carbon\Carbon::parse($latestUpdate)->translatedFormat('d M Y') : '-' }}</span>
-                        <a class="flex items-center gap-1 font-bold text-primary" href="#riwayat-anggaran">Lihat Detail
-                            <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
-                    </div>
-                </div>
-
-                <div class="relative overflow-hidden rounded-[28px] bg-primary p-8 text-white shadow-sky">
-                    <div class="relative z-10">
-                        <span class="material-symbols-outlined mb-4 text-4xl text-secondary_fixed_dim"
-                            style="font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;">account_balance</span>
-                        <h3 class="mb-2 font-headline text-2xl font-bold">Dana Hibah &amp; Donasi</h3>
-                        <p class="text-sm leading-6 text-primary_fixed_dim">Dana terkumpul dari punia krama dan bantuan
-                            lembaga pendukung tata kelola desa adat.</p>
-                        <div class="mt-10 font-headline text-4xl font-extrabold">Rp
-                            {{ number_format($hibahDonasi, 0, ',', '.') }}</div>
-                    </div>
-                    <div class="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="riwayat-anggaran" class="mx-auto max-w-7xl px-6 pb-24" x-data="{ activeCW: '{{ $caturWulanData[0]['id'] ?? '' }}' }">
-            <div class="mb-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div class="flex flex-wrap items-center gap-4">
-                    <h3 class="font-headline text-3xl font-extrabold tracking-tight text-on_surface">
-                        {{ $scope === 'catur-wulan' ? 'Laporan Catur Wulan' : 'Riwayat Anggaran Terbaru' }}
-                    </h3>
-                    
-                    {{-- Dropdown Pemilihan Tahun --}}
-                    @if($availableYears->isNotEmpty())
-                        <div class="relative inline-block text-left">
-                            <form action="{{ route('keuangan') }}" method="GET" class="relative">
-                                <input type="hidden" name="scope" value="{{ $scope }}">
-                                <select name="tahun" onchange="this.form.submit()" 
-                                    class="cursor-pointer appearance-none rounded-xl border-none bg-surface_container_high py-2 pl-4 pr-10 text-sm font-bold text-primary shadow-sm focus:ring-2 focus:ring-primary">
-                                    @foreach($availableYears as $y)
-                                        <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-primary">
-                                    <span class="material-symbols-outlined text-sm">expand_more</span>
+        <!-- 3. Financial Overview Bento Grid -->
+        <section class="mx-auto max-w-7xl px-6 py-14">
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                
+                <!-- Card 1: Saldo Kas & Mini Chart (2 Cols) -->
+                <div class="rounded-2xl border border-black/[0.08] bg-white p-7 shadow-subtle lg:col-span-2 flex flex-col justify-between">
+                    <div>
+                        <div class="flex flex-wrap items-start justify-between gap-4">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Saldo Kas Bersih Desa</span>
+                                <div class="mt-2 font-headline text-3xl sm:text-5xl font-extrabold text-primary tabular-nums tracking-tight">
+                                    Rp {{ number_format($saldoKas, 0, ',', '.') }}
                                 </div>
-                            </form>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-headline text-xs font-bold border {{ $totalPemasukan >= $totalPengeluaran ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-red-50 text-red-800 border-red-200' }}">
+                                <span class="h-1.5 w-1.5 rounded-full {{ $totalPemasukan >= $totalPengeluaran ? 'bg-emerald-600' : 'bg-red-600' }}"></span>
+                                {{ $totalPemasukan >= $totalPengeluaran ? 'Surplus Anggaran' : 'Defisit Anggaran' }}
+                            </span>
                         </div>
+
+                        <!-- Pill Rincian In & Out -->
+                        <div class="mt-5 flex flex-wrap gap-3 text-xs">
+                            <div class="flex items-center gap-2 rounded-xl bg-surface_container_low px-4 py-2 text-slate-700">
+                                <span class="material-symbols-outlined text-emerald-600 text-base">arrow_downward</span>
+                                <span>Penerimaan: <strong class="text-emerald-700 font-bold">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</strong></span>
+                            </div>
+                            <div class="flex items-center gap-2 rounded-xl bg-surface_container_low px-4 py-2 text-slate-700">
+                                <span class="material-symbols-outlined text-amber-700 text-base">arrow_upward</span>
+                                <span>Pengeluaran: <strong class="text-amber-800 font-bold">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Mini Bar Chart -->
+                        <div class="mt-8">
+                            <div class="mb-2 flex items-center justify-between text-xs text-slate-400 font-medium">
+                                <span>Aktivitas Kas Masuk 4 Bulan Terakhir</span>
+                                <span>Indeks Fluktuasi</span>
+                            </div>
+                            <div class="flex h-24 items-end gap-3 rounded-xl bg-surface_container_low/60 p-3">
+                                @foreach ($grafikKas as $value)
+                                    @php
+                                        $height = max(18, min(100, $saldoKas > 0 ? intval(($value / max($saldoKas, 1)) * 100) : 18));
+                                    @endphp
+                                    <div class="group relative flex-1 flex flex-col items-center justify-end h-full">
+                                        <div class="w-full rounded-t-lg transition-all duration-300 {{ $loop->last ? 'bg-primary group-hover:bg-primary_container' : 'bg-primary/25 group-hover:bg-primary/40' }}"
+                                            style="height: {{ $height }}%"></div>
+                                        <span class="mt-1 text-[10px] font-bold text-slate-400">B{{ $loop->iteration }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex items-center justify-between border-t border-black/[0.06] pt-4 text-xs">
+                        <span class="text-slate-400 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm">schedule</span>
+                            Update Terakhir: <strong class="text-slate-600">{{ $latestUpdate ? \Carbon\Carbon::parse($latestUpdate)->translatedFormat('d F Y') : '-' }}</strong>
+                        </span>
+                        <a href="#riwayat-anggaran" class="flex items-center gap-1 font-bold text-primary hover:underline">
+                            <span>Rincian Buku Kas</span>
+                            <span class="material-symbols-outlined text-sm">arrow_downward</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Dana Punia & Hibah (1 Col) -->
+                <div class="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-primary p-7 text-white shadow-subtle">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-secondary_fixed_dim backdrop-blur-md">
+                                <span class="material-symbols-outlined text-2xl">volunteer_activism</span>
+                            </div>
+                            <span class="rounded-full border border-white/15 bg-white/10 px-3 py-1 font-headline text-[10px] font-bold uppercase tracking-wider text-heritage_gold_light">
+                                Sumber Bantuan
+                            </span>
+                        </div>
+
+                        <div class="my-6">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-primary_fixed_dim/80">Dana Punia &amp; Hibah</span>
+                            <div class="mt-2 font-headline text-3xl sm:text-4xl font-extrabold text-white tabular-nums tracking-tight">
+                                Rp {{ number_format($hibahDonasi, 0, ',', '.') }}
+                            </div>
+                            <p class="mt-3 text-xs leading-relaxed text-primary_fixed_dim">
+                                Total perolehan punia sukarela krama adat serta dana hibah dari instansi pemerintah/lembaga yang dialokasikan khusus untuk kelangsungan upakara dan operasional desa.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 border-t border-white/10 pt-4 text-xs text-primary_fixed_dim flex items-center justify-between">
+                        <span>Pencatatan Buku Kas Khusus</span>
+                        <span class="material-symbols-outlined text-sm text-secondary_fixed_dim">verified</span>
+                    </div>
+
+                    <div class="absolute -bottom-12 -right-12 h-44 w-44 rounded-full bg-secondary/15 blur-3xl pointer-events-none"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Riwayat & Laporan Anggaran -->
+        <section id="riwayat-anggaran" class="mx-auto max-w-7xl px-6 pb-24" x-data="{ activeCW: '{{ $caturWulanData[0]['id'] ?? '' }}' }">
+            
+            <!-- Section Header Bar -->
+            <div class="mb-8 flex flex-col gap-4 border-b border-black/[0.06] pb-5 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex flex-wrap items-center gap-4">
+                    <div>
+                        <span class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-heritage_gold">Buku Kas Desa</span>
+                        <h2 class="mt-1 font-serif_display text-2xl sm:text-3xl font-bold text-primary">
+                            {{ $scope === 'catur-wulan' ? 'Laporan Berkala Catur Wulan' : ($scope === 'realisasi' ? 'Laporan Realisasi Anggaran' : 'Rencana Kegiatan Tahunan') }}
+                        </h2>
+                    </div>
+
+                    <!-- Year Selector Form -->
+                    @if($availableYears->isNotEmpty())
+                        <form action="{{ route('keuangan') }}" method="GET" class="relative">
+                            <input type="hidden" name="scope" value="{{ $scope }}">
+                            <select name="tahun" onchange="this.form.submit()"
+                                class="cursor-pointer appearance-none rounded-xl border border-black/[0.08] bg-white py-2 pl-4 pr-9 font-headline text-xs font-bold text-primary shadow-subtle transition hover:border-primary/40 focus:ring-2 focus:ring-primary">
+                                @foreach($availableYears as $y)
+                                    <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>Tahun Anggaran {{ $y }}</option>
+                                @endforeach
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-primary">
+                                <span class="material-symbols-outlined text-base">expand_more</span>
+                            </div>
+                        </form>
                     @endif
                 </div>
 
+                <!-- Action Button for Realisasi (PDF Viewer) -->
                 @if($scope === 'realisasi')
-                    <div class="flex gap-3">
+                    <div class="flex items-center gap-3">
                         <button
                             @click="openDoc('{{ route('keuangan.laporan', ['tahun' => $tahun, 'aksi' => 'preview'], false) }}')"
-                            class="inline-flex items-center gap-2 rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface transition hover:bg-surface_container_highest">
-                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">visibility</span>
-                            Preview PDF
-                        </button>
-                        <button type="button" disabled
-                            class="inline-flex cursor-not-allowed items-center gap-2 rounded-lg bg-surface_container_high px-4 py-2 text-sm font-semibold text-on_surface_variant opacity-50">
-                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">download</span>
-                            Unduh PDF
+                            class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 font-headline text-xs font-bold text-white shadow-sm transition hover:bg-primary_container hover:shadow">
+                            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                            <span>Preview Laporan PDF</span>
                         </button>
                     </div>
                 @endif
             </div>
 
+            <!-- View 1: Catur Wulan View (Accordion) -->
             @if($scope === 'catur-wulan')
-                <div class="space-y-6">
+                <div class="space-y-5">
                     @forelse($caturWulanData as $cw)
-                        <div class="overflow-hidden rounded-[28px] bg-white shadow-sky transition-all duration-300 border border-outline_variant/5">
-                            {{-- Accordion Header --}}
+                        <div class="overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-subtle transition-all duration-200">
+                            <!-- Accordion Header Button -->
                             <button @click="activeCW = (activeCW === '{{ $cw['id'] }}' ? '' : '{{ $cw['id'] }}')"
-                                class="flex w-full items-center justify-between p-6 text-left transition"
-                                :class="activeCW === '{{ $cw['id'] }}' ? 'bg-primary text-white' : 'bg-white text-on_surface hover:bg-surface_container_low/50'">
+                                class="flex w-full items-center justify-between p-6 text-left transition duration-200"
+                                :class="activeCW === '{{ $cw['id'] }}' ? 'bg-primary text-white' : 'hover:bg-surface_container_low/50'">
                                 
                                 <div class="flex items-center gap-4">
-                                    <div class="flex h-10 w-10 items-center justify-center rounded-full transition-colors"
-                                        :class="activeCW === '{{ $cw['id'] }}' ? 'bg-white/20' : 'bg-primary/10'">
-                                        <span class="material-symbols-outlined text-sm">calendar_month</span>
+                                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors"
+                                        :class="activeCW === '{{ $cw['id'] }}' ? 'bg-white/20 text-white' : 'bg-primary/5 text-primary'">
+                                        <span class="material-symbols-outlined text-lg">calendar_month</span>
                                     </div>
                                     <div>
-                                        <span class="font-headline text-xl font-bold transition-colors">{{ $cw['label'] }}</span>
-                                        <div class="text-[10px] font-medium uppercase tracking-wider opacity-70 transition-colors"
-                                            :class="activeCW === '{{ $cw['id'] }}' ? 'text-white' : 'text-slate-500'">
+                                        <div class="font-serif_display text-lg sm:text-xl font-bold transition-colors">
+                                            {{ $cw['label'] }}
+                                        </div>
+                                        <div class="text-[10px] font-semibold uppercase tracking-wider opacity-75">
                                             {{ $cw['items']->count() }} Transaksi Tercatat
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="flex items-center gap-8">
-                                    <div class="hidden lg:flex items-center gap-6">
-                                        <div class="text-right">
+                                <div class="flex items-center gap-6">
+                                    <div class="hidden sm:flex items-center gap-6 text-right text-xs">
+                                        <div>
                                             <p class="text-[10px] uppercase opacity-70">Pengeluaran</p>
-                                            <p class="font-bold">Rp {{ number_format($cw['totals']['pengeluaran'], 0, ',', '.') }}</p>
+                                            <p class="font-bold tabular-nums">Rp {{ number_format($cw['totals']['pengeluaran'], 0, ',', '.') }}</p>
                                         </div>
-                                        <div class="h-8 w-px bg-current opacity-20"></div>
-                                        <div class="text-right">
+                                        <div class="h-6 w-px bg-current opacity-20"></div>
+                                        <div>
                                             <p class="text-[10px] uppercase opacity-70">Saldo CW</p>
-                                            <p class="font-bold transition-colors"
-                                               :class="{
-                                                   'text-white': activeCW === '{{ $cw['id'] }}',
-                                                   'text-green-600': activeCW !== '{{ $cw['id'] }}' && {{ $cw['totals']['saldo'] }} >= 0,
-                                                   'text-error': activeCW !== '{{ $cw['id'] }}' && {{ $cw['totals']['saldo'] }} < 0
-                                               }">
+                                            <p class="font-extrabold tabular-nums transition-colors"
+                                                :class="{
+                                                    'text-white': activeCW === '{{ $cw['id'] }}',
+                                                    'text-emerald-600': activeCW !== '{{ $cw['id'] }}' && {{ $cw['totals']['saldo'] }} >= 0,
+                                                    'text-red-600': activeCW !== '{{ $cw['id'] }}' && {{ $cw['totals']['saldo'] }} < 0
+                                                }">
                                                 Rp {{ number_format($cw['totals']['saldo'], 0, ',', '.') }}
                                             </p>
                                         </div>
                                     </div>
-                                    <span class="material-symbols-outlined transition-transform duration-300" 
+                                    <span class="material-symbols-outlined transition-transform duration-300"
                                         :class="activeCW === '{{ $cw['id'] }}' ? 'rotate-180 text-white' : 'text-primary'">
-                                        keyboard_arrow_down
+                                        expand_more
                                     </span>
                                 </div>
                             </button>
 
-                            {{-- Accordion Content (Table) --}}
-                            <div x-show="activeCW === '{{ $cw['id'] }}'" 
-                                x-cloak
-                                x-collapse
-                                class="border-t border-slate-100">
+                            <!-- Accordion Body Table -->
+                            <div x-show="activeCW === '{{ $cw['id'] }}'" x-cloak x-collapse class="border-t border-black/[0.06]">
                                 <div class="overflow-x-auto">
-                                    <table class="w-full border-collapse text-left">
+                                    <table class="w-full border-collapse text-left text-sm">
                                         <thead>
-                                            <tr class="bg-surface_container_low/50">
-                                                <th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-slate-500">Kegiatan</th>
-                                                <th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-slate-500">Kategori</th>
-                                                <th class="px-8 py-4 text-right text-xs font-bold uppercase tracking-widest text-slate-500">Jumlah</th>
+                                            <tr class="bg-surface_container_low/60 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                                                <th class="px-6 py-3.5">Keterangan Kegiatan</th>
+                                                <th class="px-6 py-3.5">Kategori</th>
+                                                <th class="px-6 py-3.5 text-right">Nominal</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="divide-y divide-black/[0.04]">
                                             @foreach ($cw['items'] as $row)
-                                                <tr class="border-t border-slate-100 align-top hover:bg-slate-50/50 transition">
-                                                    <td class="px-8 py-5">
+                                                <tr class="hover:bg-slate-50/70 transition">
+                                                    <td class="px-6 py-4">
                                                         <div class="font-semibold text-primary">{{ $row->keterangan }}</div>
-                                                        <div class="text-[10px] text-slate-400">
-                                                            {{ \Carbon\Carbon::parse($row->tanggal_transaksi)->translatedFormat('d M Y') }}
+                                                        <div class="text-[11px] text-slate-400">
+                                                            {{ \Carbon\Carbon::parse($row->tanggal_transaksi)->translatedFormat('d F Y') }}
                                                         </div>
                                                     </td>
-                                                    <td class="px-8 py-5 text-sm text-slate-600">
+                                                    <td class="px-6 py-4 text-xs font-medium text-slate-600">
                                                         {{ $row->kategori->nama_kategori ?? '-' }}
                                                     </td>
-                                                    <td class="px-8 py-5 text-right text-sm font-bold {{ $row->jenis === 'pemasukan' ? 'text-green-600' : 'text-error' }}">
-                                                        {{ $row->jenis === 'pemasukan' ? '+' : '-' }} Rp
-                                                        {{ number_format($row->nominal, 0, ',', '.') }}
+                                                    <td class="px-6 py-4 text-right font-bold tabular-nums {{ $row->jenis === 'pemasukan' ? 'text-emerald-700' : 'text-amber-800' }}">
+                                                        {{ $row->jenis === 'pemasukan' ? '+' : '-' }} Rp {{ number_format($row->nominal, 0, ',', '.') }}
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                         <tfoot>
-                                            <tr class="bg-surface_container_low/20 border-t-2 border-slate-100">
-                                                <td colspan="2" class="px-8 py-4 text-sm font-bold text-slate-700 text-right">Total Akhir Periode</td>
-                                                <td class="px-8 py-4 text-right text-sm font-extrabold text-primary">
+                                            <tr class="border-t-2 border-black/[0.08] bg-surface_container_low/40">
+                                                <td colspan="2" class="px-6 py-4 text-xs font-bold text-slate-700 text-right uppercase tracking-wider">
+                                                    Saldo Akhir Periode
+                                                </td>
+                                                <td class="px-6 py-4 text-right font-extrabold text-primary tabular-nums">
                                                     Rp {{ number_format($cw['totals']['saldo'], 0, ',', '.') }}
                                                 </td>
                                             </tr>
@@ -219,48 +284,55 @@
                             </div>
                         </div>
                     @empty
-                        <div class="rounded-[28px] bg-surface_container_low/30 p-12 text-center">
-                            <span class="material-symbols-outlined text-5xl text-slate-300 mb-4">account_balance_wallet</span>
-                            <p class="text-slate-500">Belum ada catatan transaksi untuk tahun {{ $tahun }}.</p>
+                        <div class="rounded-2xl border border-black/[0.08] bg-white p-12 text-center">
+                            <span class="material-symbols-outlined text-5xl text-slate-300 mb-3 block">account_balance_wallet</span>
+                            <h3 class="font-serif_display text-xl font-bold text-primary">Belum Ada Catatan Transaksi</h3>
+                            <p class="mt-1 text-xs text-on_surface_variant">Tidak ditemukan data transaksi untuk tahun anggaran {{ $tahun }}.</p>
                         </div>
                     @endforelse
                 </div>
+
+            <!-- View 2: Standar RKT & Realisasi View (Table) -->
             @else
-                <div class="overflow-hidden rounded-[28px] bg-white shadow-sky border border-outline_variant/5">
-                    <table class="w-full border-collapse text-left">
-                        <thead class="bg-surface_container_high">
-                            <tr>
-                                <th class="px-8 py-4 text-sm font-bold">Keterangan Kegiatan</th>
-                                <th class="px-8 py-4 text-sm font-bold">Kategori</th>
-                                <th class="px-8 py-4 text-sm font-bold text-right">Jumlah</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($riwayatAnggaran as $row)
-                                <tr class="border-t border-slate-100 align-top odd:bg-white even:bg-surface_container_low/30 hover:bg-slate-50 transition">
-                                    <td class="px-8 py-5">
-                                        <div class="font-semibold text-primary">{{ $row->keterangan }}</div>
-                                        <div class="text-xs text-slate-400">
-                                            {{ \Carbon\Carbon::parse($row->tanggal_transaksi)->translatedFormat('d M Y') }}
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-5 text-sm italic text-slate-600">
-                                        {{ $row->kategori->nama_kategori ?? '-' }}</td>
-                                    <td class="px-8 py-5 text-right text-sm font-bold {{ $row->jenis === 'pemasukan' ? 'text-green-600' : 'text-error' }}">
-                                        {{ $row->jenis === 'pemasukan' ? '+' : '-' }} Rp
-                                        {{ number_format($row->nominal, 0, ',', '.') }}</td>
+                <div class="overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-subtle">
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse text-left text-sm">
+                            <thead>
+                                <tr class="bg-surface_container_low/80 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                                    <th class="px-6 py-4">Keterangan Kegiatan</th>
+                                    <th class="px-6 py-4">Kategori Anggaran</th>
+                                    <th class="px-6 py-4 text-right">Jumlah (Rp)</th>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td class="px-8 py-12 text-center text-sm text-slate-500" colspan="3">
-                                        Belum ada data anggaran untuk periode ini.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="divide-y divide-black/[0.04]">
+                                @forelse ($riwayatAnggaran as $row)
+                                    <tr class="hover:bg-slate-50/70 transition">
+                                        <td class="px-6 py-4">
+                                            <div class="font-semibold text-primary">{{ $row->keterangan }}</div>
+                                            <div class="text-[11px] text-slate-400">
+                                                {{ \Carbon\Carbon::parse($row->tanggal_transaksi)->translatedFormat('d F Y') }}
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-xs font-medium text-slate-600">
+                                            {{ $row->kategori->nama_kategori ?? '-' }}
+                                        </td>
+                                        <td class="px-6 py-4 text-right font-bold tabular-nums {{ $row->jenis === 'pemasukan' ? 'text-emerald-700' : 'text-amber-800' }}">
+                                            {{ $row->jenis === 'pemasukan' ? '+' : '-' }} Rp {{ number_format($row->nominal, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="px-6 py-12 text-center text-xs text-slate-500">
+                                            Belum ada data transaksi yang tercatat untuk periode ini.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             @endif
+
         </section>
 
         @include('public.partials.pdf-viewer')

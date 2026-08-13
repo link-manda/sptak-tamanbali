@@ -4,64 +4,93 @@
 
 @section('content')
     <main>
-        <section class="relative overflow-hidden bg-primary px-6 py-24 text-white">
-            <div class="absolute inset-0 hero-overlay opacity-90"></div>
-            <div class="relative mx-auto max-w-7xl">
-                <p class="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-secondary_fixed_dim">Struktur Organisasi</p>
-                <h1 class="max-w-3xl font-headline text-5xl font-extrabold tracking-tight md:text-6xl">Susunan Prajuru Desa
-                    Adat</h1>
-                <p class="mt-6 max-w-2xl text-lg leading-8 text-primary_fixed_dim">Tim prajuru menjaga irama administrasi,
-                    keuangan, dan pelayanan desa adat agar berjalan tertib dan dapat dipertanggungjawabkan.</p>
+        <!-- 1. Hero Section -->
+        <section class="relative flex min-h-[440px] items-center justify-center overflow-hidden bg-primary px-6 pt-16 pb-24 text-white">
+            <div class="absolute inset-0 h-full w-full opacity-40 mix-blend-luminosity"
+                style="background-image: url('{{ asset('images/batik_patern.jpeg') }}'); background-repeat: repeat; background-size: 420px;"></div>
+            
+            <div class="hero-overlay absolute inset-0 opacity-85"></div>
+
+            <div class="relative z-10 mx-auto max-w-4xl text-center">
+                <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
+                    <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
+                    <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
+                        Pamong &amp; Tata Kelola Adat
+                    </span>
+                </div>
+                <h1 class="mb-5 font-serif_display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+                    Susunan Prajuru Desa Adat
+                </h1>
+                <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
+                    Para pengemban amanah paruman yang menjaga ketertiban administrasi, akuntabilitas keuangan, dan keharmonisan kehidupan krama Desa Adat Tamanbali.
+                </p>
             </div>
+
+            <div class="absolute bottom-0 left-0 z-10 w-full h-24 bg-gradient-to-t from-surface to-transparent pointer-events-none"></div>
         </section>
 
-        <section class="bg-surface px-6 py-20">
+        <!-- 2. Manggal Desa Adat (Core Executive Board) -->
+        <section class="bg-surface px-6 py-16">
             <div class="mx-auto max-w-7xl">
-                <div class="mb-8">
-                    <p class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">Manggal Desa Adat</p>
-                    <h2 class="font-headline text-3xl font-extrabold text-primary">Penggerak utama tata kelola desa</h2>
+                <div class="mb-12 border-b border-black/[0.06] pb-5">
+                    <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Penggerak Utama</span>
+                    <h2 class="mt-1 font-serif_display text-3xl sm:text-4xl font-bold text-primary">
+                        Manggal Desa Adat
+                    </h2>
+                    <p class="mt-1 text-xs text-on_surface_variant">Pucuk pimpinan kepengurusan yang mengayomi dan mengoordinasikan seluruh tata kelola desa.</p>
                 </div>
 
                 @if ($coreTeam->isEmpty())
-                    <p class="text-on_surface_variant italic">Data prajuru belum tersedia.</p>
+                    <div class="rounded-2xl border border-black/[0.08] bg-white p-12 text-center">
+                        <span class="material-symbols-outlined text-5xl text-slate-300 mb-3 block">groups</span>
+                        <p class="text-xs text-on_surface_variant">Data prajuru inti belum tersedia.</p>
+                    </div>
                 @else
-                    <div class="grid gap-6 lg:grid-cols-3">
+                    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                         @foreach ($coreTeam as $member)
-                            <article class="flex flex-col items-center rounded-[28px] bg-white p-8 shadow-sky text-center">
-                                {{-- Foto profil --}}
-                                <div class="mb-5 h-24 w-24 overflow-hidden rounded-full ring-4 ring-primary/10">
-                                    <img src="{{ $member->foto_url }}" alt="Foto {{ $member->nama_lengkap }}"
-                                        class="h-full w-full object-cover" />
-                                </div>
-                                <div class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">
-                                    {{ $member->jabatan }}</div>
-                                <h3 class="font-headline text-2xl font-extrabold text-primary">{{ $member->nama_lengkap }}
-                                </h3>
-                                @if ($member->deskripsi)
-                                    <p class="mt-4 text-sm leading-7 text-on_surface_variant">{{ $member->deskripsi }}</p>
-                                @endif
+                            <article class="flex flex-col justify-between rounded-2xl border border-black/[0.08] bg-white p-8 shadow-subtle transition duration-300 hover:border-primary/30 hover:shadow-hover_card">
+                                <div>
+                                    <!-- Foto Profil -->
+                                    <div class="flex flex-col items-center text-center">
+                                        <div class="relative mb-5 h-28 w-28 overflow-hidden rounded-full ring-4 ring-heritage_gold/30 shadow-md">
+                                            <img src="{{ $member->foto_url }}" alt="Foto {{ $member->nama_lengkap }}"
+                                                class="h-full w-full object-cover" />
+                                        </div>
+                                        <span class="rounded-full bg-surface_container_low px-3 py-1 font-headline text-[10px] font-bold uppercase tracking-wider text-heritage_gold border border-black/[0.06]">
+                                            {{ $member->jabatan }}
+                                        </span>
+                                        <h3 class="mt-3 font-serif_display text-2xl font-bold text-primary">
+                                            {{ $member->nama_lengkap }}
+                                        </h3>
+                                    </div>
 
-                                {{-- Sub-Jabatan (Hierarki - e.g. Juru Raksa di bawah Petengen) --}}
+                                    @if ($member->deskripsi)
+                                        <p class="mt-4 text-center text-xs leading-relaxed text-on_surface_variant">
+                                            {{ $member->deskripsi }}
+                                        </p>
+                                    @endif
+                                </div>
+
+                                <!-- Sub-Jabatan / Hierarki (Staf/Juru Raksa) -->
                                 @if ($member->children->isNotEmpty())
-                                    <div class="mt-8 w-full border-t border-surface_container_low pt-6">
-                                        <p class="mb-4 text-[10px] font-bold uppercase tracking-widest text-secondary/60">
-                                            Bawahan / Staf</p>
-                                        <div class="space-y-4">
+                                    <div class="mt-8 border-t border-black/[0.06] pt-5">
+                                        <span class="mb-3 block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                                            Perangkat Pendukung / Staf
+                                        </span>
+                                        <div class="space-y-3">
                                             @foreach ($member->children as $child)
-                                                <div
-                                                    class="flex items-center gap-4 rounded-2xl bg-surface_container_low/30 p-3 text-left ring-1 ring-inset ring-surface_container_low">
-                                                    <div
-                                                        class="h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-white">
-                                                        <img src="{{ $child->foto_url }}"
-                                                            alt="Foto {{ $child->nama_lengkap }}"
+                                                <div class="flex items-center gap-3.5 rounded-xl bg-surface_container_low/70 p-3">
+                                                    <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full ring-1 ring-primary/20">
+                                                        <img src="{{ $child->foto_url }}" alt="Foto {{ $child->nama_lengkap }}"
                                                             class="h-full w-full object-cover" />
                                                     </div>
-                                                    <div>
-                                                        <div
-                                                            class="text-[9px] font-bold uppercase tracking-wider text-secondary">
-                                                            {{ $child->jabatan }}</div>
-                                                        <div class="font-headline text-sm font-bold text-primary">
-                                                            {{ $child->nama_lengkap }}</div>
+                                                    <div class="min-w-0 flex-1">
+                                                        <div class="text-[10px] font-bold uppercase tracking-wider text-heritage_gold">
+                                                            {{ $child->jabatan }}
+                                                        </div>
+                                                        <div class="font-headline text-xs font-bold text-primary truncate">
+                                                            {{ $child->nama_lengkap }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -75,47 +104,62 @@
             </div>
         </section>
 
-        <section class="bg-surface_container_low px-6 py-20">
+        <!-- 3. Kelian Banjar Adat -->
+        <section class="bg-surface_container_low px-6 py-20 border-t border-black/[0.06]">
             <div class="mx-auto max-w-7xl">
-                <div class="mb-8">
-                    <p class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">Kelian Banjar</p>
-                    <h2 class="font-headline text-3xl font-extrabold text-primary">Perwakilan banjar yang terhubung</h2>
+                <div class="mb-10 border-b border-black/[0.06] pb-4">
+                    <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Perwakilan Wilayah</span>
+                    <h2 class="mt-1 font-serif_display text-3xl font-bold text-primary">
+                        Kelian Banjar Adat
+                    </h2>
+                    <p class="mt-1 text-xs text-on_surface_variant">Penghubung aspirasi krama di masing-masing banjar adat se-wilayah Tamanbali.</p>
                 </div>
-                <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+
+                <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($banjarLeaders as $leader)
-                        <article class="glass-card rounded-[28px] p-7 shadow-sky">
-                            <div
-                                class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary_container text-white">
-                                <span class="material-symbols-outlined">groups</span>
+                        <article class="flex items-center gap-4 rounded-2xl border border-black/[0.06] bg-white p-5 shadow-subtle transition hover:border-primary/30">
+                            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/5 text-primary">
+                                <span class="material-symbols-outlined text-2xl">holiday_village</span>
                             </div>
-                            <h3 class="font-headline text-xl font-extrabold text-primary">{{ $leader->kelian_banjar }}</h3>
-                            <p class="mt-2 text-on_surface_variant">{{ $leader->nama_banjar }}</p>
+                            <div class="min-w-0 flex-1">
+                                <div class="font-serif_display text-lg font-bold text-primary truncate">
+                                    {{ $leader->kelian_banjar }}
+                                </div>
+                                <p class="text-xs text-on_surface_variant font-medium">
+                                    Kelian {{ $leader->nama_banjar }}
+                                </p>
+                            </div>
                         </article>
                     @endforeach
                 </div>
             </div>
         </section>
 
+        <!-- 4. Bala Angkep (Jika ada) -->
         @if (!$balaAngkep->isEmpty())
-            <section class="bg-surface px-6 py-20">
+            <section class="bg-surface px-6 py-20 border-t border-black/[0.06]">
                 <div class="mx-auto max-w-7xl">
-                    <div class="mb-8">
-                        <p class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">Kelian Bala Angkep</p>
-                        <h2 class="font-headline text-3xl font-extrabold text-primary">Penanggung jawab koordinasi bala</h2>
+                    <div class="mb-10 border-b border-black/[0.06] pb-4">
+                        <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Koordinasi Bala</span>
+                        <h2 class="mt-1 font-serif_display text-3xl font-bold text-primary">
+                            Kelian Bala Angkep
+                        </h2>
                     </div>
-                    <div class="grid gap-6 lg:grid-cols-3">
+                    <div class="grid gap-6 md:grid-cols-3">
                         @foreach ($balaAngkep as $member)
-                            <article class="rounded-[28px] bg-white p-8 shadow-sky flex flex-col items-center text-center">
-                                <div class="mb-5 h-24 w-24 overflow-hidden rounded-full ring-4 ring-primary/10">
+                            <article class="flex flex-col items-center rounded-2xl border border-black/[0.08] bg-white p-7 text-center shadow-subtle">
+                                <div class="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-heritage_gold/40">
                                     <img src="{{ $member->foto_url }}" alt="Foto {{ $member->nama_lengkap }}"
                                         class="h-full w-full object-cover" />
                                 </div>
-                                <div class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">
-                                    {{ $member->jabatan }}</div>
-                                <h3 class="font-headline text-2xl font-extrabold text-primary">{{ $member->nama_lengkap }}
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-heritage_gold">
+                                    {{ $member->jabatan }}
+                                </span>
+                                <h3 class="mt-1 font-serif_display text-xl font-bold text-primary">
+                                    {{ $member->nama_lengkap }}
                                 </h3>
                                 @if ($member->deskripsi)
-                                    <p class="mt-4 leading-7 text-on_surface_variant text-sm">{{ $member->deskripsi }}</p>
+                                    <p class="mt-2 text-xs leading-relaxed text-on_surface_variant">{{ $member->deskripsi }}</p>
                                 @endif
                             </article>
                         @endforeach
@@ -124,54 +168,65 @@
             </section>
         @endif
 
-        @if (!$sabhaDesa->isEmpty())
-            <section class="bg-surface_container_low px-6 py-20">
-                <div class="mx-auto max-w-7xl">
-                    <div class="mb-8">
-                        <p class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">Sabha Desa</p>
-                        <h2 class="font-headline text-3xl font-extrabold text-primary">Lembaga legislatif dan musyawarah
-                            adat</h2>
-                    </div>
-                    <div class="grid gap-6 lg:grid-cols-4 md:grid-cols-2">
-                        @foreach ($sabhaDesa as $member)
-                            <article class="rounded-[28px] bg-white p-6 shadow-sky flex flex-col items-center text-center">
-                                <div class="mb-4 h-20 w-20 overflow-hidden rounded-full ring-4 ring-primary/10">
-                                    <img src="{{ $member->foto_url }}" alt="Foto {{ $member->nama_lengkap }}"
-                                        class="h-full w-full object-cover" />
-                                </div>
-                                <div class="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-secondary">
-                                    {{ $member->jabatan }}</div>
-                                <h3 class="font-headline text-lg font-extrabold text-primary">{{ $member->nama_lengkap }}
-                                </h3>
-                            </article>
-                        @endforeach
-                    </div>
-                </div>
-            </section>
-        @endif
+        <!-- 5. Sabha Desa & Kerta Desa (Lembaga Musyawarah & Peradilan Adat) -->
+        @if (!$sabhaDesa->isEmpty() || !$kertaDesa->isEmpty())
+            <section class="bg-surface_container_low px-6 py-20 border-t border-black/[0.06]">
+                <div class="mx-auto max-w-7xl space-y-16">
+                    
+                    @if (!$sabhaDesa->isEmpty())
+                        <div>
+                            <div class="mb-8 border-b border-black/[0.06] pb-4">
+                                <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Lembaga Legislatif Adat</span>
+                                <h2 class="mt-1 font-serif_display text-3xl font-bold text-primary">
+                                    Sabha Desa Adat
+                                </h2>
+                            </div>
+                            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach ($sabhaDesa as $member)
+                                    <article class="flex flex-col items-center rounded-2xl border border-black/[0.08] bg-white p-6 text-center shadow-subtle">
+                                        <div class="mb-3 h-16 w-16 overflow-hidden rounded-full ring-2 ring-primary/10">
+                                            <img src="{{ $member->foto_url }}" alt="Foto {{ $member->nama_lengkap }}"
+                                                class="h-full w-full object-cover" />
+                                        </div>
+                                        <span class="text-[9px] font-bold uppercase tracking-wider text-heritage_gold">
+                                            {{ $member->jabatan }}
+                                        </span>
+                                        <h3 class="mt-1 font-headline text-sm font-bold text-primary">
+                                            {{ $member->nama_lengkap }}
+                                        </h3>
+                                    </article>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
 
-        @if (!$kertaDesa->isEmpty())
-            <section class="bg-surface px-6 py-20">
-                <div class="mx-auto max-w-7xl">
-                    <div class="mb-8">
-                        <p class="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-secondary">Kerta Desa</p>
-                        <h2 class="font-headline text-3xl font-extrabold text-primary">Lembaga pertimbangan dan peradilan
-                            adat</h2>
-                    </div>
-                    <div class="grid gap-6 lg:grid-cols-4 md:grid-cols-2">
-                        @foreach ($kertaDesa as $member)
-                            <article class="rounded-[28px] bg-white p-6 shadow-sky flex flex-col items-center text-center">
-                                <div class="mb-4 h-20 w-20 overflow-hidden rounded-full ring-4 ring-primary/10">
-                                    <img src="{{ $member->foto_url }}" alt="Foto {{ $member->nama_lengkap }}"
-                                        class="h-full w-full object-cover" />
-                                </div>
-                                <div class="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-secondary">
-                                    {{ $member->jabatan }}</div>
-                                <h3 class="font-headline text-lg font-extrabold text-primary">{{ $member->nama_lengkap }}
-                                </h3>
-                            </article>
-                        @endforeach
-                    </div>
+                    @if (!$kertaDesa->isEmpty())
+                        <div>
+                            <div class="mb-8 border-b border-black/[0.06] pb-4">
+                                <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Lembaga Peradilan &amp; Pertimbangan</span>
+                                <h2 class="mt-1 font-serif_display text-3xl font-bold text-primary">
+                                    Kerta Desa Adat
+                                </h2>
+                            </div>
+                            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach ($kertaDesa as $member)
+                                    <article class="flex flex-col items-center rounded-2xl border border-black/[0.08] bg-white p-6 text-center shadow-subtle">
+                                        <div class="mb-3 h-16 w-16 overflow-hidden rounded-full ring-2 ring-primary/10">
+                                            <img src="{{ $member->foto_url }}" alt="Foto {{ $member->nama_lengkap }}"
+                                                class="h-full w-full object-cover" />
+                                        </div>
+                                        <span class="text-[9px] font-bold uppercase tracking-wider text-heritage_gold">
+                                            {{ $member->jabatan }}
+                                        </span>
+                                        <h3 class="mt-1 font-headline text-sm font-bold text-primary">
+                                            {{ $member->nama_lengkap }}
+                                        </h3>
+                                    </article>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </section>
         @endif
