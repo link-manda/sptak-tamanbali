@@ -79,23 +79,74 @@
                             </div>
                         </div>
 
-                        <!-- Mini Bar Chart -->
-                        <div class="mt-8">
-                            <div class="mb-2 flex items-center justify-between text-xs text-slate-400 font-medium">
-                                <span>Aktivitas Kas Masuk 4 Bulan Terakhir</span>
-                                <span>Indeks Fluktuasi</span>
-                            </div>
-                            <div class="flex h-24 items-end gap-3 rounded-xl bg-surface_container_low/60 p-3">
-                                @foreach ($grafikKas as $value)
-                                    @php
-                                        $height = max(18, min(100, $saldoKas > 0 ? intval(($value / max($saldoKas, 1)) * 100) : 18));
-                                    @endphp
-                                    <div class="group relative flex-1 flex flex-col items-center justify-end h-full">
-                                        <div class="w-full rounded-t-lg transition-all duration-300 {{ $loop->last ? 'bg-primary group-hover:bg-primary_container' : 'bg-primary/25 group-hover:bg-primary/40' }}"
-                                            style="height: {{ $height }}%"></div>
-                                        <span class="mt-1 text-[10px] font-bold text-slate-400">B{{ $loop->iteration }}</span>
+                        <!-- Grafik Arus Kas Sederhana & Ramah Warga -->
+                        <div class="mt-8" x-data="{ activeMonth: null }">
+                            <div class="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-black/[0.04] pb-2">
+                                <span class="font-headline text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    Grafik Arus Kas 6 Bulan Terakhir
+                                </span>
+                                <!-- Legend Sederhana -->
+                                <div class="flex items-center gap-4 text-[11px] font-semibold">
+                                    <div class="flex items-center gap-1.5 text-emerald-700">
+                                        <span class="h-2.5 w-2.5 rounded-sm bg-emerald-500"></span>
+                                        <span>Penerimaan (Punia/Masuk)</span>
                                     </div>
-                                @endforeach
+                                    <div class="flex items-center gap-1.5 text-amber-800">
+                                        <span class="h-2.5 w-2.5 rounded-sm bg-amber-600"></span>
+                                        <span>Pengeluaran (Belanja/Keluar)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chart Box Container -->
+                            <div class="relative rounded-2xl bg-surface_container_low/60 p-4 sm:p-5">
+                                <div class="grid grid-cols-6 gap-2 sm:gap-4 h-36 items-end">
+                                    @foreach ($grafikKas as $item)
+                                        <div class="group relative flex flex-col items-center justify-end h-full cursor-pointer"
+                                             @mouseenter="activeMonth = {{ $loop->index }}"
+                                             @mouseleave="activeMonth = null"
+                                             @click="activeMonth = (activeMonth === {{ $loop->index }} ? null : {{ $loop->index }})">
+                                            
+                                            <!-- Floating Tooltip Box -->
+                                            <div x-show="activeMonth === {{ $loop->index }}"
+                                                 x-cloak
+                                                 x-transition:enter="transition ease-out duration-150"
+                                                 x-transition:enter-start="opacity-0 translate-y-1"
+                                                 x-transition:enter-end="opacity-100 translate-y-0"
+                                                 class="absolute -top-20 z-30 pointer-events-none min-w-[135px] rounded-xl bg-charcoal p-2.5 text-left text-[11px] text-white shadow-xl ring-1 ring-white/10">
+                                                <div class="font-bold border-b border-white/10 pb-1 text-heritage_gold_light">
+                                                    {{ $item['bulan_full'] }}
+                                                </div>
+                                                <div class="mt-1 flex items-center justify-between text-emerald-400">
+                                                    <span>Masuk:</span>
+                                                    <span class="font-bold tabular-nums">{{ $item['pemasukan_rp'] }}</span>
+                                                </div>
+                                                <div class="flex items-center justify-between text-amber-300">
+                                                    <span>Keluar:</span>
+                                                    <span class="font-bold tabular-nums">{{ $item['pengeluaran_rp'] }}</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Dual Bars (Pemasukan & Pengeluaran) -->
+                                            <div class="flex w-full items-end justify-center gap-1 sm:gap-1.5 h-full pb-1">
+                                                <!-- Bar Pemasukan (Hijau) -->
+                                                <div class="w-1/2 max-w-[16px] rounded-t-md bg-emerald-500 transition-all duration-300 group-hover:bg-emerald-400 group-hover:brightness-110 shadow-xs"
+                                                     style="height: {{ $item['height_in'] }}%"
+                                                     title="Pemasukan: {{ $item['pemasukan_rp'] }}"></div>
+                                                <!-- Bar Pengeluaran (Amber/Merah) -->
+                                                <div class="w-1/2 max-w-[16px] rounded-t-md bg-amber-600 transition-all duration-300 group-hover:bg-amber-500 group-hover:brightness-110 shadow-xs"
+                                                     style="height: {{ $item['height_out'] }}%"
+                                                     title="Pengeluaran: {{ $item['pengeluaran_rp'] }}"></div>
+                                            </div>
+
+                                            <!-- Label Nama Bulan -->
+                                            <span class="mt-1 font-headline text-xs font-bold transition-colors"
+                                                  :class="activeMonth === {{ $loop->index }} ? 'text-primary' : 'text-slate-500'">
+                                                {{ $item['bulan_label'] }}
+                                            </span>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>

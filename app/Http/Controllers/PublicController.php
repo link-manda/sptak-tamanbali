@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AwigAwig;
 use App\Models\Banjar;
+use App\Models\GaleriDesa;
 use App\Models\Krama;
 use App\Models\Pararem;
 use App\Models\ProfilDesa;
@@ -170,15 +171,55 @@ class PublicController extends Controller
             ->whereHas('kategori', fn (Builder $query) => $query->where('nama_kategori', 'like', '%Dana%')->orWhere('nama_kategori', 'like', '%Bantuan%'))
             ->sum('nominal');
 
-        $grafikKas = Transaksi::query()
-            ->selectRaw('MONTH(tanggal_transaksi) as month_number, SUM(nominal) as total')
-            ->where('jenis', 'pemasukan')
-            ->where('tanggal_transaksi', '>=', now()->subMonths(3)->startOfMonth())
-            ->groupBy('month_number')
-            ->orderBy('month_number')
-            ->pluck('total')
-            ->pad(4, 0)
-            ->values();
+        $monthNames = [
+            1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr', 5 => 'Mei', 6 => 'Jun',
+            7 => 'Jul', 8 => 'Ags', 9 => 'Sep', 10 => 'Okt', 11 => 'Nov', 12 => 'Des'
+        ];
+        $monthFullNames = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni',
+            7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+
+        // Ambil data pemasukan & pengeluaran per bulan di tahun yang dipilih
+        $monthlyTotals = Transaksi::query()
+            ->selectRaw('MONTH(tanggal_transaksi) as bulan, jenis, SUM(nominal) as total')
+            ->whereYear('tanggal_transaksi', $tahun)
+            ->groupBy('bulan', 'jenis')
+            ->get();
+
+        // Tentukan rentang 6 bulan yang relevan untuk ditampilkan
+        $currentYear = (int) date('Y');
+        if ($tahun == $currentYear) {
+            $endMonth = (int) date('n');
+            $startMonth = max(1, $endMonth - 5);
+            if ($endMonth < 6) {
+                $startMonth = 1;
+                $endMonth = 6;
+            }
+        } else {
+            $startMonth = 1;
+            $endMonth = 6;
+        }
+
+        // Cari nilai maksimum untuk normalisasi tinggi grafik batang
+        $maxVal = $monthlyTotals->max('total') ?: 1;
+
+        $grafikKas = collect(range($startMonth, $endMonth))->map(function ($m) use ($monthlyTotals, $monthNames, $monthFullNames, $tahun, $maxVal) {
+            $in = $monthlyTotals->where('bulan', $m)->where('jenis', 'pemasukan')->sum('total');
+            $out = $monthlyTotals->where('bulan', $m)->where('jenis', 'pengeluaran')->sum('total');
+            
+            return [
+                'bulan_num'       => $m,
+                'bulan_label'     => $monthNames[$m] ?? "B$m",
+                'bulan_full'      => ($monthFullNames[$m] ?? "Bulan $m") . " $tahun",
+                'pemasukan'       => $in,
+                'pengeluaran'     => $out,
+                'pemasukan_rp'    => 'Rp ' . number_format($in, 0, ',', '.'),
+                'pengeluaran_rp'   => 'Rp ' . number_format($out, 0, ',', '.'),
+                'height_in'       => $in > 0 ? max(14, min(100, intval(($in / $maxVal) * 100))) : 4,
+                'height_out'      => $out > 0 ? max(14, min(100, intval(($out / $maxVal) * 100))) : 4,
+            ];
+        });
 
         $latestUpdate = Transaksi::latest('updated_at')->value('updated_at');
 
@@ -317,7 +358,21 @@ class PublicController extends Controller
         $profil   = ProfilDesa::getSingleton();
         $timeline = TimelineDesa::orderBy('urutan')->get();
 
-        return view('public.profil', compact('banjars', 'profileStats', 'profil', 'timeline'));
+        $galeris = GaleriDesa::aktif()
+            ->orderBy('urutan')
+            ->orderByDesc('tanggal_kegiatan')
+            ->get();
+
+        $kategoriGaleri = GaleriDesa::kategoriOptions();
+
+        return view('public.profil', compact(
+            'banjars',
+            'profileStats',
+            'profil',
+            'timeline',
+            'galeris',
+            'kategoriGaleri'
+        ));
     }
 
     public function prajuru()

@@ -147,7 +147,204 @@
             </div>
         </section>
 
-        <!-- 4. Struktur Wilayah Banjar Adat -->
+        <!-- 4. Galeri & Dokumentasi Adat (The Heritage Visual Archive) -->
+        <section class="bg-surface px-6 py-20 border-t border-black/[0.06]"
+            x-data="{
+                selectedCat: 'all',
+                activeModal: false,
+                modalData: { foto: '', judul: '', deskripsi: '', tanggal: '', kategori: '' },
+                openPhoto(item) {
+                    this.modalData = item;
+                    this.activeModal = true;
+                    document.body.style.overflow = 'hidden';
+                },
+                closeModal() {
+                    this.activeModal = false;
+                    document.body.style.overflow = '';
+                }
+            }"
+            @keydown.escape.window="closeModal()"
+        >
+            <div class="mx-auto max-w-7xl">
+                <!-- Section Header -->
+                <div class="mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-black/[0.06] pb-5">
+                    <div>
+                        <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Dokumentasi &amp; Warisan Adat</span>
+                        <h2 class="mt-1 font-serif_display text-3xl sm:text-4xl font-bold text-primary">
+                            Galeri Kegiatan &amp; Jejak Budaya
+                        </h2>
+                        <p class="mt-1 text-xs text-on_surface_variant">Rekam visual pelaksanaan yadnya, musyawarah paruman, gotong royong krama, dan palemahan desa.</p>
+                    </div>
+
+                    <!-- Category Filter Tabs -->
+                    @if($galeris->isNotEmpty())
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button
+                                @click="selectedCat = 'all'"
+                                class="rounded-full px-3.5 py-1.5 font-headline text-xs font-bold transition duration-200"
+                                :class="selectedCat === 'all' ? 'bg-primary text-white shadow-sm' : 'bg-surface_container_low text-on_surface_variant hover:bg-surface_container border border-black/[0.06]'"
+                            >
+                                Semua ({{ $galeris->count() }})
+                            </button>
+                            @foreach ($kategoriGaleri as $catKey => $catLabel)
+                                @php
+                                    $catCount = $galeris->where('kategori', $catKey)->count();
+                                @endphp
+                                @if($catCount > 0)
+                                    <button
+                                        @click="selectedCat = '{{ $catKey }}'"
+                                        class="rounded-full px-3.5 py-1.5 font-headline text-xs font-bold transition duration-200"
+                                        :class="selectedCat === '{{ $catKey }}' ? 'bg-primary text-white shadow-sm' : 'bg-surface_container_low text-on_surface_variant hover:bg-surface_container border border-black/[0.06]'"
+                                    >
+                                        {{ $catLabel }} ({{ $catCount }})
+                                    </button>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Gallery Content -->
+                @if($galeris->isEmpty())
+                    <div class="rounded-2xl border border-black/[0.08] bg-white p-12 text-center shadow-subtle">
+                        <span class="material-symbols-outlined text-5xl text-slate-300 mb-3 block">photo_library</span>
+                        <h3 class="font-serif_display text-xl font-bold text-primary">Dokumentasi Belum Diunggah</h3>
+                        <p class="mt-1 text-xs text-on_surface_variant">Arsip foto kegiatan desa adat akan ditampilkan di sini setelah diperbarui oleh prajuru.</p>
+                    </div>
+                @else
+                    <!-- Bento Mosaic Photo Grid -->
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        @foreach ($galeris as $item)
+                            <article
+                                x-show="selectedCat === 'all' || selectedCat === '{{ $item->kategori }}'"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 scale-95"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                @click="openPhoto({
+                                    foto: '{{ $item->foto_url }}',
+                                    judul: '{{ addslashes($item->judul) }}',
+                                    deskripsi: '{{ addslashes($item->deskripsi ?? '') }}',
+                                    tanggal: '{{ $item->tanggal_kegiatan ? $item->tanggal_kegiatan->translatedFormat('d F Y') : '' }}',
+                                    kategori: '{{ $item->kategori_label }}'
+                                })"
+                                class="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl border border-black/[0.08] bg-charcoal shadow-subtle transition duration-300 hover:border-primary/40 hover:shadow-hover_card {{ $loop->first ? 'sm:col-span-2 sm:row-span-2 aspect-auto sm:min-h-[380px]' : '' }}"
+                            >
+                                <img
+                                    src="{{ $item->foto_url }}"
+                                    alt="{{ $item->judul }}"
+                                    loading="lazy"
+                                    decoding="async"
+                                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+
+                                <!-- Gradient Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-90 transition duration-300 group-hover:opacity-95"></div>
+
+                                <!-- Text Overlay -->
+                                <div class="absolute inset-x-0 bottom-0 p-5 text-white flex flex-col justify-end">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="rounded-full bg-heritage_gold/90 px-2.5 py-0.5 font-headline text-[10px] font-bold uppercase tracking-wider text-slate-950 backdrop-blur-xs">
+                                            {{ $item->kategori_label }}
+                                        </span>
+                                        @if($item->tanggal_kegiatan)
+                                            <span class="text-[11px] text-white/80 font-medium flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-xs">event</span>
+                                                {{ $item->tanggal_kegiatan->translatedFormat('d M Y') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <h3 class="font-serif_display font-bold text-white leading-snug drop-shadow-sm {{ $loop->first ? 'text-xl sm:text-2xl' : 'text-lg line-clamp-2' }}">
+                                        {{ $item->judul }}
+                                    </h3>
+                                    @if($item->deskripsi && $loop->first)
+                                        <p class="mt-2 text-xs text-white/80 line-clamp-2 hidden sm:block font-body">
+                                            {{ $item->deskripsi }}
+                                        </p>
+                                    @endif
+                                </div>
+
+                                <!-- Hover Inspect Icon -->
+                                <div class="absolute top-4 right-4 h-9 w-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 transition duration-200 group-hover:opacity-100">
+                                    <span class="material-symbols-outlined text-lg">fullscreen</span>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
+            <!-- Fullscreen Lightbox Modal (Alpine.js) -->
+            <div
+                x-show="activeModal"
+                x-cloak
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 sm:p-6 backdrop-blur-md"
+                @click.self="closeModal()"
+            >
+                <div
+                    x-show="activeModal"
+                    x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    class="relative max-w-5xl w-full max-h-[92vh] overflow-hidden rounded-2xl bg-white shadow-2xl border border-white/15 flex flex-col md:flex-row"
+                >
+                    <!-- Close Button -->
+                    <button
+                        @click="closeModal()"
+                        class="absolute top-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition hover:bg-black/80"
+                    >
+                        <span class="material-symbols-outlined text-2xl">close</span>
+                    </button>
+
+                    <!-- Left: Large Image Container -->
+                    <div class="bg-charcoal flex items-center justify-center md:w-3/5 overflow-hidden max-h-[50vh] md:max-h-[85vh]">
+                        <img
+                            :src="modalData.foto"
+                            :alt="modalData.judul"
+                            class="max-h-full max-w-full object-contain"
+                        />
+                    </div>
+
+                    <!-- Right: Info Panel -->
+                    <div class="flex flex-col justify-between p-6 sm:p-8 md:w-2/5 overflow-y-auto max-h-[40vh] md:max-h-[85vh] bg-surface">
+                        <div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="rounded-full bg-surface_container_low px-3 py-1 font-headline text-xs font-bold uppercase tracking-wider text-heritage_gold border border-black/[0.06]"
+                                      x-text="modalData.kategori"></span>
+                                <span class="text-xs text-on_surface_variant font-medium" x-text="modalData.tanggal" x-show="modalData.tanggal"></span>
+                            </div>
+
+                            <h3 class="font-serif_display text-2xl font-bold text-primary leading-snug"
+                                x-text="modalData.judul"></h3>
+
+                            <div class="mt-4 border-t border-black/[0.06] pt-4 text-xs sm:text-sm leading-relaxed text-slate-700 font-body whitespace-pre-line"
+                                 x-text="modalData.deskripsi || 'Dokumentasi resmi kegiatan Desa Adat Tamanbali.'">
+                            </div>
+                        </div>
+
+                        <div class="mt-8 border-t border-black/[0.06] pt-4 flex items-center justify-between text-xs text-on_surface_variant">
+                            <span class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm text-heritage_gold">verified</span>
+                                <span>Arsip Resmi Desa Adat</span>
+                            </span>
+                            <button
+                                @click="closeModal()"
+                                class="font-headline font-bold text-primary hover:underline"
+                            >
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Struktur Wilayah Banjar Adat -->
         <section class="bg-surface_container_low px-6 py-20 border-t border-black/[0.06]">
             <div class="mx-auto max-w-7xl">
                 <div class="mb-10 border-b border-black/[0.06] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
