@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/program-prioritas', [PublicController::class, 'program'])->name('program');
 Route::get('/keuangan', [PublicController::class, 'keuangan'])->name('keuangan');
 Route::get('/keuangan/laporan-realisasi', [PublicController::class, 'laporanRealisasi'])->name('keuangan.laporan');
 Route::get('/surat', [PublicController::class, 'surat'])->name('surat');

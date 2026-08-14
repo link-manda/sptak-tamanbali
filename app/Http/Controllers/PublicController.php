@@ -8,6 +8,7 @@ use App\Models\GaleriDesa;
 use App\Models\Krama;
 use App\Models\Pararem;
 use App\Models\ProfilDesa;
+use App\Models\ProgramPrioritas;
 use App\Models\Prajuru;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
@@ -88,6 +89,13 @@ class PublicController extends Controller
             ],
         ];
 
+        $programHighlights = ProgramPrioritas::aktif()
+            ->tampilBeranda()
+            ->orderBy('urutan')
+            ->orderByDesc('persentase_progress')
+            ->take(3)
+            ->get();
+
         return view('public.home', compact(
             'totalPemasukan',
             'totalPengeluaran',
@@ -97,6 +105,46 @@ class PublicController extends Controller
             'homeMetrics',
             'contentCards',
             'infoSections',
+            'programHighlights',
+        ));
+    }
+
+    public function program(Request $request)
+    {
+        $availableYears = ProgramPrioritas::distinct()
+            ->orderByDesc('tahun_anggaran')
+            ->pluck('tahun_anggaran')
+            ->toArray();
+
+        $currentYear = (int) date('Y');
+        $selectedYear = $request->integer('tahun') ?: (in_array($currentYear, $availableYears) ? $currentYear : ($availableYears[0] ?? $currentYear));
+
+        $programs = ProgramPrioritas::aktif()
+            ->where('tahun_anggaran', $selectedYear)
+            ->orderBy('urutan')
+            ->orderByDesc('created_at')
+            ->get();
+
+        $bukuProgram = [
+            'total_program'    => $programs->count(),
+            'total_estimasi'   => $programs->sum('estimasi_anggaran'),
+            'total_realisasi'  => $programs->sum('realisasi_anggaran'),
+            'avg_progress'     => $programs->count() > 0 ? round($programs->avg('persentase_progress')) : 0,
+            'selesai_count'    => $programs->where('status', ProgramPrioritas::STATUS_SELESAI)->count(),
+            'berjalan_count'   => $programs->where('status', ProgramPrioritas::STATUS_BERJALAN)->count(),
+            'rencana_count'    => $programs->where('status', ProgramPrioritas::STATUS_DIRENCANAKAN)->count(),
+        ];
+
+        $bidangOptions = ProgramPrioritas::bidangOptions();
+        $statusOptions = ProgramPrioritas::statusOptions();
+
+        return view('public.program', compact(
+            'programs',
+            'availableYears',
+            'selectedYear',
+            'bukuProgram',
+            'bidangOptions',
+            'statusOptions'
         ));
     }
 

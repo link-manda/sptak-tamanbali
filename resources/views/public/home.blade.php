@@ -211,7 +211,7 @@
 
                     <!-- Bento 5: Susunan Prajuru -->
                     <a href="{{ route('prajuru') }}"
-                        class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-black/[0.08] bg-white p-7 shadow-subtle transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-hover_card md:col-span-2">
+                        class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-black/[0.08] bg-white p-7 shadow-subtle transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-hover_card md:col-span-1 lg:col-span-2">
                         <div class="flex items-start justify-between">
                             <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary transition group-hover:bg-primary group-hover:text-white">
                                 <span class="material-symbols-outlined text-2xl">groups</span>
@@ -228,6 +228,48 @@
 
                         <div class="flex items-center justify-between border-t border-black/[0.06] pt-3 text-xs font-bold text-primary">
                             <span>Struktur Organisasi</span>
+                            <span class="material-symbols-outlined text-sm transition group-hover:translate-x-1">arrow_forward</span>
+                        </div>
+                    </a>
+
+                    <!-- Bento 6: Program Prioritas Desa Adat (Tri Hita Karana Strategic Initiatives) -->
+                    <a href="{{ route('program') }}"
+                        class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-black/[0.08] bg-white p-7 shadow-subtle transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-hover_card md:col-span-2 lg:col-span-2">
+                        <div class="flex items-start justify-between">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary transition group-hover:bg-primary group-hover:text-white">
+                                <span class="material-symbols-outlined text-2xl">assignment_turned_in</span>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 rounded-full bg-heritage_gold/10 px-3 py-1 font-headline text-[11px] font-bold text-heritage_gold border border-heritage_gold/20">
+                                <span class="h-1.5 w-1.5 rounded-full bg-heritage_gold animate-pulse"></span>
+                                Tri Hita Karana
+                            </span>
+                        </div>
+
+                        <div class="my-4">
+                            <h3 class="font-serif_display text-xl font-bold text-primary">Program Prioritas Desa</h3>
+                            <p class="mt-2 text-xs leading-relaxed text-on_surface_variant">
+                                Inisiasi program strategis keagamaan, kemasyarakatan, dan kelestarian palemahan dengan indikator capaian terukur.
+                            </p>
+
+                            @if(isset($programHighlights) && $programHighlights->isNotEmpty())
+                                <div class="mt-4 space-y-2.5 rounded-xl bg-surface_container_low p-3 border border-black/[0.04]">
+                                    @foreach ($programHighlights->take(2) as $ph)
+                                        <div class="text-xs">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="font-semibold text-slate-800 truncate max-w-[200px]">{{ $ph->nama_program }}</span>
+                                                <span class="font-bold font-headline {{ $ph->persentase_progress == 100 ? 'text-emerald-700' : 'text-amber-700' }}">{{ $ph->persentase_progress }}%</span>
+                                            </div>
+                                            <div class="h-1.5 w-full rounded-full bg-slate-200 overflow-hidden">
+                                                <div class="h-full rounded-full {{ $ph->persentase_progress == 100 ? 'bg-emerald-600' : 'bg-amber-500' }}" style="width: {{ $ph->persentase_progress }}%"></div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-black/[0.06] pt-3 text-xs font-bold text-primary">
+                            <span>Lihat Seluruh Program &amp; Capaian</span>
                             <span class="material-symbols-outlined text-sm transition group-hover:translate-x-1">arrow_forward</span>
                         </div>
                     </a>

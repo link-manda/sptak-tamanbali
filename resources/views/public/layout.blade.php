@@ -100,12 +100,14 @@
                 </div>
             </a>
 
-            <nav class="hidden items-center gap-8 font-headline text-sm font-semibold md:flex">
+            <nav class="hidden items-center gap-7 lg:gap-8 font-headline text-sm font-semibold md:flex">
                 <a class="{{ request()->routeIs('home') ? 'text-primary font-bold border-b-2 border-heritage_gold pb-1' : 'text-slate-600 hover:text-primary' }} transition-colors"
                     href="{{ route('home') }}">Beranda</a>
-                <a class="{{ request()->routeIs('keuangan') ? 'text-primary font-bold border-b-2 border-heritage_gold pb-1' : 'text-slate-600 hover:text-primary' }} transition-colors"
+                <a class="{{ request()->routeIs('program*') ? 'text-primary font-bold border-b-2 border-heritage_gold pb-1' : 'text-slate-600 hover:text-primary' }} transition-colors"
+                    href="{{ route('program') }}">Program</a>
+                <a class="{{ request()->routeIs('keuangan*') ? 'text-primary font-bold border-b-2 border-heritage_gold pb-1' : 'text-slate-600 hover:text-primary' }} transition-colors"
                     href="{{ route('keuangan') }}">Keuangan</a>
-                <a class="{{ request()->routeIs('surat') ? 'text-primary font-bold border-b-2 border-heritage_gold pb-1' : 'text-slate-600 hover:text-primary' }} transition-colors"
+                <a class="{{ request()->routeIs('surat*') ? 'text-primary font-bold border-b-2 border-heritage_gold pb-1' : 'text-slate-600 hover:text-primary' }} transition-colors"
                     href="{{ route('surat') }}">Surat</a>
             </nav>
 
@@ -131,9 +133,10 @@
                         <p class="text-xs uppercase tracking-[0.2em] text-heritage_gold_light/70">Kecamatan Bangli, Kabupaten Bangli, Bali</p>
                     </div>
                 </div>
-                <div class="flex flex-wrap justify-center gap-8 font-headline text-xs font-medium uppercase tracking-[0.2em] text-slate-300">
-                    <a class="transition hover:text-heritage_gold_light" href="{{ route('profil') }}">Profil & Sejarah</a>
+                <div class="flex flex-wrap justify-center gap-6 lg:gap-8 font-headline text-xs font-medium uppercase tracking-[0.2em] text-slate-300">
+                    <a class="transition hover:text-heritage_gold_light" href="{{ route('profil') }}">Profil &amp; Sejarah</a>
                     <a class="transition hover:text-heritage_gold_light" href="{{ route('prajuru') }}">Susunan Prajuru</a>
+                    <a class="transition hover:text-heritage_gold_light" href="{{ route('program') }}">Program Prioritas</a>
                     <a class="transition hover:text-heritage_gold_light" href="{{ route('awig') }}">Awig-Awig</a>
                     <a class="transition hover:text-heritage_gold_light" href="{{ route('pararem') }}">Pararem</a>
                     <a class="transition hover:text-heritage_gold_light" href="{{ route('keuangan') }}">Transparansi Kas</a>
