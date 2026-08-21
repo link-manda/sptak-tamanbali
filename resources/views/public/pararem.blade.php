@@ -15,14 +15,14 @@
                 <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
                     <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
                     <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
-                        Keputusan Operasional Musyawarah
+                        Ketetapan &amp; Musyawarah Adat
                     </span>
                 </div>
                 <h1 class="mb-5 font-serif_display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
                     Pararem Desa Adat Tamanbali
                 </h1>
                 <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
-                    Ketetapan dan kesepakatan paruman adat yang menjadi pedoman teknis operasional dalam pelaksanaan upakara, ketertiban krama, dan tata kelola desa sehari-hari.
+                    Ketetapan musyawarah paruman desa sebagai aturan teknis dan kesepakatan bersama dalam menjaga ketenteraman warga.
                 </p>
             </div>
 
@@ -117,7 +117,7 @@
                                     class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 font-headline text-xs font-bold text-white shadow-sm transition hover:bg-primary_container hover:shadow"
                                 >
                                     <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">visibility</span>
-                                    <span>Preview Dokumen Pararem</span>
+                                    <span>Pelajari Naskah Pararem (PDF)</span>
                                 </button>
                             @endif
                         </div>
@@ -125,8 +125,8 @@
                 @empty
                     <div class="rounded-2xl border border-black/[0.08] bg-white p-12 text-center shadow-subtle">
                         <span class="material-symbols-outlined text-5xl text-slate-300 mb-3 block">menu_book</span>
-                        <h3 class="font-serif_display text-xl font-bold text-primary">Ketetapan Pararem Belum Ada</h3>
-                        <p class="mt-1 text-xs text-on_surface_variant">Belum ada dokumen pararem yang terunggah dalam sistem digital.</p>
+                        <h3 class="font-serif_display text-xl font-bold text-primary">Ketetapan Pararem Belum Diterbitkan</h3>
+                        <p class="mt-1 text-xs text-on_surface_variant">Belum ada dokumen ketetapan pararem yang terunggah dalam sistem digital. Hasil paruman akan diperbarui berkala.</p>
                     </div>
                 @endforelse
             </div>

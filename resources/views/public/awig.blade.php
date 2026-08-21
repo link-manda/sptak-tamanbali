@@ -15,14 +15,14 @@
                 <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
                     <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
                     <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
-                        Konstitusi &amp; Hukum Adat
+                        Sukreta &amp; Hukum Adat
                     </span>
                 </div>
                 <h1 class="mb-5 font-serif_display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
                     Awig-Awig Desa Adat Tamanbali
                 </h1>
                 <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
-                    Landasan nilai luhur, norma kesusilaan, dan tata tertib kehidupan krama yang menjaga keseimbangan Tri Hita Karana di Desa Adat Tamanbali.
+                    Pijakan hukum adat tertinggi yang menata hak, kewajiban, dan keharmonisan hidup krama Desa Adat Tamanbali.
                 </p>
             </div>
 
@@ -83,7 +83,7 @@
                                             class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 font-headline text-xs font-bold text-white shadow-sm transition hover:bg-primary_container hover:shadow"
                                         >
                                             <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">visibility</span>
-                                            <span>Preview Dokumen Asli</span>
+                                            <span>Pelajari Naskah Asli (PDF)</span>
                                         </button>
                                     </div>
                                 @endif
@@ -102,10 +102,10 @@
                 </div>
                 <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Nilai Luhur</span>
                 <h3 class="mt-2 font-serif_display text-2xl sm:text-3xl font-bold text-primary">
-                    Awig-Awig sebagai Pondasi Tata Kelola &amp; Kejujuran
+                    Awig-Awig sebagai Pondasi Tata Kelola &amp; Ketulusan Ngayah
                 </h3>
                 <p class="mt-4 text-sm leading-relaxed text-slate-700 font-body text-pretty">
-                    Dalam kerangka sistem informasi digital ini, awig-awig dipedomani tidak hanya sebagai aturan hukum adat semata, melainkan sebagai komitmen moral atas keterbukaan informasi publik, ketertiban pencatatan dokumen, dan pertanggungjawaban pengelolaan dana desa kepada Ida Sang Hyang Widhi Wasa dan seluruh Krama Desa Adat Tamanbali.
+                    Dalam kerangka sistem informasi digital ini, awig-awig dipedomani bukan sekadar aturan hukum adat tertulis semata, melainkan sebagai komitmen moral atas keterbukaan informasi publik, ketertiban administrasi krama, dan kejujuran pertanggungjawaban pengelolaan dana desa kepada Ida Sang Hyang Widhi Wasa serta seluruh Krama Desa Adat Tamanbali.
                 </p>
             </div>
         </section>

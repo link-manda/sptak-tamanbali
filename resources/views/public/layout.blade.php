@@ -96,7 +96,7 @@
                     alt="Logo Desa Adat Tamanbali" />
                 <div class="flex flex-col">
                     <span class="leading-tight">Desa Adat Tamanbali</span>
-                    <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-heritage_gold">Kabupaten Bangli</span>
+                    <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-heritage_gold">Desa Adat Tamanbali · Bangli</span>
                 </div>
             </a>
 
@@ -134,8 +134,8 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap justify-center gap-6 lg:gap-8 font-headline text-xs font-medium uppercase tracking-[0.2em] text-slate-300">
-                    <a class="transition hover:text-heritage_gold_light" href="{{ route('profil') }}">Profil &amp; Sejarah</a>
-                    <a class="transition hover:text-heritage_gold_light" href="{{ route('prajuru') }}">Susunan Prajuru</a>
+                    <a class="transition hover:text-heritage_gold_light" href="{{ route('profil') }}">Profil &amp; Babad</a>
+                    <a class="transition hover:text-heritage_gold_light" href="{{ route('prajuru') }}">Pamong Prajuru</a>
                     <a class="transition hover:text-heritage_gold_light" href="{{ route('program') }}">Program Prioritas</a>
                     <a class="transition hover:text-heritage_gold_light" href="{{ route('awig') }}">Awig-Awig</a>
                     <a class="transition hover:text-heritage_gold_light" href="{{ route('pararem') }}">Pararem</a>
@@ -144,8 +144,8 @@
                 </div>
             </div>
             <div class="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-[11px] uppercase tracking-[0.2em] text-slate-400 md:flex-row">
-                <div>&copy; {{ date('Y') }} Desa Adat Tamanbali. Sistem Informasi &amp; Portal Transparansi Publik.</div>
-                <div class="text-slate-500">Mewujudkan Tata Kelola Adat yang Akuntabel &amp; Berkelanjutan</div>
+                <div>&copy; {{ date('Y') }} Desa Adat Tamanbali. Dirawat bersama krama demi keajegan dresta luhur.</div>
+                <div class="text-heritage_gold_light/80 font-semibold tracking-widest">Ngajegang Dresta, Ngelimbakang Desa</div>
             </div>
         </div>
     </footer>

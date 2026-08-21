@@ -17,19 +17,19 @@
                 <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
                     <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
                     <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
-                        Portal Transparansi Publik &amp; Administrasi Adat
+                        Ngajegang Dresta, Ngelimbakang Desa
                     </span>
                 </div>
 
                 <!-- Main Display Heading -->
                 <h1 class="mb-6 font-serif_display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] text-balance">
-                    Menjaga Martabat Adat,<br class="hidden sm:inline">
-                    <span class="italic font-normal text-secondary_fixed_dim">Mewujudkan Keterbukaan Nyata.</span>
+                    Menjaga Martabat Leluhur,<br class="hidden sm:inline">
+                    <span class="italic font-normal text-secondary_fixed_dim">Mewujudkan Keterbukaan Nyata bagi Krama.</span>
                 </h1>
 
                 <!-- Subtitle -->
                 <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body text-pretty">
-                    Integrasi tata kelola administrasi krama, akuntabilitas keuangan desa, dan pelestarian awig-awig berlandaskan nilai luhur Tri Hita Karana di Desa Adat Tamanbali.
+                    Ruang kebersamaan krama Desa Adat Tamanbali untuk menyimak keterbukaan kas desa, menelusuri pedoman awig-awig, serta mengawal capaian pembangunan desa secara jujur dan transparan.
                 </p>
 
                 <!-- Action CTAs -->
@@ -37,12 +37,12 @@
                     <a href="{{ route('keuangan') }}"
                         class="inline-flex items-center gap-2 rounded-full bg-heritage_gold px-7 py-3.5 font-headline text-sm font-bold text-slate-900 shadow-md transition duration-200 hover:bg-secondary_container hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0">
                         <span class="material-symbols-outlined text-lg">account_balance_wallet</span>
-                        <span>Transparansi Kas Desa</span>
+                        <span>Transparansi Kas &amp; Punia</span>
                     </a>
                     <a href="{{ route('awig') }}"
                         class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 font-headline text-sm font-semibold text-white backdrop-blur-md transition duration-200 hover:bg-white/15 hover:border-white/40">
                         <span class="material-symbols-outlined text-lg">gavel</span>
-                        <span>Pedoman Awig-Awig</span>
+                        <span>Pedoman Sukreta Awig-Awig</span>
                     </a>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                             {{ $homeMetrics['banjar'] }}
                         </div>
                         <div class="mt-1 font-headline text-xs font-semibold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Banjar Adat Terintegrasi
+                            Wewidangan Banjar Adat
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@
                             {{ number_format($homeMetrics['krama_aktif']) }}
                         </div>
                         <div class="mt-1 font-headline text-xs font-semibold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Krama Aktif Tercatat
+                            Krama Ngarep &amp; Krama Desa
                         </div>
                     </div>
 
@@ -81,7 +81,7 @@
                             {{ $homeMetrics['dokumen'] }}
                         </div>
                         <div class="mt-1 font-headline text-xs font-semibold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Dokumen &amp; Arsip Publik
+                            Arsip Awig &amp; Pararem Sah
                         </div>
                     </div>
                 </div>
@@ -93,13 +93,13 @@
             <div class="mx-auto max-w-7xl">
                 <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-black/[0.06] pb-6">
                     <div>
-                        <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Digital Banjar Ecosystem</span>
+                        <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Sukreta Tata Kelola Desa</span>
                         <h2 class="mt-2 font-serif_display text-3xl sm:text-4xl font-bold tracking-tight text-primary">
-                            Pusat Layanan &amp; Transparansi Desa
+                            Pusat Layanan Krama &amp; Keterbukaan Desa
                         </h2>
                     </div>
                     <p class="max-w-md text-sm text-on_surface_variant font-body">
-                        Akses keterbukaan informasi publik dan layanan korespondensi resmi krama Desa Adat Tamanbali.
+                        Keterbukaan informasi dan kemudahan korespondensi resmi krama Desa Adat Tamanbali.
                     </p>
                 </div>
 
@@ -115,27 +115,27 @@
                             </div>
                             <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 font-headline text-[11px] font-bold text-emerald-800 border border-emerald-200">
                                 <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
-                                Transparan &amp; Akuntabel
+                                Akuntabel &amp; Terbuka
                             </span>
                         </div>
 
                         <div class="my-6">
-                            <div class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Saldo Kas Desa Saat Ini</div>
+                            <div class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Saldo Kas &amp; Punia Desa</div>
                             <div class="mt-2 font-headline text-3xl sm:text-4xl font-extrabold text-primary tabular-nums tracking-tight">
                                 Rp {{ number_format($saldoKas, 0, ',', '.') }}
                             </div>
                             <div class="mt-4 flex flex-wrap gap-2 text-xs">
                                 <span class="rounded-lg bg-surface_container_low px-3 py-1.5 font-medium text-slate-600">
-                                    Pemasukan: <strong class="text-emerald-700">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</strong>
+                                    Penerimaan Punia: <strong class="text-emerald-700">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</strong>
                                 </span>
                                 <span class="rounded-lg bg-surface_container_low px-3 py-1.5 font-medium text-slate-600">
-                                    Pengeluaran: <strong class="text-amber-800">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</strong>
+                                    Belanja Ayahan: <strong class="text-amber-800">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</strong>
                                 </span>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between border-t border-black/[0.06] pt-4 text-xs font-bold text-primary">
-                            <span>Buka Laporan Realisasi &amp; Catur Wulan</span>
+                            <span>Telusuri Rincian Kas &amp; Belanja Ayahan</span>
                             <span class="material-symbols-outlined text-sm transition group-hover:translate-x-1">arrow_forward</span>
                         </div>
                     </a>
@@ -148,19 +148,19 @@
                                 <span class="material-symbols-outlined text-2xl">mark_email_read</span>
                             </div>
                             <span class="rounded-full bg-slate-100 px-3 py-1 font-headline text-[11px] font-semibold text-slate-700">
-                                Digital Archive
+                                Layanan Krama
                             </span>
                         </div>
 
                         <div class="my-6">
                             <h3 class="font-serif_display text-2xl font-bold text-primary">Layanan Persuratan</h3>
                             <p class="mt-2 text-sm leading-relaxed text-on_surface_variant">
-                                Akses digital untuk pencatatan surat masuk dan pengajuan surat keterangan keluar bagi krama.
+                                Kemudahan penelusuran warta surat masuk dan permohonan surat keterangan adat bagi krama.
                             </p>
                         </div>
 
                         <div class="flex items-center justify-between border-t border-black/[0.06] pt-4 text-xs font-bold text-primary">
-                            <span>Arsip Dokumen Surat</span>
+                            <span>Buka Arsip Persuratan</span>
                             <span class="material-symbols-outlined text-sm transition group-hover:translate-x-1">arrow_forward</span>
                         </div>
                     </a>
@@ -177,12 +177,12 @@
                         <div class="my-4">
                             <h3 class="font-serif_display text-xl font-bold text-primary">Awig-Awig Desa</h3>
                             <p class="mt-2 text-xs leading-relaxed text-on_surface_variant">
-                                Pedoman hukum adat, kewajiban, dan tata tertib kehidupan krama.
+                                Pedoman hukum adat warisan luhur demi kerukunan dan ketertiban bersama.
                             </p>
                         </div>
 
                         <div class="flex items-center justify-between border-t border-black/[0.06] pt-3 text-xs font-bold text-primary">
-                            <span>Baca Pedoman</span>
+                            <span>Pelajari Awig-Awig</span>
                             <span class="material-symbols-outlined text-sm transition group-hover:translate-x-1">arrow_forward</span>
                         </div>
                     </a>
@@ -199,12 +199,12 @@
                         <div class="my-4">
                             <h3 class="font-serif_display text-xl font-bold text-primary">Pararem Desa</h3>
                             <p class="mt-2 text-xs leading-relaxed text-on_surface_variant">
-                                Ketetapan musyawarah terbaru dan kesepakatan paruman adat.
+                                Ketetapan musyawarah dan kesepakatan paruman adat terkini.
                             </p>
                         </div>
 
                         <div class="flex items-center justify-between border-t border-black/[0.06] pt-3 text-xs font-bold text-primary">
-                            <span>Lihat Kesepakatan</span>
+                            <span>Lihat Pararem</span>
                             <span class="material-symbols-outlined text-sm transition group-hover:translate-x-1">arrow_forward</span>
                         </div>
                     </a>
@@ -220,14 +220,14 @@
                         </div>
 
                         <div class="my-4">
-                            <h3 class="font-serif_display text-xl font-bold text-primary">Susunan Prajuru Adat</h3>
+                            <h3 class="font-serif_display text-xl font-bold text-primary">Pamong Prajuru Desa</h3>
                             <p class="mt-2 text-xs leading-relaxed text-on_surface_variant">
-                                Struktur kepengurusan Bendesa Adat, Penyarikan, Petengen, Sabha Desa, dan Kelian Banjar.
+                                Jajaran prajuru yang tulus ngayah mengemban amanah pelayanan krama dan dresta desa.
                             </p>
                         </div>
 
                         <div class="flex items-center justify-between border-t border-black/[0.06] pt-3 text-xs font-bold text-primary">
-                            <span>Struktur Organisasi</span>
+                            <span>Bagan Kepengurusan</span>
                             <span class="material-symbols-outlined text-sm transition group-hover:translate-x-1">arrow_forward</span>
                         </div>
                     </a>
@@ -248,14 +248,14 @@
                         <div class="my-4">
                             <h3 class="font-serif_display text-xl font-bold text-primary">Program Prioritas Desa</h3>
                             <p class="mt-2 text-xs leading-relaxed text-on_surface_variant">
-                                Inisiasi program strategis keagamaan, kemasyarakatan, dan kelestarian palemahan dengan indikator capaian terukur.
+                                Inisiasi langkah nyata prajuru dalam memelihara pura, merawat kerukunan, dan menjaga keasrian palemahan.
                             </p>
 
                             @if(isset($programHighlights) && $programHighlights->isNotEmpty())
                                 <div class="mt-4 space-y-2.5 rounded-xl bg-surface_container_low p-3 border border-black/[0.04]">
                                     @foreach ($programHighlights->take(2) as $ph)
                                         <div class="text-xs">
-                                            <div class="flex items-center justify-between mb-1">
+                                             <div class="flex items-center justify-between mb-1">
                                                 <span class="font-semibold text-slate-800 truncate max-w-[200px]">{{ $ph->nama_program }}</span>
                                                 <span class="font-bold font-headline {{ $ph->persentase_progress == 100 ? 'text-emerald-700' : 'text-amber-700' }}">{{ $ph->persentase_progress }}%</span>
                                             </div>
@@ -372,12 +372,12 @@
         <!-- 5. CTA Prajuru & Paruman Portal -->
         <section class="border-t border-black/[0.06] bg-surface px-6 py-16">
             <div class="mx-auto max-w-4xl rounded-2xl border border-primary/20 bg-primary/5 p-8 text-center sm:p-12">
-                <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Akses Khusus Pengurus</span>
+                <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Akses Khusus Prajuru</span>
                 <h3 class="mt-2 font-serif_display text-2xl sm:text-3xl font-bold text-primary">
-                    Portal Administrasi &amp; Pembukuan Prajuru
+                    Portal Administrasi &amp; Pembukuan Adat
                 </h3>
                 <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-on_surface_variant">
-                    Bagi Bendesa, Penyarikan, Petengen, dan Kelian Banjar yang berwenang, silakan masuk ke panel manajemen data untuk pencatatan kas dan administrasi krama.
+                    Bagi Bendesa, Penyarikan, Petengen, dan Kelian Banjar yang mengemban amanah ngayah, silakan masuk ke panel pembukuan dan tata kelola krama.
                 </p>
                 <div class="mt-6 flex justify-center">
                     <a href="/admin"

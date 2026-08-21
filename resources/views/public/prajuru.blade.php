@@ -15,14 +15,14 @@
                 <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
                     <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
                     <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
-                        Pamong &amp; Tata Kelola Adat
+                        Pamong &amp; Pengabdi Adat
                     </span>
                 </div>
                 <h1 class="mb-5 font-serif_display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-                    Susunan Prajuru Desa Adat
+                    Pamong Prajuru Desa Adat
                 </h1>
                 <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
-                    Para pengemban amanah paruman yang menjaga ketertiban administrasi, akuntabilitas keuangan, dan keharmonisan kehidupan krama Desa Adat Tamanbali.
+                    Para pengabdi dan pengemban amanah paruman desa yang tulus ngayah memelihara ketertiban dresta, kejujuran tata kelola, dan ketenteraman krama Tamanbali.
                 </p>
             </div>
 
@@ -33,11 +33,11 @@
         <section class="bg-surface px-6 py-16">
             <div class="mx-auto max-w-7xl">
                 <div class="mb-12 border-b border-black/[0.06] pb-5">
-                    <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Penggerak Utama</span>
+                    <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Penggerak &amp; Pelayan Adat</span>
                     <h2 class="mt-1 font-serif_display text-3xl sm:text-4xl font-bold text-primary">
-                        Manggal Desa Adat
+                        Manggala Prajuru Inti (Duaning Desa)
                     </h2>
-                    <p class="mt-1 text-xs text-on_surface_variant">Pucuk pimpinan kepengurusan yang mengayomi dan mengoordinasikan seluruh tata kelola desa.</p>
+                    <p class="mt-1 text-xs text-on_surface_variant">Pucuk pimpinan kepengurusan adat yang tulus ngayah mengayomi dan mengoordinasikan seluruh tata kelola desa.</p>
                 </div>
 
                 @if ($coreTeam->isEmpty())
@@ -108,11 +108,11 @@
         <section class="bg-surface_container_low px-6 py-20 border-t border-black/[0.06]">
             <div class="mx-auto max-w-7xl">
                 <div class="mb-10 border-b border-black/[0.06] pb-4">
-                    <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Perwakilan Wilayah</span>
+                    <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Pamong Wilayah Banjar</span>
                     <h2 class="mt-1 font-serif_display text-3xl font-bold text-primary">
                         Kelian Banjar Adat
                     </h2>
-                    <p class="mt-1 text-xs text-on_surface_variant">Penghubung aspirasi krama di masing-masing banjar adat se-wilayah Tamanbali.</p>
+                    <p class="mt-1 text-xs text-on_surface_variant">Pengayom warga dan penghubung aspirasi krama di masing-masing banjar adat se-wilayah Tamanbali.</p>
                 </div>
 
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

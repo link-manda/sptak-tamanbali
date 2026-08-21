@@ -22,7 +22,7 @@
                     Layanan Persuratan Desa
                 </h1>
                 <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
-                    Akses digital terbuka untuk penelusuran arsip surat masuk, permohonan surat keterangan, dan korespondensi resmi krama Desa Adat Tamanbali.
+                    Layanan penelusuran arsip korespondensi desa adat secara mudah, tertib, dan transparan bagi seluruh krama dan lembaga mitra.
                 </p>
             </div>
 
@@ -48,7 +48,7 @@
                     <div class="my-5">
                         <h3 class="font-serif_display text-2xl font-bold text-primary">Surat Masuk</h3>
                         <p class="mt-2 text-xs leading-relaxed text-on_surface_variant">
-                            Daftar surat dinas resmi, permohonan kelembagaan, pengumuman banjar, serta undangan kedinasan yang diterima oleh Prajuru Desa.
+                            Daftar warta, permohonan kelembagaan, dan surat resmi yang diterima oleh sekretariat desa adat.
                         </p>
                     </div>
 
@@ -74,7 +74,7 @@
                     <div class="my-5">
                         <h3 class="font-serif_display text-2xl font-bold text-primary">Surat Keluar</h3>
                         <p class="mt-2 text-xs leading-relaxed text-on_surface_variant">
-                            Dokumen keputusan paruman, surat keterangan adat bagi krama, surat perizinan, dan korespondensi resmi yang diterbitkan desa.
+                            Dokumen ketetapan paruman, surat keterangan adat bagi krama, dan korespondensi resmi yang diterbitkan desa adat.
                         </p>
                     </div>
 

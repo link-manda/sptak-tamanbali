@@ -15,14 +15,14 @@
                 <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
                     <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
                     <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
-                        Akuntabilitas &amp; Transparansi Kas Desa
+                        Akuntabilitas Dana Punia &amp; Kas Adat
                     </span>
                 </div>
                 <h1 class="mb-5 font-serif_display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-                    Pengelolaan Dana Desa Adat
+                    Keterbukaan Kas Desa Adat
                 </h1>
                 <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
-                    Akses keterbukaan publik atas pencatatan penerimaan, punia krama, dan realisasi belanja kegiatan adat secara profesional, jujur, dan bertanggung jawab.
+                    Wujud ketulusan dan tanggung jawab prajuru dalam memelihara kepercayaan krama — mencatat setiap penerimaan punia dan pengeluaran ayahan upakara secara terbuka dan seksama.
                 </p>
             </div>
 
@@ -71,11 +71,11 @@
                         <div class="mt-5 flex flex-wrap gap-3 text-xs">
                             <div class="flex items-center gap-2 rounded-xl bg-surface_container_low px-4 py-2 text-slate-700">
                                 <span class="material-symbols-outlined text-emerald-600 text-base">arrow_downward</span>
-                                <span>Penerimaan: <strong class="text-emerald-700 font-bold">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</strong></span>
+                                <span>Penerimaan Punia: <strong class="text-emerald-700 font-bold">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</strong></span>
                             </div>
                             <div class="flex items-center gap-2 rounded-xl bg-surface_container_low px-4 py-2 text-slate-700">
                                 <span class="material-symbols-outlined text-amber-700 text-base">arrow_upward</span>
-                                <span>Pengeluaran: <strong class="text-amber-800 font-bold">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</strong></span>
+                                <span>Belanja Ayahan: <strong class="text-amber-800 font-bold">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</strong></span>
                             </div>
                         </div>
 
@@ -83,17 +83,17 @@
                         <div class="mt-8" x-data="{ activeMonth: null }">
                             <div class="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-black/[0.04] pb-2">
                                 <span class="font-headline text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    Grafik Arus Kas 6 Bulan Terakhir
+                                    Dinamika Pemasukan &amp; Belanja Ayahan (6 Bulan Terakhir)
                                 </span>
                                 <!-- Legend Sederhana -->
                                 <div class="flex items-center gap-4 text-[11px] font-semibold">
                                     <div class="flex items-center gap-1.5 text-emerald-700">
                                         <span class="h-2.5 w-2.5 rounded-sm bg-emerald-500"></span>
-                                        <span>Penerimaan (Punia/Masuk)</span>
+                                        <span>Penerimaan Punia</span>
                                     </div>
                                     <div class="flex items-center gap-1.5 text-amber-800">
                                         <span class="h-2.5 w-2.5 rounded-sm bg-amber-600"></span>
-                                        <span>Pengeluaran (Belanja/Keluar)</span>
+                                        <span>Belanja Ayahan</span>
                                     </div>
                                 </div>
                             </div>
@@ -337,8 +337,8 @@
                     @empty
                         <div class="rounded-2xl border border-black/[0.08] bg-white p-12 text-center">
                             <span class="material-symbols-outlined text-5xl text-slate-300 mb-3 block">account_balance_wallet</span>
-                            <h3 class="font-serif_display text-xl font-bold text-primary">Belum Ada Catatan Transaksi</h3>
-                            <p class="mt-1 text-xs text-on_surface_variant">Tidak ditemukan data transaksi untuk tahun anggaran {{ $tahun }}.</p>
+                            <h3 class="font-serif_display text-xl font-bold text-primary">Belum Ada Mutasi Transaksi Kas</h3>
+                            <p class="mt-1 text-xs text-on_surface_variant">Belum ada mutasi transaksi kas yang tercatat untuk tahun anggaran {{ $tahun }}. Pembukuan akan diperbarui berkala oleh Patengen Desa.</p>
                         </div>
                     @endforelse
                 </div>
@@ -374,7 +374,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="3" class="px-6 py-12 text-center text-xs text-slate-500">
-                                            Belum ada data transaksi yang tercatat untuk periode ini.
+                                            Belum ada data transaksi yang tercatat untuk periode ini. Laporan pembukuan akan diperbarui secara berkala oleh Patengen Desa.
                                         </td>
                                     </tr>
                                 @endforelse

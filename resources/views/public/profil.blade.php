@@ -15,14 +15,14 @@
                 <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
                     <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
                     <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
-                        Identitas &amp; Sejarah Luhur
+                        Babad &amp; Riwayat Suci Tamanbali
                     </span>
                 </div>
                 <h1 class="mb-5 font-serif_display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
                     Mengenal Desa Adat Tamanbali
                 </h1>
                 <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
-                    {{ $profil->narasi_singkat ?: 'Ruang hidup adat yang menjaga keharmonisan tradisi Tri Hita Karana, pelayanan masyarakat, dan keterbukaan tata kelola di Kabupaten Bangli.' }}
+                    {{ $profil->narasi_singkat ?: 'Menjaga pusaka tradisi, keasrian palemahan, serta keluhuran dresta warisan leluhur yang terus hidup dan berkembang di Kabupaten Bangli.' }}
                 </p>
             </div>
 
@@ -38,7 +38,7 @@
                             {{ $profileStats['banjar'] }}
                         </div>
                         <div class="mt-1 font-headline text-xs font-semibold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Banjar Adat Terdaftar
+                            Wewidangan Banjar Adat
                         </div>
                     </div>
                     <div class="px-4 py-3 sm:py-0 text-center">
@@ -46,7 +46,7 @@
                             {{ number_format($profileStats['krama']) }}
                         </div>
                         <div class="mt-1 font-headline text-xs font-semibold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Total Krama Tercatat
+                            Total Krama Desa
                         </div>
                     </div>
                     <div class="px-4 py-3 sm:py-0 text-center">
@@ -54,7 +54,7 @@
                             {{ number_format($profileStats['aktif']) }}
                         </div>
                         <div class="mt-1 font-headline text-xs font-semibold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Krama Mipil / Aktif
+                            Krama Ngarep / Mipil
                         </div>
                     </div>
                 </div>
@@ -171,9 +171,9 @@
                     <div>
                         <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Dokumentasi &amp; Warisan Adat</span>
                         <h2 class="mt-1 font-serif_display text-3xl sm:text-4xl font-bold text-primary">
-                            Galeri Kegiatan &amp; Jejak Budaya
+                            Rekam Visual &amp; Kebersamaan Krama
                         </h2>
-                        <p class="mt-1 text-xs text-on_surface_variant">Rekam visual pelaksanaan yadnya, musyawarah paruman, gotong royong krama, dan palemahan desa.</p>
+                        <p class="mt-1 text-xs text-on_surface_variant">Potret ketulusan ngayah, kehangatan paruman banjar, dan kemegahan upacara karya agung di pura kahyangan desa.</p>
                     </div>
 
                     <!-- Category Filter Tabs -->
@@ -184,7 +184,7 @@
                                 class="rounded-full px-3.5 py-1.5 font-headline text-xs font-bold transition duration-200"
                                 :class="selectedCat === 'all' ? 'bg-primary text-white shadow-sm' : 'bg-surface_container_low text-on_surface_variant hover:bg-surface_container border border-black/[0.06]'"
                             >
-                                Semua ({{ $galeris->count() }})
+                                Seluruh Foto ({{ $galeris->count() }})
                             </button>
                             @foreach ($kategoriGaleri as $catKey => $catLabel)
                                 @php
@@ -209,7 +209,7 @@
                     <div class="rounded-2xl border border-black/[0.08] bg-white p-12 text-center shadow-subtle">
                         <span class="material-symbols-outlined text-5xl text-slate-300 mb-3 block">photo_library</span>
                         <h3 class="font-serif_display text-xl font-bold text-primary">Dokumentasi Belum Diunggah</h3>
-                        <p class="mt-1 text-xs text-on_surface_variant">Arsip foto kegiatan desa adat akan ditampilkan di sini setelah diperbarui oleh prajuru.</p>
+                        <p class="mt-1 text-xs text-on_surface_variant">Dokumentasi foto kegiatan adat sedang dihimpun oleh tim publikasi desa.</p>
                     </div>
                 @else
                     <!-- Bento Mosaic Photo Grid -->

@@ -34,18 +34,18 @@
                 <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-md shadow-sm">
                     <span class="h-2 w-2 rounded-full bg-heritage_gold animate-pulse"></span>
                     <span class="font-headline text-[11px] font-bold uppercase tracking-[0.25em] text-heritage_gold_light">
-                        Inisiasi Strategis Desa
+                        Inisiasi Pembangunan Tri Hita Karana
                     </span>
                 </div>
 
                 <!-- Main Title -->
                 <h1 class="mb-5 font-serif_display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-                    Program Prioritas &amp; Capaian
+                    Program Prioritas &amp; Capaian Desa
                 </h1>
 
                 <!-- Narrative Subtitle -->
                 <p class="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-primary_fixed_dim/90 font-body">
-                    Pengejawantahan komitmen prajuru dalam mewujudkan tata kelola desa adat yang berkelanjutan berlandaskan falsafah <em>Tri Hita Karana</em> (Parahyangan, Pawongan, dan Palemahan).
+                    Ikhtiar nyata prajuru dan krama dalam mewujudkan kelestarian pura (Parahyangan), kerukunan warga (Pawongan), dan keasrian lingkungan (Palemahan) Desa Adat Tamanbali.
                 </p>
 
                 <!-- Year Selector Pill Bar -->
@@ -76,7 +76,7 @@
                             {{ $bukuProgram['total_program'] }}
                         </div>
                         <div class="mt-1 font-headline text-[11px] font-bold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Total Program ({{ $selectedYear }})
+                            Total Inisiasi Program ({{ $selectedYear }})
                         </div>
                     </div>
 
@@ -86,7 +86,7 @@
                             {{ $bukuProgram['avg_progress'] }}<span class="text-lg font-bold">%</span>
                         </div>
                         <div class="mt-1 font-headline text-[11px] font-bold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Rata-Rata Kemajuan
+                            Rata-Rata Kemajuan Fisik
                         </div>
                     </div>
 
@@ -96,7 +96,7 @@
                             Rp {{ number_format($bukuProgram['total_estimasi'], 0, ',', '.') }}
                         </div>
                         <div class="mt-1 font-headline text-[11px] font-bold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Total Alokasi Biaya
+                            Estimasi Kebutuhan Biaya
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
                             Rp {{ number_format($bukuProgram['total_realisasi'], 0, ',', '.') }}
                         </div>
                         <div class="mt-1 font-headline text-[11px] font-bold uppercase tracking-[0.15em] text-on_surface_variant">
-                            Realisasi Terserap
+                            Realisasi Anggaran Terserap
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                         class="rounded-full px-4 py-2 font-headline text-xs font-bold transition duration-200"
                         :class="selectedBidang === 'all' ? 'bg-primary text-white shadow-sm' : 'bg-surface_container_low text-on_surface_variant hover:bg-surface_container border border-black/[0.06]'"
                     >
-                        Semua Bidang ({{ $programs->count() }})
+                        Seluruh Inisiasi ({{ $programs->count() }})
                     </button>
                     @foreach ($bidangOptions as $bKey => $bLabel)
                         @php $bCount = $programs->where('bidang', $bKey)->count(); @endphp
@@ -159,28 +159,28 @@
                         class="rounded-lg px-2.5 py-1 transition"
                         :class="selectedStatus === 'all' ? 'bg-slate-800 text-white font-bold' : 'text-slate-500 hover:text-slate-800'"
                     >
-                        Semua
+                        Semua Status
                     </button>
                     <button
                         @click="selectedStatus = 'berjalan'"
                         class="rounded-lg px-2.5 py-1 transition"
                         :class="selectedStatus === 'berjalan' ? 'bg-amber-600 text-white font-bold' : 'text-amber-800 hover:bg-amber-50'"
                     >
-                        Berjalan ({{ $bukuProgram['berjalan_count'] }})
+                        Sedang Dikerjakan ({{ $bukuProgram['berjalan_count'] }})
                     </button>
                     <button
                         @click="selectedStatus = 'selesai'"
                         class="rounded-lg px-2.5 py-1 transition"
                         :class="selectedStatus === 'selesai' ? 'bg-emerald-700 text-white font-bold' : 'text-emerald-800 hover:bg-emerald-50'"
                     >
-                        Selesai ({{ $bukuProgram['selesai_count'] }})
+                        Tuntas Terlaksana ({{ $bukuProgram['selesai_count'] }})
                     </button>
                     <button
                         @click="selectedStatus = 'direncanakan'"
                         class="rounded-lg px-2.5 py-1 transition"
                         :class="selectedStatus === 'direncanakan' ? 'bg-blue-600 text-white font-bold' : 'text-blue-800 hover:bg-blue-50'"
                     >
-                        Direncanakan ({{ $bukuProgram['rencana_count'] }})
+                        Agenda Rencana ({{ $bukuProgram['rencana_count'] }})
                     </button>
                 </div>
             </div>
@@ -280,7 +280,7 @@
                                 <!-- Progress Bar Component -->
                                 <div class="mt-6 pt-4 border-t border-black/[0.04]">
                                     <div class="flex items-center justify-between text-xs font-headline mb-1.5">
-                                        <span class="text-on_surface_variant font-semibold">Progress Capaian</span>
+                                        <span class="text-on_surface_variant font-semibold">Kemajuan Lapangan</span>
                                         <span class="font-bold {{ $prog->persentase_progress == 100 ? 'text-emerald-700' : ($prog->persentase_progress > 0 ? 'text-amber-700' : 'text-slate-500') }}">
                                             {{ $prog->persentase_progress }}%
                                         </span>
@@ -295,11 +295,11 @@
                                     <!-- Budget Snippet -->
                                     <div class="mt-4 flex items-center justify-between text-xs text-on_surface_variant pt-3 border-t border-black/[0.04]">
                                         <div>
-                                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Alokasi Biaya</span>
+                                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Estimasi Biaya</span>
                                             <strong class="font-headline text-slate-900">{{ $prog->estimasi_anggaran_rp }}</strong>
                                         </div>
                                         <div class="text-right">
-                                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Target Waktu</span>
+                                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Target Rampung</span>
                                             <strong class="font-headline text-slate-700">{{ $prog->target_selesai ? $prog->target_selesai->translatedFormat('M Y') : 'Tahun ' . $prog->tahun_anggaran }}</strong>
                                         </div>
                                     </div>
@@ -313,7 +313,7 @@
                                     <span>{{ $prog->penanggung_jawab ?: 'Prajuru Terkait' }}</span>
                                 </span>
                                 <span class="font-bold text-primary group-hover:underline flex items-center gap-0.5">
-                                    Detail <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                                    Rincian <span class="material-symbols-outlined text-xs">arrow_forward</span>
                                 </span>
                             </div>
                         </article>
@@ -375,7 +375,7 @@
                     <!-- Progress Section -->
                     <div class="mt-6 rounded-2xl bg-surface_container_low p-5 border border-black/[0.06]">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="font-headline text-xs font-bold uppercase tracking-wider text-slate-500">Kemajuan Realisasi</span>
+                            <span class="font-headline text-xs font-bold uppercase tracking-wider text-slate-500">Persentase Capaian Lapangan</span>
                             <span class="font-headline text-lg font-extrabold text-primary" x-text="modalData.progress + '%'"></span>
                         </div>
                         <div class="h-3 w-full overflow-hidden rounded-full bg-white border border-black/[0.06]">
@@ -390,19 +390,19 @@
                     <!-- Details Grid -->
                     <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="rounded-xl border border-black/[0.06] bg-white p-4">
-                            <span class="text-[10px] font-headline font-bold uppercase tracking-wider text-slate-400 block">Alokasi Anggaran</span>
+                            <span class="text-[10px] font-headline font-bold uppercase tracking-wider text-slate-400 block">Estimasi Kebutuhan Biaya</span>
                             <strong class="font-headline text-lg text-primary" x-text="modalData.estimasi"></strong>
                         </div>
                         <div class="rounded-xl border border-black/[0.06] bg-white p-4">
-                            <span class="text-[10px] font-headline font-bold uppercase tracking-wider text-slate-400 block">Realisasi Anggaran</span>
+                            <span class="text-[10px] font-headline font-bold uppercase tracking-wider text-slate-400 block">Realisasi Anggaran Terserap</span>
                             <strong class="font-headline text-lg text-heritage_gold" x-text="modalData.realisasi"></strong>
                         </div>
                         <div class="rounded-xl border border-black/[0.06] bg-white p-4">
-                            <span class="text-[10px] font-headline font-bold uppercase tracking-wider text-slate-400 block">Penanggung Jawab</span>
+                            <span class="text-[10px] font-headline font-bold uppercase tracking-wider text-slate-400 block">Penanggung Jawab / Baga</span>
                             <strong class="font-headline text-sm text-slate-800" x-text="modalData.pj"></strong>
                         </div>
                         <div class="rounded-xl border border-black/[0.06] bg-white p-4">
-                            <span class="text-[10px] font-headline font-bold uppercase tracking-wider text-slate-400 block">Target Waktu Selesai</span>
+                            <span class="text-[10px] font-headline font-bold uppercase tracking-wider text-slate-400 block">Target Waktu Rampung</span>
                             <strong class="font-headline text-sm text-slate-800" x-text="modalData.target"></strong>
                         </div>
                     </div>
@@ -415,7 +415,7 @@
 
                     <!-- Narrative Description -->
                     <div class="mt-4 border-t border-black/[0.06] pt-5">
-                        <h4 class="font-headline text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Uraian &amp; Latar Belakang Program:</h4>
+                        <h4 class="font-headline text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Maksud &amp; Latar Belakang Kegiatan:</h4>
                         <div class="font-body text-sm leading-relaxed text-slate-700 whitespace-pre-line" x-text="modalData.deskripsi"></div>
                     </div>
                 </div>
@@ -424,7 +424,7 @@
                 <div class="border-t border-black/[0.06] bg-surface_container_low px-6 py-4 flex items-center justify-between text-xs text-on_surface_variant">
                     <span class="flex items-center gap-1">
                         <span class="material-symbols-outlined text-sm text-heritage_gold">verified</span>
-                        <span>Program Kerja Resmi Desa Adat Tamanbali</span>
+                        <span>Inisiasi Resmi Desa Adat Tamanbali</span>
                     </span>
                     <button
                         @click="closeDetail()"
