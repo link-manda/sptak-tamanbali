@@ -34,10 +34,10 @@ class Prajuru extends Model
     }
 
     // Koleksi Kategori
-    const CAT_INTI         = 'inti';
-    const CAT_BALA_ANGKEP  = 'bala_angkep';
-    const CAT_SABHA_DESA   = 'sabha_desa';
-    const CAT_KERTA_DESA   = 'kerta_desa';
+    const CAT_INTI          = 'inti';
+    const CAT_KELIAN_BANJAR = 'kelian_banjar';
+    const CAT_SABHA_DESA    = 'sabha_desa';
+    const CAT_KERTA_DESA    = 'kerta_desa';
 
     /**
      * Daftar Kategori Prajuru.
@@ -45,10 +45,10 @@ class Prajuru extends Model
     public static function kategoriOptions(): array
     {
         return [
-            self::CAT_INTI        => 'Prajuru Inti',
-            self::CAT_BALA_ANGKEP => 'Kelian Bala Angkep',
-            self::CAT_SABHA_DESA  => 'Sabha Desa',
-            self::CAT_KERTA_DESA  => 'Kerta Desa',
+            self::CAT_INTI          => 'Manggala Adat',
+            self::CAT_KELIAN_BANJAR => 'Kelian Banjar',
+            self::CAT_SABHA_DESA    => 'Sabha Desa',
+            self::CAT_KERTA_DESA    => 'Kerta Desa',
         ];
     }
 
@@ -65,8 +65,8 @@ class Prajuru extends Model
                 'Petajuh'      => 'Petajuh',
                 'Juru Raksa'   => 'Juru Raksa',
             ],
-            self::CAT_BALA_ANGKEP => [
-                'Kelian Bala' => 'Kelian Bala',
+            self::CAT_KELIAN_BANJAR => [
+                'Kelian Banjar' => 'Kelian Banjar',
             ],
             self::CAT_SABHA_DESA => [
                 'Ketua Sabha'   => 'Ketua Sabha',

@@ -39,7 +39,7 @@ class PrajurusTable
                     ->formatStateUsing(fn (string $state): string => Prajuru::kategoriOptions()[$state] ?? $state)
                     ->color(fn (string $state): string => match ($state) {
                         Prajuru::CAT_INTI => 'primary',
-                        Prajuru::CAT_BALA_ANGKEP => 'success',
+                        Prajuru::CAT_KELIAN_BANJAR => 'success',
                         Prajuru::CAT_SABHA_DESA => 'info',
                         Prajuru::CAT_KERTA_DESA => 'warning',
                         default => 'gray',

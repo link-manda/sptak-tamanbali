@@ -74,7 +74,7 @@ class ProgramPrioritasForm
                 TextInput::make('penanggung_jawab')
                     ->maxLength(255)
                     ->label('Penanggung Jawab / Tim Adat')
-                    ->placeholder('contoh: Prajuru Inti & Panitia Banjar Kawan'),
+                    ->placeholder('contoh: Manggala Adat & Panitia Banjar Kawan'),
 
                 DatePicker::make('tanggal_mulai')
                     ->label('Tanggal Dimulai')

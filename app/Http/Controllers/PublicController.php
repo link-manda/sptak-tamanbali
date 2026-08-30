@@ -434,8 +434,8 @@ class PublicController extends Controller
             ->orderBy('urutan')
             ->get();
 
-        $balaAngkep = Prajuru::aktif()
-            ->where('kategori', Prajuru::CAT_BALA_ANGKEP)
+        $kelianBanjars = Prajuru::aktif()
+            ->where('kategori', Prajuru::CAT_KELIAN_BANJAR)
             ->orderBy('urutan')
             ->get();
 
@@ -454,7 +454,7 @@ class PublicController extends Controller
         return view('public.prajuru', compact(
             'coreTeam',
             'banjarLeaders',
-            'balaAngkep',
+            'kelianBanjars',
             'sabhaDesa',
             'kertaDesa'
         ));

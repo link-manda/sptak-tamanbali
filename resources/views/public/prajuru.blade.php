@@ -35,7 +35,7 @@
                 <div class="mb-12 border-b border-black/[0.06] pb-5">
                     <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Penggerak &amp; Pelayan Adat</span>
                     <h2 class="mt-1 font-serif_display text-3xl sm:text-4xl font-bold text-primary">
-                        Manggala Prajuru Inti (Duaning Desa)
+                        Manggala Adat (Duaning Desa)
                     </h2>
                     <p class="mt-1 text-xs text-on_surface_variant">Pucuk pimpinan kepengurusan adat yang tulus ngayah mengayomi dan mengoordinasikan seluruh tata kelola desa.</p>
                 </div>
@@ -43,7 +43,7 @@
                 @if ($coreTeam->isEmpty())
                     <div class="rounded-2xl border border-black/[0.08] bg-white p-12 text-center">
                         <span class="material-symbols-outlined text-5xl text-slate-300 mb-3 block">groups</span>
-                        <p class="text-xs text-on_surface_variant">Data prajuru inti belum tersedia.</p>
+                        <p class="text-xs text-on_surface_variant">Data manggala adat belum tersedia.</p>
                     </div>
                 @else
                     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -135,18 +135,18 @@
             </div>
         </section>
 
-        <!-- 4. Bala Angkep (Jika ada) -->
-        @if (!$balaAngkep->isEmpty())
+        <!-- 4. Kelian Banjar (Jika ada) -->
+        @if (!$kelianBanjars->isEmpty())
             <section class="bg-surface px-6 py-20 border-t border-black/[0.06]">
                 <div class="mx-auto max-w-7xl">
                     <div class="mb-10 border-b border-black/[0.06] pb-4">
-                        <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Koordinasi Bala</span>
+                        <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-heritage_gold">Pamong Wilayah</span>
                         <h2 class="mt-1 font-serif_display text-3xl font-bold text-primary">
-                            Kelian Bala Angkep
+                            Kelian Banjar
                         </h2>
                     </div>
                     <div class="grid gap-6 md:grid-cols-3">
-                        @foreach ($balaAngkep as $member)
+                        @foreach ($kelianBanjars as $member)
                             <article class="flex flex-col items-center rounded-2xl border border-black/[0.08] bg-white p-7 text-center shadow-subtle">
                                 <div class="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-heritage_gold/40">
                                     <img src="{{ $member->foto_url }}" alt="Foto {{ $member->nama_lengkap }}"
