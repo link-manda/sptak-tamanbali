@@ -24,7 +24,7 @@ class KategoriTransaksiResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Kategori Transaksi';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Keuangan';
+    protected static string|\UnitEnum|null $navigationGroup = 'Keuangan';
 
     protected static ?int $navigationSort = 2;
 

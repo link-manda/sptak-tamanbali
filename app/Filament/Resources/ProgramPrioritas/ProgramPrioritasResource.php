@@ -24,7 +24,7 @@ class ProgramPrioritasResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Program Prioritas';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Tata Kelola & Program';
+    protected static string|\UnitEnum|null $navigationGroup = 'Tata Kelola & Program';
 
     protected static ?int $navigationSort = 1;
 

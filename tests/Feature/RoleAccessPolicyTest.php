@@ -2,9 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Models\AwigAwig;
 use App\Models\GaleriDesa;
 use App\Models\KategoriTransaksi;
+use App\Models\Pararem;
+use App\Models\Prajuru;
+use App\Models\ProfilDesa;
 use App\Models\ProgramPrioritas;
+use App\Models\TimelineDesa;
 use App\Models\Transaksi;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -55,5 +60,38 @@ class RoleAccessPolicyTest extends TestCase
         // Staf Admin dilarang akses Transaksi
         $this->assertFalse(Gate::forUser($stafAdmin)->allows('viewAny', Transaksi::class));
         $this->assertFalse(Gate::forUser($stafAdmin)->allows('viewAny', KategoriTransaksi::class));
+    }
+
+    public function test_customary_and_profile_policies_enforce_role_boundaries(): void
+    {
+        $stafKeuangan = new User(['role' => 'staf_keuangan']);
+        $stafAdmin = new User(['role' => 'staf_admin']);
+        $admin = new User(['role' => 'admin']);
+
+        $models = [
+            AwigAwig::class,
+            Pararem::class,
+            Prajuru::class,
+            ProfilDesa::class,
+            TimelineDesa::class,
+        ];
+
+        foreach ($models as $model) {
+            // Staf Keuangan tidak boleh akses manajemen profil/regulasi
+            $this->assertFalse(Gate::forUser($stafKeuangan)->allows('viewAny', $model));
+            $this->assertFalse(Gate::forUser($stafKeuangan)->allows('create', $model));
+
+            // Staf Admin boleh view & create
+            $this->assertTrue(Gate::forUser($stafAdmin)->allows('viewAny', $model));
+            $this->assertTrue(Gate::forUser($stafAdmin)->allows('create', $model));
+
+            // Staf Admin tidak boleh delete (hanya admin yang boleh)
+            $this->assertFalse(Gate::forUser($stafAdmin)->allows('deleteAny', $model));
+
+            // Admin punya akses penuh
+            $this->assertTrue(Gate::forUser($admin)->allows('viewAny', $model));
+            $this->assertTrue(Gate::forUser($admin)->allows('create', $model));
+            $this->assertTrue(Gate::forUser($admin)->allows('deleteAny', $model));
+        }
     }
 }

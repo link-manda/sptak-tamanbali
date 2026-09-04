@@ -3,15 +3,15 @@
 namespace App\Filament\Widgets;
 
 use App\Models\DashboardDocument;
-use App\Models\SuratMasuk;
 use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
 class DocumentStatsWidget extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {

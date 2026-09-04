@@ -4,13 +4,12 @@ namespace App\Filament\Widgets;
 
 use App\Models\Transaksi;
 use Filament\Widgets\ChartWidget;
-use Illuminate\Support\Facades\DB;
 
 class TransactionChartWidget extends ChartWidget
 {
     protected ?string $heading = 'Trend Transaksi 12 Bulan';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getData(): array
     {

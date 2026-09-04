@@ -38,17 +38,17 @@ class ProgramPrioritasTable
                     ->badge()
                     ->formatStateUsing(fn ($state) => match ($state) {
                         'parahyangan' => 'Parahyangan',
-                        'pawongan'    => 'Pawongan',
-                        'palemahan'   => 'Palemahan',
+                        'pawongan' => 'Pawongan',
+                        'palemahan' => 'Palemahan',
                         'tata_kelola' => 'Tata Kelola',
-                        default       => ucfirst($state),
+                        default => ucfirst($state),
                     })
                     ->color(fn (string $state): string => match ($state) {
                         'parahyangan' => 'warning',
-                        'pawongan'    => 'info',
-                        'palemahan'   => 'success',
+                        'pawongan' => 'info',
+                        'palemahan' => 'success',
                         'tata_kelola' => 'primary',
-                        default       => 'gray',
+                        default => 'gray',
                     })
                     ->label('Bidang'),
 
@@ -58,8 +58,8 @@ class ProgramPrioritasTable
                     ->badge()
                     ->color(fn (int $state): string => match (true) {
                         $state >= 100 => 'success',
-                        $state > 0    => 'warning',
-                        default       => 'gray',
+                        $state > 0 => 'warning',
+                        default => 'gray',
                     })
                     ->label('Progress'),
 
@@ -67,10 +67,10 @@ class ProgramPrioritasTable
                     ->badge()
                     ->formatStateUsing(fn ($state) => ProgramPrioritas::statusOptions()[$state] ?? ucfirst($state))
                     ->color(fn (string $state): string => match ($state) {
-                        'selesai'      => 'success',
-                        'berjalan'     => 'warning',
+                        'selesai' => 'success',
+                        'berjalan' => 'warning',
                         'direncanakan' => 'info',
-                        default        => 'danger',
+                        default => 'danger',
                     })
                     ->label('Status'),
 

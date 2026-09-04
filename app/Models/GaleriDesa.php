@@ -19,14 +19,18 @@ class GaleriDesa extends Model
 
     protected $casts = [
         'tanggal_kegiatan' => 'date',
-        'is_aktif'         => 'boolean',
-        'urutan'           => 'integer',
+        'is_aktif' => 'boolean',
+        'urutan' => 'integer',
     ];
 
     const CAT_UPAKARA = 'upakara';
+
     const CAT_PARUMAN = 'paruman';
-    const CAT_NGAYAH  = 'ngayah';
-    const CAT_SITUS   = 'situs';
+
+    const CAT_NGAYAH = 'ngayah';
+
+    const CAT_SITUS = 'situs';
+
     const CAT_LAINNYA = 'lainnya';
 
     /**
@@ -37,8 +41,8 @@ class GaleriDesa extends Model
         return [
             self::CAT_UPAKARA => 'Piodalan & Upakara',
             self::CAT_PARUMAN => 'Paruman & Musyawarah',
-            self::CAT_NGAYAH  => 'Ngayah & Gotong Royong',
-            self::CAT_SITUS   => 'Situs & Palemahan',
+            self::CAT_NGAYAH => 'Ngayah & Gotong Royong',
+            self::CAT_SITUS => 'Situs & Palemahan',
             self::CAT_LAINNYA => 'Kegiatan Lainnya',
         ];
     }

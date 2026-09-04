@@ -25,7 +25,7 @@ class TransaksiResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Transaksi';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Keuangan';
+    protected static string|\UnitEnum|null $navigationGroup = 'Keuangan';
 
     protected static ?int $navigationSort = 1;
 

@@ -5,7 +5,6 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
@@ -18,12 +17,12 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
      * Daftar seluruh role yang tersedia dalam sistem.
      */
     const ROLES = [
-        'admin'          => 'Admin',
-        'staf_admin'     => 'Staf Admin',
-        'staf_keuangan'  => 'Staf Keuangan',
-        'petajuh'        => 'Petajuh',
-        'juru_raksa'     => 'Juru Raksa',
-        'masyarakat'     => 'Masyarakat',
+        'admin' => 'Admin',
+        'staf_admin' => 'Staf Admin',
+        'staf_keuangan' => 'Staf Keuangan',
+        'petajuh' => 'Petajuh',
+        'juru_raksa' => 'Juru Raksa',
+        'masyarakat' => 'Masyarakat',
     ];
 
     /**

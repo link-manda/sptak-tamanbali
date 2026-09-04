@@ -6,7 +6,6 @@ use App\Filament\Resources\ProfilDesas\ProfilDesaResource;
 use App\Models\ProfilDesa;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use Illuminate\Support\HtmlString;
 
 /**
  * List page khusus singleton — jika record sudah ada, tombol "Edit" akan muncul.

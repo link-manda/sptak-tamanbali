@@ -24,7 +24,7 @@ class KramaResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Data Krama';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Administrasi Desa';
+    protected static string|\UnitEnum|null $navigationGroup = 'Administrasi Desa';
 
     protected static ?int $navigationSort = 1;
 

@@ -8,7 +8,7 @@ class Transaksi extends Model
 {
     protected $fillable = [
         'kategori_transaksi_id', 'user_id', 'jenis',
-        'nominal', 'tanggal_transaksi', 'keterangan', 'bukti_file'
+        'nominal', 'tanggal_transaksi', 'keterangan', 'bukti_file',
     ];
 
     public function kategori()

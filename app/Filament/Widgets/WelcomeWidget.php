@@ -9,7 +9,7 @@ class WelcomeWidget extends Widget
 {
     protected string $view = 'filament.widgets.welcome-widget';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function getViewData(): array
     {

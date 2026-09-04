@@ -32,16 +32,16 @@ class PanaremsTable
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'aktif'       => 'success',
-                        'evaluasi'    => 'warning',
+                        'aktif' => 'success',
+                        'evaluasi' => 'warning',
                         'tidak_aktif' => 'danger',
-                        default       => 'gray',
+                        default => 'gray',
                     })
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'aktif'       => 'Aktif',
-                        'evaluasi'    => 'Evaluasi Tahunan',
+                        'aktif' => 'Aktif',
+                        'evaluasi' => 'Evaluasi Tahunan',
                         'tidak_aktif' => 'Tidak Aktif',
-                        default       => ucfirst($state),
+                        default => ucfirst($state),
                     })
                     ->sortable(),
 
@@ -68,8 +68,8 @@ class PanaremsTable
             ->filters([
                 SelectFilter::make('status')
                     ->options([
-                        'aktif'       => 'Aktif',
-                        'evaluasi'    => 'Evaluasi Tahunan',
+                        'aktif' => 'Aktif',
+                        'evaluasi' => 'Evaluasi Tahunan',
                         'tidak_aktif' => 'Tidak Aktif',
                     ]),
             ])

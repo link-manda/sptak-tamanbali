@@ -24,7 +24,7 @@ class SuratKeluarResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Surat Keluar';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Administrasi Surat';
+    protected static string|\UnitEnum|null $navigationGroup = 'Administrasi Surat';
 
     protected static ?int $navigationSort = 2;
 

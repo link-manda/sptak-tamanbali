@@ -39,9 +39,9 @@ class GaleriDesasTable
                     ->color(fn (string $state): string => match ($state) {
                         'upakara' => 'warning',
                         'paruman' => 'info',
-                        'ngayah'  => 'success',
-                        'situs'   => 'primary',
-                        default   => 'gray',
+                        'ngayah' => 'success',
+                        'situs' => 'primary',
+                        default => 'gray',
                     })
                     ->label('Kategori'),
 

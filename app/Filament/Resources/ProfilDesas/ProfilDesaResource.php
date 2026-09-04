@@ -25,7 +25,7 @@ class ProfilDesaResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Profil Desa';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Konten Desa';
+    protected static string|\UnitEnum|null $navigationGroup = 'Konten Desa';
 
     protected static ?int $navigationSort = 1;
 
@@ -61,9 +61,9 @@ class ProfilDesaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListProfilDesas::route('/'),
+            'index' => ListProfilDesas::route('/'),
             'create' => CreateProfilDesa::route('/create'),
-            'edit'   => EditProfilDesa::route('/{record}/edit'),
+            'edit' => EditProfilDesa::route('/{record}/edit'),
         ];
     }
 }

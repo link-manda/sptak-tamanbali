@@ -7,17 +7,17 @@ use App\Models\Banjar;
 use App\Models\GaleriDesa;
 use App\Models\Krama;
 use App\Models\Pararem;
+use App\Models\Prajuru;
 use App\Models\ProfilDesa;
 use App\Models\ProgramPrioritas;
-use App\Models\Prajuru;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
 use App\Models\TimelineDesa;
 use App\Models\Transaksi;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class PublicController extends Controller
 {
@@ -38,54 +38,54 @@ class PublicController extends Controller
             ->get();
 
         $homeMetrics = [
-            'banjar'      => Banjar::count(),
+            'banjar' => Banjar::count(),
             'krama_aktif' => Krama::where('status_aktif', true)->count(),
-            'dokumen'     => SuratMasuk::count() + SuratKeluar::count(),
+            'dokumen' => SuratMasuk::count() + SuratKeluar::count(),
         ];
 
         $contentCards = [
             [
-                'title'       => 'Profil Desa Adat Tamanbali',
+                'title' => 'Profil Desa Adat Tamanbali',
                 'description' => 'Sejarah, visi-misi, dan identitas luhur desa kami.',
-                'icon'        => 'account_balance',
-                'target'      => route('profil'),
+                'icon' => 'account_balance',
+                'target' => route('profil'),
             ],
             [
-                'title'       => 'Susunan Prajuru',
+                'title' => 'Susunan Prajuru',
                 'description' => 'Struktur organisasi dan pelayan masyarakat desa.',
-                'icon'        => 'groups',
-                'target'      => route('prajuru'),
+                'icon' => 'groups',
+                'target' => route('prajuru'),
             ],
             [
-                'title'       => 'Awig-Awig',
+                'title' => 'Awig-Awig',
                 'description' => 'Pedoman hukum adat dan tata tertib kehidupan desa.',
-                'icon'        => 'gavel',
-                'target'      => route('awig'),
+                'icon' => 'gavel',
+                'target' => route('awig'),
             ],
             [
-                'title'       => 'Pararem',
+                'title' => 'Pararem',
                 'description' => 'Keputusan dan kesepakatan terbaru rapat desa.',
-                'icon'        => 'menu_book',
-                'target'      => route('pararem'),
+                'icon' => 'menu_book',
+                'target' => route('pararem'),
             ],
         ];
 
         $infoSections = [
             'profil' => [
                 'title' => 'Profil Desa Adat Tamanbali',
-                'body'  => 'Desa Adat Tamanbali membangun tata kelola publik yang memadukan nilai adat, gotong royong, dan akuntabilitas digital untuk pelayanan masyarakat yang lebih terbuka.',
+                'body' => 'Desa Adat Tamanbali membangun tata kelola publik yang memadukan nilai adat, gotong royong, dan akuntabilitas digital untuk pelayanan masyarakat yang lebih terbuka.',
             ],
             'prajuru' => [
                 'title' => 'Susunan Prajuru',
-                'body'  => 'Prajuru desa terdiri dari Bendesa Adat, penyarikan, petengen, dan unsur banjar yang bekerja bersama menjaga administrasi, keuangan, dan kegiatan adat berjalan tertib.',
+                'body' => 'Prajuru desa terdiri dari Bendesa Adat, penyarikan, petengen, dan unsur banjar yang bekerja bersama menjaga administrasi, keuangan, dan kegiatan adat berjalan tertib.',
             ],
             'awig' => [
                 'title' => 'Awig-Awig',
-                'body'  => 'Awig-awig menjadi landasan tata kehidupan desa adat, termasuk aturan partisipasi krama, pengelolaan aset adat, dan mekanisme musyawarah dalam paruman desa.',
+                'body' => 'Awig-awig menjadi landasan tata kehidupan desa adat, termasuk aturan partisipasi krama, pengelolaan aset adat, dan mekanisme musyawarah dalam paruman desa.',
             ],
             'pararem' => [
                 'title' => 'Pararem',
-                'body'  => 'Pararem dipakai untuk keputusan operasional dan penyesuaian kebijakan terbaru berdasarkan hasil rapat desa, terutama untuk kegiatan sosial, budaya, dan administrasi harian.',
+                'body' => 'Pararem dipakai untuk keputusan operasional dan penyesuaian kebijakan terbaru berdasarkan hasil rapat desa, terutama untuk kegiatan sosial, budaya, dan administrasi harian.',
             ],
         ];
 
@@ -126,13 +126,13 @@ class PublicController extends Controller
             ->get();
 
         $bukuProgram = [
-            'total_program'    => $programs->count(),
-            'total_estimasi'   => $programs->sum('estimasi_anggaran'),
-            'total_realisasi'  => $programs->sum('realisasi_anggaran'),
-            'avg_progress'     => $programs->count() > 0 ? round($programs->avg('persentase_progress')) : 0,
-            'selesai_count'    => $programs->where('status', ProgramPrioritas::STATUS_SELESAI)->count(),
-            'berjalan_count'   => $programs->where('status', ProgramPrioritas::STATUS_BERJALAN)->count(),
-            'rencana_count'    => $programs->where('status', ProgramPrioritas::STATUS_DIRENCANAKAN)->count(),
+            'total_program' => $programs->count(),
+            'total_estimasi' => $programs->sum('estimasi_anggaran'),
+            'total_realisasi' => $programs->sum('realisasi_anggaran'),
+            'avg_progress' => $programs->count() > 0 ? round($programs->avg('persentase_progress')) : 0,
+            'selesai_count' => $programs->where('status', ProgramPrioritas::STATUS_SELESAI)->count(),
+            'berjalan_count' => $programs->where('status', ProgramPrioritas::STATUS_BERJALAN)->count(),
+            'rencana_count' => $programs->where('status', ProgramPrioritas::STATUS_DIRENCANAKAN)->count(),
         ];
 
         $bidangOptions = ProgramPrioritas::bidangOptions();
@@ -160,7 +160,7 @@ class PublicController extends Controller
             ->pluck('year');
 
         // Pastikan tahun yang diminta ada dalam data, jika tidak fallback ke tahun terbaru yang ada
-        if ($availableYears->isNotEmpty() && !$availableYears->contains($tahun)) {
+        if ($availableYears->isNotEmpty() && ! $availableYears->contains($tahun)) {
             $tahun = $availableYears->first();
         }
 
@@ -173,7 +173,7 @@ class PublicController extends Controller
 
         if ($scope === 'catur-wulan') {
             $allTransactions = $transaksiQuery->get();
-            
+
             // Definisi rentang bulan untuk tiap Catur Wulan
             $periods = [
                 ['id' => 'cw3', 'label' => 'Catur Wulan III (September - Desember)', 'months' => [9, 10, 11, 12]],
@@ -184,15 +184,16 @@ class PublicController extends Controller
             foreach ($periods as $period) {
                 // Filter transaksi yang termasuk dalam rentang bulan CW ini
                 $items = $allTransactions->filter(function ($t) use ($period) {
-                    $month = \Carbon\Carbon::parse($t->tanggal_transaksi)->month;
+                    $month = Carbon::parse($t->tanggal_transaksi)->month;
+
                     return in_array($month, $period['months']);
                 });
-                
+
                 // Hanya tambahkan jika ada data (sesuai request: tidak perlu menampilkan status kosong)
                 if ($items->isNotEmpty()) {
                     $in = $items->where('jenis', 'pemasukan')->sum('nominal');
                     $out = $items->where('jenis', 'pengeluaran')->sum('nominal');
-                    
+
                     $caturWulanData[] = [
                         'id' => $period['id'],
                         'label' => $period['label'],
@@ -200,8 +201,8 @@ class PublicController extends Controller
                         'totals' => [
                             'pemasukan' => $in,
                             'pengeluaran' => $out,
-                            'saldo' => $in - $out
-                        ]
+                            'saldo' => $in - $out,
+                        ],
                     ];
                 }
             }
@@ -221,11 +222,11 @@ class PublicController extends Controller
 
         $monthNames = [
             1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr', 5 => 'Mei', 6 => 'Jun',
-            7 => 'Jul', 8 => 'Ags', 9 => 'Sep', 10 => 'Okt', 11 => 'Nov', 12 => 'Des'
+            7 => 'Jul', 8 => 'Ags', 9 => 'Sep', 10 => 'Okt', 11 => 'Nov', 12 => 'Des',
         ];
         $monthFullNames = [
             1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni',
-            7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+            7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
         ];
 
         // Ambil data pemasukan & pengeluaran per bulan di tahun yang dipilih
@@ -255,17 +256,17 @@ class PublicController extends Controller
         $grafikKas = collect(range($startMonth, $endMonth))->map(function ($m) use ($monthlyTotals, $monthNames, $monthFullNames, $tahun, $maxVal) {
             $in = $monthlyTotals->where('bulan', $m)->where('jenis', 'pemasukan')->sum('total');
             $out = $monthlyTotals->where('bulan', $m)->where('jenis', 'pengeluaran')->sum('total');
-            
+
             return [
-                'bulan_num'       => $m,
-                'bulan_label'     => $monthNames[$m] ?? "B$m",
-                'bulan_full'      => ($monthFullNames[$m] ?? "Bulan $m") . " $tahun",
-                'pemasukan'       => $in,
-                'pengeluaran'     => $out,
-                'pemasukan_rp'    => 'Rp ' . number_format($in, 0, ',', '.'),
-                'pengeluaran_rp'   => 'Rp ' . number_format($out, 0, ',', '.'),
-                'height_in'       => $in > 0 ? max(14, min(100, intval(($in / $maxVal) * 100))) : 4,
-                'height_out'      => $out > 0 ? max(14, min(100, intval(($out / $maxVal) * 100))) : 4,
+                'bulan_num' => $m,
+                'bulan_label' => $monthNames[$m] ?? "B$m",
+                'bulan_full' => ($monthFullNames[$m] ?? "Bulan $m")." $tahun",
+                'pemasukan' => $in,
+                'pengeluaran' => $out,
+                'pemasukan_rp' => 'Rp '.number_format($in, 0, ',', '.'),
+                'pengeluaran_rp' => 'Rp '.number_format($out, 0, ',', '.'),
+                'height_in' => $in > 0 ? max(14, min(100, intval(($in / $maxVal) * 100))) : 4,
+                'height_out' => $out > 0 ? max(14, min(100, intval(($out / $maxVal) * 100))) : 4,
             ];
         });
 
@@ -341,14 +342,14 @@ class PublicController extends Controller
             ->when($endDate, fn (Builder $query) => $query->whereDate('tanggal_surat', '<=', $endDate))
             ->get()
             ->map(fn (SuratMasuk $surat) => [
-                'id'            => 'masuk-' . $surat->id,
-                'jenis'         => 'Surat Masuk',
-                'nomor_surat'   => $surat->nomor_surat,
-                'perihal'       => $surat->perihal,
+                'id' => 'masuk-'.$surat->id,
+                'jenis' => 'Surat Masuk',
+                'nomor_surat' => $surat->nomor_surat,
+                'perihal' => $surat->perihal,
                 'tanggal_surat' => Carbon::parse($surat->tanggal_surat),
-                'asal_tujuan'   => $surat->asal_surat,
-                'file_surat'    => $surat->file_surat,
-                'status'        => Carbon::parse($surat->created_at)->diffInDays(now()) <= 3 ? 'Baru' : 'Arsip',
+                'asal_tujuan' => $surat->asal_surat,
+                'file_surat' => $surat->file_surat,
+                'status' => Carbon::parse($surat->created_at)->diffInDays(now()) <= 3 ? 'Baru' : 'Arsip',
             ]);
 
         $suratKeluar = SuratKeluar::query()
@@ -361,14 +362,14 @@ class PublicController extends Controller
             ->when($endDate, fn (Builder $query) => $query->whereDate('tanggal_surat', '<=', $endDate))
             ->get()
             ->map(fn (SuratKeluar $surat) => [
-                'id'            => 'keluar-' . $surat->id,
-                'jenis'         => 'Surat Keluar',
-                'nomor_surat'   => $surat->nomor_surat,
-                'perihal'       => $surat->perihal,
+                'id' => 'keluar-'.$surat->id,
+                'jenis' => 'Surat Keluar',
+                'nomor_surat' => $surat->nomor_surat,
+                'perihal' => $surat->perihal,
                 'tanggal_surat' => Carbon::parse($surat->tanggal_surat),
-                'asal_tujuan'   => $surat->tujuan_surat,
-                'file_surat'    => $surat->file_surat,
-                'status'        => Carbon::parse($surat->created_at)->diffInDays(now()) <= 2 ? 'Diproses' : 'Selesai',
+                'asal_tujuan' => $surat->tujuan_surat,
+                'file_surat' => $surat->file_surat,
+                'status' => Carbon::parse($surat->created_at)->diffInDays(now()) <= 2 ? 'Diproses' : 'Selesai',
             ]);
 
         $arsipDokumen = $suratMasuk
@@ -398,12 +399,12 @@ class PublicController extends Controller
 
         $profileStats = [
             'banjar' => $banjars->count(),
-            'krama'  => Krama::count(),
-            'aktif'  => Krama::where('status_aktif', true)->count(),
+            'krama' => Krama::count(),
+            'aktif' => Krama::where('status_aktif', true)->count(),
         ];
 
         // Data dari DB — fallback ke objek kosong jika belum diisi
-        $profil   = ProfilDesa::getSingleton();
+        $profil = ProfilDesa::getSingleton();
         $timeline = TimelineDesa::orderBy('urutan')->get();
 
         $galeris = GaleriDesa::aktif()

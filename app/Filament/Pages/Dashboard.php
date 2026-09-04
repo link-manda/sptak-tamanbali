@@ -16,7 +16,7 @@ class Dashboard extends BaseDashboard
         $user = auth()->user();
 
         // Fallback jika user tidak authenticated (edge case)
-        if (!$user) {
+        if (! $user) {
             return [
                 TransactionSummaryWidget::class,
                 MemberStatsWidget::class,

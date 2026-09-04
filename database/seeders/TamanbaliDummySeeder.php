@@ -11,6 +11,7 @@ use App\Models\Transaksi;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -84,7 +85,7 @@ class TamanbaliDummySeeder extends Seeder
 
         for ($i = 1; $i <= 12; $i++) {
             User::create([
-                'name' => 'Warga Tamanbali ' . $i,
+                'name' => 'Warga Tamanbali '.$i,
                 'email' => sprintf('warga.tamanbali%02d@example.com', $i),
                 'password' => $password,
                 'role' => 'masyarakat',
@@ -99,7 +100,7 @@ class TamanbaliDummySeeder extends Seeder
         ];
     }
 
-    /** @return \Illuminate\Support\Collection<int, Banjar> */
+    /** @return Collection<int, Banjar> */
     private function seedBanjars()
     {
         $data = [
@@ -128,14 +129,14 @@ class TamanbaliDummySeeder extends Seeder
                 Krama::create([
                     'banjar_id' => $banjar->id,
                     'nama_lengkap' => $faker->name(),
-                    'alamat' => 'Br. ' . $banjar->nama_banjar . ', Desa Tamanbali, Kec. Bangli',
+                    'alamat' => 'Br. '.$banjar->nama_banjar.', Desa Tamanbali, Kec. Bangli',
                     'status_aktif' => $faker->boolean(85),
                 ]);
             }
         }
     }
 
-    /** @return \Illuminate\Support\Collection<int, KategoriTransaksi> */
+    /** @return Collection<int, KategoriTransaksi> */
     private function seedKategoriTransaksi()
     {
         $data = [
@@ -238,6 +239,4 @@ class TamanbaliDummySeeder extends Seeder
             ]);
         }
     }
-
-
 }

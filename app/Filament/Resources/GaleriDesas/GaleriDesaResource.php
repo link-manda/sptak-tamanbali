@@ -24,7 +24,7 @@ class GaleriDesaResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Galeri & Dokumentasi';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Konten Desa';
+    protected static string|\UnitEnum|null $navigationGroup = 'Konten Desa';
 
     protected static ?int $navigationSort = 3;
 

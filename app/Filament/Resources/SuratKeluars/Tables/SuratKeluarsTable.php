@@ -57,7 +57,7 @@ class SuratKeluarsTable
                 Action::make('download')
                     ->label('Unduh')
                     ->icon('heroicon-o-arrow-down-tray')
-                    ->url(fn ($record) => asset('storage/' . $record->file_surat))
+                    ->url(fn ($record) => asset('storage/'.$record->file_surat))
                     ->openUrlInNewTab()
                     ->visible(fn ($record) => $record->file_surat !== null),
             ])

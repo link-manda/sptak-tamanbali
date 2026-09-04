@@ -26,7 +26,7 @@ class PrajurusTable
                 ImageColumn::make('foto')
                     ->disk('public')
                     ->circular()
-                    ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->nama_lengkap) . '&background=00236f&color=fff&size=64')
+                    ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name='.urlencode($record->nama_lengkap).'&background=00236f&color=fff&size=64')
                     ->label('Foto'),
 
                 TextColumn::make('nama_lengkap')

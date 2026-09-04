@@ -24,7 +24,7 @@ class PanaremResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Pararem';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Regulasi Adat';
+    protected static string|\UnitEnum|null $navigationGroup = 'Regulasi Adat';
 
     protected static ?int $navigationSort = 2;
 
@@ -48,9 +48,9 @@ class PanaremResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListPararems::route('/'),
+            'index' => ListPararems::route('/'),
             'create' => CreatePararem::route('/create'),
-            'edit'   => EditPararem::route('/{record}/edit'),
+            'edit' => EditPararem::route('/{record}/edit'),
         ];
     }
 }

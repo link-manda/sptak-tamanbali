@@ -29,28 +29,34 @@ class ProgramPrioritas extends Model
     ];
 
     protected $casts = [
-        'tahun_anggaran'      => 'integer',
-        'estimasi_anggaran'   => 'integer',
-        'realisasi_anggaran'  => 'integer',
+        'tahun_anggaran' => 'integer',
+        'estimasi_anggaran' => 'integer',
+        'realisasi_anggaran' => 'integer',
         'persentase_progress' => 'integer',
-        'tanggal_mulai'       => 'date',
-        'target_selesai'      => 'date',
-        'urutan'              => 'integer',
-        'is_tampil_beranda'   => 'boolean',
-        'is_aktif'            => 'boolean',
+        'tanggal_mulai' => 'date',
+        'target_selesai' => 'date',
+        'urutan' => 'integer',
+        'is_tampil_beranda' => 'boolean',
+        'is_aktif' => 'boolean',
     ];
 
     // Konstanta Bidang Tri Hita Karana
     const BIDANG_PARAHYANGAN = 'parahyangan';
-    const BIDANG_PAWONGAN    = 'pawongan';
-    const BIDANG_PALEMAHAN   = 'palemahan';
+
+    const BIDANG_PAWONGAN = 'pawongan';
+
+    const BIDANG_PALEMAHAN = 'palemahan';
+
     const BIDANG_TATA_KELOLA = 'tata_kelola';
 
     // Konstanta Status Program
     const STATUS_DIRENCANAKAN = 'direncanakan';
-    const STATUS_BERJALAN     = 'berjalan';
-    const STATUS_SELESAI      = 'selesai';
-    const STATUS_TERTUNDA     = 'tertunda';
+
+    const STATUS_BERJALAN = 'berjalan';
+
+    const STATUS_SELESAI = 'selesai';
+
+    const STATUS_TERTUNDA = 'tertunda';
 
     /**
      * Opsi Bidang Program Tri Hita Karana.
@@ -59,8 +65,8 @@ class ProgramPrioritas extends Model
     {
         return [
             self::BIDANG_PARAHYANGAN => 'Parahyangan (Keagamaan & Pura)',
-            self::BIDANG_PAWONGAN    => 'Pawongan (Sosial & Budaya)',
-            self::BIDANG_PALEMAHAN   => 'Palemahan (Lingkungan & Fasilitas)',
+            self::BIDANG_PAWONGAN => 'Pawongan (Sosial & Budaya)',
+            self::BIDANG_PALEMAHAN => 'Palemahan (Lingkungan & Fasilitas)',
             self::BIDANG_TATA_KELOLA => 'Tata Kelola & Digitalisasi',
         ];
     }
@@ -72,9 +78,9 @@ class ProgramPrioritas extends Model
     {
         return [
             self::STATUS_DIRENCANAKAN => 'Direncanakan',
-            self::STATUS_BERJALAN     => 'Sedang Berjalan',
-            self::STATUS_SELESAI      => 'Selesai / Terlaksana',
-            self::STATUS_TERTUNDA     => 'Tertunda',
+            self::STATUS_BERJALAN => 'Sedang Berjalan',
+            self::STATUS_SELESAI => 'Selesai / Terlaksana',
+            self::STATUS_TERTUNDA => 'Tertunda',
         ];
     }
 
@@ -105,10 +111,10 @@ class ProgramPrioritas extends Model
     {
         return match ($this->bidang) {
             self::BIDANG_PARAHYANGAN => 'Parahyangan',
-            self::BIDANG_PAWONGAN    => 'Pawongan',
-            self::BIDANG_PALEMAHAN   => 'Palemahan',
+            self::BIDANG_PAWONGAN => 'Pawongan',
+            self::BIDANG_PALEMAHAN => 'Palemahan',
             self::BIDANG_TATA_KELOLA => 'Tata Kelola',
-            default                  => ucfirst($this->bidang),
+            default => ucfirst($this->bidang),
         };
     }
 
@@ -125,7 +131,7 @@ class ProgramPrioritas extends Model
      */
     public function getEstimasiAnggaranRpAttribute(): string
     {
-        return 'Rp ' . number_format($this->estimasi_anggaran, 0, ',', '.');
+        return 'Rp '.number_format($this->estimasi_anggaran, 0, ',', '.');
     }
 
     /**
@@ -133,7 +139,7 @@ class ProgramPrioritas extends Model
      */
     public function getRealisasiAnggaranRpAttribute(): string
     {
-        return 'Rp ' . number_format($this->realisasi_anggaran, 0, ',', '.');
+        return 'Rp '.number_format($this->realisasi_anggaran, 0, ',', '.');
     }
 
     /**

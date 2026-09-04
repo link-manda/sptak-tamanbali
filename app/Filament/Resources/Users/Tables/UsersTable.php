@@ -4,9 +4,9 @@ namespace App\Filament\Resources\Users\Tables;
 
 use App\Models\User;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -32,7 +32,7 @@ class UsersTable
                         'warning' => 'staf_admin',
                         'success' => 'staf_keuangan',
                         'info' => 'petajuh',
-                        'gray' => fn ($state) => !in_array($state, ['admin', 'staf_admin', 'staf_keuangan', 'petajuh']),
+                        'gray' => fn ($state) => ! in_array($state, ['admin', 'staf_admin', 'staf_keuangan', 'petajuh']),
                     ])
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -46,11 +46,16 @@ class UsersTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->hidden(fn (User $record): bool => $record->id === auth()->id()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->action(function ($records) {
+                            $records->reject(fn (User $user) => $user->id === auth()->id())
+                                ->each->delete();
+                        }),
                 ]),
             ]);
     }

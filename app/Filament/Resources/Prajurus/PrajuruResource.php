@@ -24,7 +24,7 @@ class PrajuruResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Susunan Prajuru';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Administrasi Desa';
+    protected static string|\UnitEnum|null $navigationGroup = 'Administrasi Desa';
 
     protected static ?int $navigationSort = 3;
 
@@ -48,9 +48,9 @@ class PrajuruResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListPrajurus::route('/'),
+            'index' => ListPrajurus::route('/'),
             'create' => CreatePrajuru::route('/create'),
-            'edit'   => EditPrajuru::route('/{record}/edit'),
+            'edit' => EditPrajuru::route('/{record}/edit'),
         ];
     }
 }

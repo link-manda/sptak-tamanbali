@@ -34,10 +34,13 @@ class Prajuru extends Model
     }
 
     // Koleksi Kategori
-    const CAT_INTI          = 'inti';
+    const CAT_INTI = 'inti';
+
     const CAT_KELIAN_BANJAR = 'kelian_banjar';
-    const CAT_SABHA_DESA    = 'sabha_desa';
-    const CAT_KERTA_DESA    = 'kerta_desa';
+
+    const CAT_SABHA_DESA = 'sabha_desa';
+
+    const CAT_KERTA_DESA = 'kerta_desa';
 
     /**
      * Daftar Kategori Prajuru.
@@ -45,10 +48,10 @@ class Prajuru extends Model
     public static function kategoriOptions(): array
     {
         return [
-            self::CAT_INTI          => 'Manggala Adat',
+            self::CAT_INTI => 'Manggala Adat',
             self::CAT_KELIAN_BANJAR => 'Kelian Banjar',
-            self::CAT_SABHA_DESA    => 'Sabha Desa',
-            self::CAT_KERTA_DESA    => 'Kerta Desa',
+            self::CAT_SABHA_DESA => 'Sabha Desa',
+            self::CAT_KERTA_DESA => 'Kerta Desa',
         ];
     }
 
@@ -60,21 +63,21 @@ class Prajuru extends Model
         $mapping = [
             self::CAT_INTI => [
                 'Bendesa Adat' => 'Bendesa Adat',
-                'Penyarikan'   => 'Penyarikan',
-                'Petengen'     => 'Petengen',
-                'Petajuh'      => 'Petajuh',
-                'Juru Raksa'   => 'Juru Raksa',
+                'Penyarikan' => 'Penyarikan',
+                'Petengen' => 'Petengen',
+                'Petajuh' => 'Petajuh',
+                'Juru Raksa' => 'Juru Raksa',
             ],
             self::CAT_KELIAN_BANJAR => [
                 'Kelian Banjar' => 'Kelian Banjar',
             ],
             self::CAT_SABHA_DESA => [
-                'Ketua Sabha'   => 'Ketua Sabha',
-                'Sekretaris'    => 'Sekretaris',
+                'Ketua Sabha' => 'Ketua Sabha',
+                'Sekretaris' => 'Sekretaris',
                 'Anggota Sabha' => 'Anggota Sabha',
             ],
             self::CAT_KERTA_DESA => [
-                'Ketua Kerta'   => 'Ketua Kerta',
+                'Ketua Kerta' => 'Ketua Kerta',
                 'Anggota Kerta' => 'Anggota Kerta',
             ],
         ];
@@ -88,6 +91,7 @@ class Prajuru extends Model
         foreach ($mapping as $items) {
             $all = array_merge($all, $items);
         }
+
         return $all;
     }
 
@@ -100,7 +104,7 @@ class Prajuru extends Model
             return \Storage::disk('public')->url($this->foto);
         }
 
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->nama_lengkap) . '&background=00236f&color=fff&size=128';
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->nama_lengkap).'&background=00236f&color=fff&size=128';
     }
 
     public function scopeAktif($query)

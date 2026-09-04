@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\SuratMasuk;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class SuratMasukPolicy
 {
@@ -13,7 +12,7 @@ class SuratMasukPolicy
      */
     public function viewAny(User $user): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
@@ -21,7 +20,7 @@ class SuratMasukPolicy
      */
     public function view(User $user, SuratMasuk $suratMasuk): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
@@ -29,7 +28,7 @@ class SuratMasukPolicy
      */
     public function create(User $user): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
@@ -37,7 +36,7 @@ class SuratMasukPolicy
      */
     public function update(User $user, SuratMasuk $suratMasuk): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
@@ -45,7 +44,7 @@ class SuratMasukPolicy
      */
     public function delete(User $user, SuratMasuk $suratMasuk): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**

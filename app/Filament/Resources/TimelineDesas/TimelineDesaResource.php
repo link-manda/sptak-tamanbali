@@ -24,7 +24,7 @@ class TimelineDesaResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Sejarah & Timeline';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Konten Desa';
+    protected static string|\UnitEnum|null $navigationGroup = 'Konten Desa';
 
     protected static ?int $navigationSort = 2;
 
@@ -48,9 +48,9 @@ class TimelineDesaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListTimelineDesas::route('/'),
+            'index' => ListTimelineDesas::route('/'),
             'create' => CreateTimelineDesa::route('/create'),
-            'edit'   => EditTimelineDesa::route('/{record}/edit'),
+            'edit' => EditTimelineDesa::route('/{record}/edit'),
         ];
     }
 }

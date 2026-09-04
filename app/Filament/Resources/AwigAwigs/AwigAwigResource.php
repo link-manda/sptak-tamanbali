@@ -24,7 +24,7 @@ class AwigAwigResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Awig-Awig';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Regulasi Adat';
+    protected static string|\UnitEnum|null $navigationGroup = 'Regulasi Adat';
 
     protected static ?int $navigationSort = 1;
 
@@ -48,9 +48,9 @@ class AwigAwigResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListAwigAwigs::route('/'),
+            'index' => ListAwigAwigs::route('/'),
             'create' => CreateAwigAwig::route('/create'),
-            'edit'   => EditAwigAwig::route('/{record}/edit'),
+            'edit' => EditAwigAwig::route('/{record}/edit'),
         ];
     }
 }

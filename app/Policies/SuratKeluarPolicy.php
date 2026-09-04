@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\SuratKeluar;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class SuratKeluarPolicy
 {
@@ -13,7 +12,7 @@ class SuratKeluarPolicy
      */
     public function viewAny(User $user): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
@@ -21,7 +20,7 @@ class SuratKeluarPolicy
      */
     public function view(User $user, SuratKeluar $suratKeluar): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
@@ -29,7 +28,7 @@ class SuratKeluarPolicy
      */
     public function create(User $user): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
@@ -37,7 +36,7 @@ class SuratKeluarPolicy
      */
     public function update(User $user, SuratKeluar $suratKeluar): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
@@ -45,7 +44,7 @@ class SuratKeluarPolicy
      */
     public function delete(User $user, SuratKeluar $suratKeluar): bool
     {
-            return in_array($user->role, ['admin', 'staf_admin']);
+        return in_array($user->role, ['admin', 'staf_admin']);
     }
 
     /**
