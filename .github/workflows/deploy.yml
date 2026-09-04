@@ -37,19 +37,17 @@ jobs:
       - name: Deploy to cPanel via Rsync & SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST || '141.11.190.2' }}
+          SSH_USER: ${{ secrets.SSH_USER || 'desaadat' }}
           SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
-          TARGET_PATH: ${{ secrets.REMOTE_TARGET_PATH }}
+          TARGET_PATH: ${{ secrets.REMOTE_TARGET_PATH || '/home/desaadat/sptak-tamanbali' }}
         run: |
           # 1. Debugging nama secrets yang hilang
           MISSING=0
-          if [ -z "$SSH_PRIVATE_KEY" ]; then echo "::error::Secret SSH_PRIVATE_KEY tidak ditemukan!"; MISSING=1; fi
-          if [ -z "$SSH_HOST" ]; then echo "::error::Secret SSH_HOST tidak ditemukan!"; MISSING=1; fi
-          if [ -z "$SSH_USER" ]; then echo "::error::Secret SSH_USER tidak ditemukan!"; MISSING=1; fi
-          if [ -z "$TARGET_PATH" ]; then echo "::error::Secret REMOTE_TARGET_PATH tidak ditemukan!"; MISSING=1; fi
+          if [ -z "$SSH_PRIVATE_KEY" ]; then echo "::error::Secret SSH_PRIVATE_KEY tidak ditemukan di Repository Secrets!"; MISSING=1; fi
           
           if [ $MISSING -eq 1 ]; then
+            echo "::error::Silakan tambahkan secret SSH_PRIVATE_KEY di Settings -> Secrets and variables -> Actions."
             exit 1
           fi
 
