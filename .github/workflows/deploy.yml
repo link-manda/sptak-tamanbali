@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install Composer Dependencies
         run: |
@@ -42,9 +42,14 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
           TARGET_PATH: ${{ secrets.REMOTE_TARGET_PATH }}
         run: |
-          # 1. Validasi keberadaan Secrets
-          if [ -z "$SSH_PRIVATE_KEY" ] || [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ] || [ -z "$TARGET_PATH" ]; then
-            echo "::error::Salah satu Secret (SSH_PRIVATE_KEY, SSH_HOST, SSH_USER, REMOTE_TARGET_PATH) belum terisi atau kosong di GitHub Repository Secrets!"
+          # 1. Debugging nama secrets yang hilang
+          MISSING=0
+          if [ -z "$SSH_PRIVATE_KEY" ]; then echo "::error::Secret SSH_PRIVATE_KEY tidak ditemukan!"; MISSING=1; fi
+          if [ -z "$SSH_HOST" ]; then echo "::error::Secret SSH_HOST tidak ditemukan!"; MISSING=1; fi
+          if [ -z "$SSH_USER" ]; then echo "::error::Secret SSH_USER tidak ditemukan!"; MISSING=1; fi
+          if [ -z "$TARGET_PATH" ]; then echo "::error::Secret REMOTE_TARGET_PATH tidak ditemukan!"; MISSING=1; fi
+          
+          if [ $MISSING -eq 1 ]; then
             exit 1
           fi
 
