@@ -34,7 +34,7 @@ jobs:
           npm ci
           npm run build
 
-      - name: Deploy to cPanel via Rsync & SSH
+      - name: Deploy to cPanel via SSH Stream
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST || '141.11.190.2' }}
@@ -42,12 +42,9 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
           TARGET_PATH: ${{ secrets.REMOTE_TARGET_PATH || '/home/desaadat/sptak-tamanbali' }}
         run: |
-          # 1. Debugging nama secrets yang hilang
-          MISSING=0
-          if [ -z "$SSH_PRIVATE_KEY" ]; then echo "::error::Secret SSH_PRIVATE_KEY tidak ditemukan di Repository Secrets!"; MISSING=1; fi
-          
-          if [ $MISSING -eq 1 ]; then
-            echo "::error::Silakan tambahkan secret SSH_PRIVATE_KEY di Settings -> Secrets and variables -> Actions."
+          # 1. Validasi keberadaan Secret
+          if [ -z "$SSH_PRIVATE_KEY" ]; then
+            echo "::error::Secret SSH_PRIVATE_KEY tidak ditemukan di Repository Secrets!"
             exit 1
           fi
 
@@ -56,23 +53,27 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
-          # 3. Sync file ke cPanel via rsync native
-          echo "🚀 Sinkronisasi berkas ke $SSH_USER@$SSH_HOST:$TARGET_PATH..."
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=no" \
-            --exclude="/node_modules" \
-            --exclude="/.git" \
-            --exclude="/.github" \
-            --exclude="/tests" \
-            --exclude="/.env" \
-            --exclude="/storage/app/public/*" \
-            --exclude="/storage/logs/*" \
-            --exclude="/storage/framework/cache/*" \
-            --exclude="/storage/framework/sessions/*" \
-            --exclude="/storage/framework/views/*" \
-            ./ "$SSH_USER@$SSH_HOST:$TARGET_PATH/"
+          # 3. Pack dan streaming file terkompresi langsung via SSH ke cPanel (tanpa rsync)
+          echo "🚀 Mengunggah dan mengekstrak berkas aplikasi ke $SSH_USER@$SSH_HOST:$TARGET_PATH..."
+          
+          # Buat direktori target di server jika belum ada
+          ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" "mkdir -p $TARGET_PATH"
 
-          # 4. Jalankan perintah pasca-deploy di server cPanel
+          # Stream tar.gz langsung ke server
+          tar -czf - \
+            --exclude='./node_modules' \
+            --exclude='./.git' \
+            --exclude='./.github' \
+            --exclude='./tests' \
+            --exclude='./.env' \
+            --exclude='./storage/app/public/*' \
+            --exclude='./storage/logs/*' \
+            --exclude='./storage/framework/cache/*' \
+            --exclude='./storage/framework/sessions/*' \
+            --exclude='./storage/framework/views/*' \
+            . | ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" "tar -xzf - -C $TARGET_PATH"
+
+          # 4. Jalankan migrasi dan optimasi cache Laravel di server cPanel
           echo "🔧 Menjalankan migrasi database dan optimasi cache di server..."
           ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" bash -s -- "$TARGET_PATH" << 'ENDSSH'
             set -e
@@ -82,11 +83,15 @@ jobs:
             # Deteksi binary PHP 8.3 di cPanel (ea-php83 / php)
             PHP_BIN=$(which ea-php83 || which php)
             
-            # Pastikan symbolic link storage terpasang
+            # Pastikan folder permission dan symbolic link storage terpasang
+            chmod -R 775 storage bootstrap/cache || true
             $PHP_BIN artisan storage:link || true
             
             # Jalankan migrasi database
             $PHP_BIN artisan migrate --force
+            
+            # Jalankan seeder master awal jika belum pernah di-seed
+            $PHP_BIN artisan db:seed --class=ProductionSeeder --force || true
             
             # Optimasi cache Laravel untuk production
             $PHP_BIN artisan optimize:clear
@@ -95,5 +100,5 @@ jobs:
             $PHP_BIN artisan view:cache
             $PHP_BIN artisan icons:cache
             
-            echo "✅ Deployment sukses dan aplikasi aktif!"
+            echo "✅ Deployment sukses dan aplikasi aktif di production!"
           ENDSSH
