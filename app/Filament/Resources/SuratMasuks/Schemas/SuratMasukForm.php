@@ -37,8 +37,8 @@ class SuratMasukForm
                     ->visibility('public')
                     ->directory('arsip-surat-masuk')
                     ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                    ->maxSize(5120) // Maksimal 5MB
-                    ->helperText('Format: PDF, JPG, atau PNG. Ukuran maksimal 5 MB.')
+                    ->maxSize(10240) // Maksimal 10MB
+                    ->helperText('Format: PDF, JPG, atau PNG. Ukuran maksimal 10 MB.')
                     ->columnSpanFull(),
 
                 Hidden::make('user_id')
