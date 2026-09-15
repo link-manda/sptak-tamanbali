@@ -7,7 +7,7 @@
 
             <div class="visual-content">
                 <div class="brand-badge">
-                    <img class="brand-logo" src="{{ asset('images/logo_tamanbali.jpeg') }}"
+                    <img class="brand-logo" src="{{ asset('images/logo_tamanbali.jpg') }}"
                         alt="Logo Desa Adat Tamanbali">
                     <span class="brand-name">SPTAK Tamanbali</span>
                 </div>
@@ -44,7 +44,7 @@
                     </a>
 
                     <div class="mobile-brand">
-                        <img class="brand-logo" src="{{ asset('images/logo_tamanbali.jpeg') }}"
+                        <img class="brand-logo" src="{{ asset('images/logo_tamanbali.jpg') }}"
                             alt="Logo Desa Adat Tamanbali">
                         <span class="brand-name">SPTAK Tamanbali</span>
                     </div>

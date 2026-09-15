@@ -1,6 +1,6 @@
 <div style="display: flex; align-items: center; gap: 0.5rem; min-width: 0; max-width: 14rem; height: 2rem; overflow: hidden;">
     <img
-        src="{{ asset('images/logo_tamanbali.jpeg') }}"
+        src="{{ asset('images/logo_tamanbali.jpg') }}"
         alt="Logo Desa Tamanbali"
         style="display: block; width: 2rem; height: 2rem; min-width: 2rem; max-width: 2rem; border-radius: 9999px; object-fit: cover; box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.35);"
     />

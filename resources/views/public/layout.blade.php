@@ -92,7 +92,7 @@
             <a class="flex items-center gap-3 font-headline text-lg md:text-xl font-bold tracking-tight text-primary transition hover:opacity-90"
                 href="{{ route('home') }}">
                 <img class="h-10 w-10 md:h-11 md:w-11 rounded-full object-cover ring-2 ring-heritage_gold/40 shadow-sm"
-                    src="{{ asset('images/logo_tamanbali.jpeg') }}"
+                    src="{{ asset('images/logo_tamanbali.jpg') }}"
                     alt="Logo Desa Adat Tamanbali" />
                 <div class="flex flex-col">
                     <span class="leading-tight">Desa Adat Tamanbali</span>
@@ -126,7 +126,7 @@
             <div class="flex flex-col items-center justify-between gap-8 pb-12 text-center md:flex-row md:text-left">
                 <div class="flex items-center gap-4">
                     <img class="h-12 w-12 rounded-full object-cover ring-2 ring-heritage_gold/50"
-                        src="{{ asset('images/logo_tamanbali.jpeg') }}"
+                        src="{{ asset('images/logo_tamanbali.jpg') }}"
                         alt="Logo Desa Adat Tamanbali" />
                     <div>
                         <div class="font-serif_display text-2xl font-bold tracking-tight text-white">Desa Adat Tamanbali</div>
