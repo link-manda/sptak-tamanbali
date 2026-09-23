@@ -10,16 +10,12 @@ class Banjar extends Model
 
     protected static function booted(): void
     {
-        static::creating(function (Banjar $banjar) {
+        static::saving(function (Banjar $banjar) {
             if (blank($banjar->kode_banjar)) {
                 $banjar->kode_banjar = static::generateUniqueCode($banjar->nama_banjar);
             }
-        });
 
-        static::saving(function (Banjar $banjar) {
-            if (filled($banjar->kode_banjar)) {
-                $banjar->kode_banjar = strtoupper(trim((string) $banjar->kode_banjar));
-            }
+            $banjar->kode_banjar = strtoupper(trim((string) $banjar->kode_banjar));
         });
     }
 
@@ -34,7 +30,7 @@ class Banjar extends Model
         $words = array_values(array_filter(explode(' ', (string) $clean)));
 
         // 2. Filter kata umum / stop-words banjar di Bali
-        $stopWords = ['banjar', 'br', 'adat', 'desa', 'dusun', 'lingkungan', 'tamanbali'];
+        $stopWords = ['banjar', 'br', 'adat', 'dinas', 'desa', 'dusun', 'lingkungan', 'tamanbali'];
         $meaningful = array_values(array_filter($words, fn ($w) => ! in_array($w, $stopWords)));
 
         if (empty($meaningful)) {
@@ -55,19 +51,7 @@ class Banjar extends Model
         $firstChar = substr($single, 0, 1);
         $vowels = ['a', 'e', 'i', 'o', 'u'];
 
-        // Jika berawalan vokal (misal Umanyar -> UM)
-        if (in_array($firstChar, $vowels)) {
-            for ($i = 1; $i < strlen($single); $i++) {
-                $char = substr($single, $i, 1);
-                if (! in_array($char, $vowels)) {
-                    return strtoupper($firstChar.$char);
-                }
-            }
-
-            return strtoupper(substr($single, 0, 2));
-        }
-
-        // Jika berawalan konsonan (misal Gaga -> GG, Siladan -> SL, Kaja -> KJ)
+        // Ambil huruf pertama dan cari konsonan pertama berikutnya (misal Umanyar -> UM, Gaga -> GG, Siladan -> SL)
         for ($i = 1; $i < strlen($single); $i++) {
             $char = substr($single, $i, 1);
             if (! in_array($char, $vowels)) {

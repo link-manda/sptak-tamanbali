@@ -39,7 +39,7 @@ class BanjarForm
                     ->suffixAction(
                         Action::make('generateCode')
                             ->icon('heroicon-m-sparkles')
-                            ->tooltip('Kocok / Generate Kode Baru')
+                            ->tooltip('Ganti / Generate Kode Baru')
                             ->action(function (Get $get, Set $set) {
                                 $nama = $get('nama_banjar');
                                 $set('kode_banjar', Banjar::generateUniqueCode($nama));

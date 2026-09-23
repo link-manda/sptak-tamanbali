@@ -26,6 +26,7 @@ class BanjarUniqueCodeTest extends TestCase
         $this->assertEquals('BB', Banjar::extractPrefix('Banjar Batu Belig'));
         $this->assertEquals('KJ', Banjar::extractPrefix('Banjar Tamanbali Kaja'));
         $this->assertEquals('KL', Banjar::extractPrefix('Banjar Tamanbali Kelod'));
+        $this->assertEquals('KL', Banjar::extractPrefix('Banjar Dinas Kelod'));
         $this->assertEquals('KH', Banjar::extractPrefix('Banjar Tamanbali Kauh'));
         $this->assertEquals('KN', Banjar::extractPrefix('Banjar Tamanbali Kangin'));
         $this->assertEquals('TN', Banjar::extractPrefix('Banjar Tamanbali Tengah'));
@@ -89,6 +90,11 @@ class BanjarUniqueCodeTest extends TestCase
         ]);
 
         $this->assertEquals('CUST-0001', $customBanjar->fresh()->kode_banjar);
+
+        // Jika data banjar diupdate dengan kode kosong, pastikan otomatis digenerate ulang
+        $customBanjar->update(['kode_banjar' => '']);
+        $this->assertNotEmpty($customBanjar->fresh()->kode_banjar);
+        $this->assertMatchesRegularExpression('/^CS-\d{5}$/', $customBanjar->fresh()->kode_banjar);
     }
 
     /**
