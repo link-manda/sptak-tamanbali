@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Kramas\Schemas;
 
+use App\Models\Banjar;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -16,7 +17,8 @@ class KramaForm
             ->components([
                 Select::make('banjar_id')
                     ->relationship('banjar', 'nama_banjar')
-                    ->searchable()
+                    ->getOptionLabelFromRecordUsing(fn (Banjar $record) => "{$record->nama_banjar} [{$record->kode_banjar}]")
+                    ->searchable(['nama_banjar', 'kode_banjar'])
                     ->preload()
                     ->label('Banjar')
                     ->required()

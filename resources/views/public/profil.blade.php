@@ -362,9 +362,16 @@
                         <article class="rounded-2xl border border-black/[0.06] bg-white p-7 shadow-subtle transition duration-200 hover:border-primary/30 hover:shadow-hover_card flex flex-col justify-between">
                             <div>
                                 <div class="flex items-start justify-between">
-                                    <h3 class="font-serif_display text-2xl font-bold text-primary">
-                                        {{ $banjar->nama_banjar }}
-                                    </h3>
+                                    <div>
+                                        @if ($banjar->kode_banjar)
+                                            <span class="inline-block font-mono text-[10px] font-bold text-heritage_gold uppercase tracking-wider mb-1 px-2 py-0.5 rounded bg-heritage_gold/10 border border-heritage_gold/20">
+                                                {{ $banjar->kode_banjar }}
+                                            </span>
+                                        @endif
+                                        <h3 class="font-serif_display text-2xl font-bold text-primary">
+                                            {{ $banjar->nama_banjar }}
+                                        </h3>
+                                    </div>
                                     <span class="rounded-full bg-primary/5 px-3 py-1 font-headline text-xs font-bold text-primary">
                                         {{ $banjar->kramas_count }} Krama
                                     </span>

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Banjars\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Enums\FontFamily;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -14,6 +15,15 @@ class BanjarsTable
     {
         return $table
             ->columns([
+                TextColumn::make('kode_banjar')
+                    ->label('Kode')
+                    ->badge()
+                    ->color('info')
+                    ->fontFamily(FontFamily::Mono)
+                    ->copyable()
+                    ->copyMessage('Kode banjar disalin')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('nama_banjar')
                     ->searchable(),
                 TextColumn::make('kelian_banjar')

@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class BanjarResource extends Resource
 {
@@ -29,6 +30,20 @@ class BanjarResource extends Resource
     protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'nama_banjar';
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['nama_banjar', 'kelian_banjar', 'kode_banjar'];
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        /** @var Banjar $record */
+        return [
+            'Kode' => $record->kode_banjar,
+            'Kelian' => $record->kelian_banjar,
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

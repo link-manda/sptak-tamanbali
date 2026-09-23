@@ -43,13 +43,13 @@ class Banjar extends Model
 
         // 3. Jika >= 2 kata: ambil huruf pertama kata ke-1 dan kata ke-2
         if (count($meaningful) >= 2) {
-            return strtoupper(substr($meaningful[0], 0, 1) . substr($meaningful[1], 0, 1));
+            return strtoupper(substr($meaningful[0], 0, 1).substr($meaningful[1], 0, 1));
         }
 
         // 4. Jika hanya 1 kata:
         $single = $meaningful[0];
         if (strlen($single) === 1) {
-            return strtoupper($single . 'B');
+            return strtoupper($single.'B');
         }
 
         $firstChar = substr($single, 0, 1);
@@ -60,9 +60,10 @@ class Banjar extends Model
             for ($i = 1; $i < strlen($single); $i++) {
                 $char = substr($single, $i, 1);
                 if (! in_array($char, $vowels)) {
-                    return strtoupper($firstChar . $char);
+                    return strtoupper($firstChar.$char);
                 }
             }
+
             return strtoupper(substr($single, 0, 2));
         }
 
@@ -70,7 +71,7 @@ class Banjar extends Model
         for ($i = 1; $i < strlen($single); $i++) {
             $char = substr($single, $i, 1);
             if (! in_array($char, $vowels)) {
-                return strtoupper($firstChar . $char);
+                return strtoupper($firstChar.$char);
             }
         }
 
