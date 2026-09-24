@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class KramaResource extends Resource
 {
@@ -29,6 +30,20 @@ class KramaResource extends Resource
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'nama_lengkap';
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['kode_krama', 'nama_lengkap', 'alamat'];
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        /** @var Krama $record */
+        return array_filter([
+            'Kode' => $record->kode_krama,
+            'Banjar' => $record->banjar?->nama_banjar,
+        ]);
+    }
 
     public static function form(Schema $schema): Schema
     {
