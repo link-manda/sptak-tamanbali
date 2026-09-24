@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Kramas\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Enums\FontFamily;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -15,6 +16,16 @@ class KramasTable
     {
         return $table
             ->columns([
+                TextColumn::make('kode_krama')
+                    ->label('Kode Krama')
+                    ->badge()
+                    ->color('info')
+                    ->fontFamily(FontFamily::Mono)
+                    ->copyable()
+                    ->copyMessage('Kode krama disalin')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('banjar.nama_banjar')
                     ->label('Banjar')
                     ->searchable()
