@@ -17,12 +17,18 @@ class Krama extends Model
     protected static function booted(): void
     {
         static::saving(function (Krama $krama) {
-            if (blank($krama->kode_krama)) {
-                $krama->kode_krama = static::generateUniqueCode($krama->banjar_id);
+            if (filled($krama->kode_krama)) {
+                $krama->kode_krama = static::formatKodeKrama($krama->banjar_id, $krama->kode_krama);
             }
-
-            $krama->kode_krama = strtoupper(trim((string) $krama->kode_krama));
         });
+    }
+
+    public static function formatKodeKrama(?int $banjarId, ?string $number): string
+    {
+        $prefix = static::resolvePrefix($banjarId);
+        $clean = preg_replace('/^[A-Za-z]{2}-KRM-/i', '', trim((string) $number));
+
+        return filled($clean) ? sprintf('%s-KRM-%s', $prefix, strtoupper($clean)) : sprintf('%s-KRM-', $prefix);
     }
 
     public static function resolvePrefix(?int $banjarId = null): string

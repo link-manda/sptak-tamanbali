@@ -43,58 +43,62 @@ class KramaUniqueCodeTest extends TestCase
         $this->assertEquals('TB', Krama::resolvePrefix(999999));
     }
 
-    public function test_generate_unique_code_format_and_zero_collision(): void
+    public function test_format_kode_krama_stitches_prefix_and_manual_number(): void
     {
-        $banjar = $this->createBanjar('Banjar Tamanbali Kaja');
-        $codes = [];
+        $kaja = $this->createBanjar('Banjar Tamanbali Kaja');
 
-        for ($i = 0; $i < 100; $i++) {
-            $code = Krama::generateUniqueCode($banjar->id);
-            $this->assertMatchesRegularExpression('/^KJ-KRM-\d{5}$/', $code);
-
-            // Simpan record agar pengujian collision loop 20x benar-benar menguji eksistensi di DB
-            Krama::create([
-                'banjar_id' => $banjar->id,
-                'kode_krama' => $code,
-                'nama_lengkap' => "Warga {$i}",
-                'alamat' => 'Tamanbali',
-                'status_aktif' => true,
-            ]);
-
-            $codes[] = $code;
-        }
-
-        $this->assertCount(100, array_unique($codes));
+        // Nomor murni tanpa prefix
+        $this->assertEquals('KJ-KRM-001', Krama::formatKodeKrama($kaja->id, '001'));
+        // Nomor dengan huruf kecil
+        $this->assertEquals('KJ-KRM-001A', Krama::formatKodeKrama($kaja->id, '001a'));
+        // Input sudah menyertakan prefix yang sama
+        $this->assertEquals('KJ-KRM-10294', Krama::formatKodeKrama($kaja->id, 'kj-krm-10294'));
+        // Jika nomor kosong, tetap kembalikan prefix dasar
+        $this->assertEquals('KJ-KRM-', Krama::formatKodeKrama($kaja->id, ''));
     }
 
-    public function test_krama_model_auto_generates_code_on_saving_when_empty(): void
+    public function test_format_kode_krama_swaps_prefix_when_banjar_changes_preserving_number(): void
     {
-        $banjar = $this->createBanjar('Banjar Tamanbali Kelod');
+        $kaja = $this->createBanjar('Banjar Tamanbali Kaja');
+        $kelod = $this->createBanjar('Banjar Tamanbali Kelod');
 
-        $krama = Krama::create([
-            'banjar_id' => $banjar->id,
-            'nama_lengkap' => 'I Wayan Balik',
-            'alamat' => 'Banjar Kelod',
-            'status_aktif' => true,
-        ]);
+        // Misal user awalnya mengetik nomor untuk Banjar Kaja
+        $codeKaja = Krama::formatKodeKrama($kaja->id, '042');
+        $this->assertEquals('KJ-KRM-042', $codeKaja);
 
-        $this->assertNotEmpty($krama->kode_krama);
-        $this->assertMatchesRegularExpression('/^KL-KRM-\d{5}$/', $krama->kode_krama);
+        // Saat banjar diganti ke Banjar Kelod, nomor 042 tetap dipertahankan dan prefix berganti ke KL
+        $codeKelod = Krama::formatKodeKrama($kelod->id, $codeKaja);
+        $this->assertEquals('KL-KRM-042', $codeKelod);
     }
 
-    public function test_krama_model_preserves_custom_code_and_normalizes_uppercase(): void
+    public function test_krama_model_preserves_manual_code_and_normalizes_uppercase(): void
     {
         $banjar = $this->createBanjar('Banjar Tamanbali Kauh');
 
         $krama = Krama::create([
             'banjar_id' => $banjar->id,
-            'kode_krama' => 'kh-krm-77881',
+            'kode_krama' => 'kh-krm-007',
             'nama_lengkap' => 'I Made Suartana',
             'alamat' => 'Banjar Kauh',
             'status_aktif' => true,
         ]);
 
-        $this->assertEquals('KH-KRM-77881', $krama->refresh()->kode_krama);
+        $this->assertEquals('KH-KRM-007', $krama->refresh()->kode_krama);
+    }
+
+    public function test_krama_model_auto_prepends_prefix_on_saving_if_only_number_provided(): void
+    {
+        $banjar = $this->createBanjar('Banjar Tamanbali Kelod');
+
+        $krama = Krama::create([
+            'banjar_id' => $banjar->id,
+            'kode_krama' => '125',
+            'nama_lengkap' => 'I Wayan Balik',
+            'alamat' => 'Banjar Kelod',
+            'status_aktif' => true,
+        ]);
+
+        $this->assertEquals('KL-KRM-125', $krama->refresh()->kode_krama);
     }
 
     public function test_krama_database_unique_constraint_prevents_duplicate(): void

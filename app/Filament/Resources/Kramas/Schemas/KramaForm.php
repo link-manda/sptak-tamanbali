@@ -3,12 +3,10 @@
 namespace App\Filament\Resources\Kramas\Schemas;
 
 use App\Models\Krama;
-use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
@@ -28,34 +26,25 @@ class KramaForm
                     ->native(false)
                     ->live()
                     ->afterStateUpdated(function (Get $get, Set $set, ?int $state) {
-                        if (blank($get('kode_krama')) && filled($state)) {
-                            $set('kode_krama', Krama::generateUniqueCode($state));
-                        }
+                        $current = (string) $get('kode_krama');
+                        $set('kode_krama', Krama::formatKodeKrama($state, $current));
                     }),
 
                 TextInput::make('kode_krama')
                     ->label('Kode Unik Krama')
                     ->required()
                     ->maxLength(25)
-                    ->placeholder('Contoh: KJ-KRM-10294')
-                    ->helperText('Otomatis dibuat saat memilih banjar. Anda dapat mengubahnya atau menekan tombol generate ulang.')
+                    ->placeholder('Contoh: KJ-KRM-001')
+                    ->helperText('Prefix banjar dibuat otomatis. Silakan masukkan nomor urut/identitas krama (contoh: KJ-KRM-001).')
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('kode_krama', strtoupper(trim((string) $state))))
-                    ->regex('/^[A-Za-z0-9\-]+$/')
-                    ->unique(table: Krama::class, column: 'kode_krama', ignoreRecord: true)
-                    ->suffixAction(
-                        Action::make('generateCode')
-                            ->icon('heroicon-m-sparkles')
-                            ->tooltip('Ganti / Generate Kode Baru')
-                            ->action(function (Get $get, Set $set) {
-                                $banjarId = $get('banjar_id');
-                                $set('kode_krama', Krama::generateUniqueCode($banjarId));
-                                Notification::make()
-                                    ->title('Kode krama baru berhasil dibuat')
-                                    ->success()
-                                    ->send();
-                            })
-                    ),
+                    ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
+                        $set('kode_krama', Krama::formatKodeKrama($get('banjar_id'), $state));
+                    })
+                    ->regex('/^[A-Z]{2}-KRM-[0-9A-Za-z]+$/')
+                    ->validationMessages([
+                        'regex' => 'Nomor krama wajib diisi setelah prefix banjar (contoh: KJ-KRM-001).',
+                    ])
+                    ->unique(table: Krama::class, column: 'kode_krama', ignoreRecord: true),
 
                 TextInput::make('nama_lengkap')
                     ->label('Nama Lengkap')
